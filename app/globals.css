@@ -18,138 +18,1001 @@
 
 html {
   background: var(--background);
+  height: 100%;
+  overscroll-behavior: none;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
   margin: 0;
   min-width: 320px;
   overflow: hidden;
+  overscroll-behavior: none;
 }
 
 button {
   font: inherit;
 }
 
-.lobby-tab-rail {
-  left: 0;
-  transform: none;
-  width: min(100vw, 390px);
+.lobby-scene-shell {
+  background: #050507;
+  color: white;
+  isolation: isolate;
+  min-height: 100dvh;
+  overflow: hidden;
+  position: relative;
+  user-select: none;
+  width: 100%;
 }
 
-.lobby-brush-title {
-  color: #fff;
-  letter-spacing: 0;
-  text-shadow:
-    0 2px 0 rgba(0, 0, 0, 0.62),
-    0 10px 34px rgba(0, 0, 0, 0.56),
-    0 0 28px color-mix(in srgb, var(--title-accent), transparent 46%);
-  transform: skewX(-5deg);
+.mode-scene {
+  inset: 0;
+  min-height: 100dvh;
+  overflow: hidden;
+  position: absolute;
+  transform-origin: center;
+  will-change: transform, opacity, filter;
 }
 
-.lobby-brush-title::before {
+.mode-composition {
+  min-height: 100dvh;
+  position: relative;
+  z-index: 10;
+}
+
+.background-layer,
+.overlay-layer {
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  position: absolute;
+}
+
+.background-layer {
+  background: #050507;
+  z-index: 0;
+}
+
+.background-depth {
+  inset: -7%;
+  position: absolute;
+  will-change: transform, opacity;
+}
+
+.background-base,
+.background-photo,
+.scene-paint,
+.scene-sky,
+.scene-horizon,
+.scene-ground,
+.scene-energy {
+  inset: 0;
+  position: absolute;
+}
+
+.background-base {
+  background: #050507;
+}
+
+.background-photo {
+  inset: -4%;
+  mix-blend-mode: soft-light;
+  opacity: 0.34;
+  will-change: transform;
+}
+
+.background-photo__image {
+  object-fit: cover;
+}
+
+.scene-paint {
+  mix-blend-mode: normal;
+}
+
+.scene-sky {
+  opacity: 0.98;
+}
+
+.scene-horizon {
+  opacity: 0.9;
+  transform: skewX(-9deg);
+  transform-origin: center bottom;
+}
+
+.scene-horizon--back {
+  bottom: 19%;
+  height: 26%;
+  top: auto;
+}
+
+.scene-horizon--mid {
+  bottom: 15%;
+  height: 17%;
+  top: auto;
+}
+
+.scene-horizon--front {
+  bottom: 8%;
+  height: 18%;
+  top: auto;
+}
+
+.scene-ground {
+  top: auto;
+}
+
+.scene-energy {
+  mix-blend-mode: screen;
+  opacity: 0.56;
+}
+
+.scene-energy--one {
+  animation: energy-slide-one 8s ease-in-out infinite alternate;
+}
+
+.scene-energy--two {
+  animation: energy-slide-two 7s ease-in-out infinite alternate;
+}
+
+.mode-scene--story .background-base {
   background:
-    linear-gradient(90deg, var(--title-accent), transparent 74%),
-    repeating-linear-gradient(
-      92deg,
-      rgba(255, 255, 255, 0.62) 0 2px,
-      transparent 2px 9px
-    );
-  bottom: -0.08em;
+    linear-gradient(180deg, #201006 0%, #2a1107 40%, #070302 100%),
+    #050507;
+}
+
+.mode-scene--story .scene-paint {
+  background:
+    linear-gradient(90deg, rgba(12, 4, 1, 0.86), rgba(61, 24, 4, 0.22) 48%, rgba(17, 6, 2, 0.48)),
+    linear-gradient(120deg, rgba(255, 176, 58, 0.34), transparent 56%),
+    repeating-linear-gradient(112deg, transparent 0 58px, rgba(255, 235, 190, 0.08) 59px 61px, transparent 62px 128px);
+}
+
+.mode-scene--story .scene-sky {
+  background:
+    radial-gradient(ellipse at 64% 36%, rgba(255, 211, 117, 0.32), transparent 43%),
+    linear-gradient(180deg, rgba(255, 154, 55, 0.28), transparent 58%);
+}
+
+.mode-scene--story .scene-horizon--back {
+  background: linear-gradient(120deg, transparent 0 8%, rgba(255, 206, 91, 0.16) 8% 20%, transparent 20% 28%, rgba(80, 30, 8, 0.58) 28% 48%, transparent 48% 56%, rgba(120, 43, 10, 0.48) 56% 100%);
+  clip-path: polygon(0 78%, 10% 56%, 20% 66%, 31% 38%, 43% 74%, 55% 48%, 70% 70%, 83% 44%, 100% 68%, 100% 100%, 0 100%);
+}
+
+.mode-scene--story .scene-horizon--mid {
+  background: linear-gradient(90deg, rgba(88, 34, 9, 0.82), rgba(31, 11, 4, 0.7));
+  clip-path: polygon(0 72%, 14% 48%, 29% 67%, 41% 42%, 58% 70%, 75% 46%, 100% 62%, 100% 100%, 0 100%);
+}
+
+.mode-scene--story .scene-horizon--front {
+  background:
+    repeating-linear-gradient(96deg, rgba(255, 184, 70, 0.12) 0 2px, transparent 2px 28px),
+    linear-gradient(90deg, rgba(22, 7, 3, 0.92), rgba(66, 23, 6, 0.8), rgba(16, 5, 3, 0.94));
+  clip-path: polygon(0 40%, 18% 55%, 34% 44%, 52% 61%, 68% 47%, 86% 56%, 100% 45%, 100% 100%, 0 100%);
+}
+
+.mode-scene--story .scene-ground {
+  height: 28%;
+  background:
+    linear-gradient(180deg, transparent, rgba(255, 123, 35, 0.08) 20%, rgba(2, 1, 1, 0.96) 76%),
+    repeating-linear-gradient(102deg, transparent 0 54px, rgba(255, 190, 90, 0.1) 55px 57px, transparent 58px 126px);
+}
+
+.mode-scene--story .scene-energy--one {
+  background: linear-gradient(104deg, transparent 8%, rgba(255, 179, 58, 0.23) 38%, transparent 62%);
+}
+
+.mode-scene--story .scene-energy--two {
+  background: linear-gradient(18deg, transparent 18%, rgba(255, 103, 42, 0.16) 49%, transparent 76%);
+}
+
+.mode-scene--adventure .background-base {
+  background:
+    linear-gradient(180deg, #061b16 0%, #0a2411 48%, #030504 100%),
+    #050507;
+}
+
+.mode-scene--adventure .scene-paint {
+  background:
+    linear-gradient(90deg, rgba(1, 7, 4, 0.86), rgba(16, 65, 28, 0.18) 48%, rgba(1, 8, 7, 0.44)),
+    repeating-linear-gradient(112deg, transparent 0 46px, rgba(162, 255, 135, 0.09) 47px 49px, transparent 50px 118px),
+    linear-gradient(128deg, rgba(126, 232, 94, 0.25), transparent 58%);
+}
+
+.mode-scene--adventure .scene-sky {
+  background:
+    linear-gradient(180deg, rgba(89, 214, 150, 0.26), rgba(38, 125, 92, 0.08) 48%, transparent),
+    radial-gradient(ellipse at 70% 30%, rgba(184, 255, 139, 0.2), transparent 40%);
+}
+
+.mode-scene--adventure .scene-horizon--back {
+  background: linear-gradient(90deg, rgba(46, 112, 43, 0.44), rgba(84, 177, 75, 0.18), rgba(23, 82, 51, 0.4));
+  clip-path: polygon(0 77%, 16% 55%, 30% 68%, 43% 48%, 58% 68%, 73% 52%, 100% 72%, 100% 100%, 0 100%);
+}
+
+.mode-scene--adventure .scene-horizon--mid {
+  background:
+    repeating-linear-gradient(90deg, rgba(9, 30, 17, 0.94) 0 42px, rgba(63, 122, 55, 0.54) 42px 58px, transparent 58px 78px),
+    linear-gradient(180deg, transparent, rgba(8, 28, 15, 0.94));
+  clip-path: polygon(0 52%, 8% 28%, 14% 52%, 24% 34%, 30% 55%, 44% 25%, 56% 58%, 70% 31%, 86% 57%, 100% 41%, 100% 100%, 0 100%);
+}
+
+.mode-scene--adventure .scene-horizon--front {
+  background:
+    repeating-linear-gradient(96deg, rgba(154, 255, 127, 0.12) 0 3px, transparent 3px 31px),
+    linear-gradient(90deg, rgba(4, 18, 10, 0.96), rgba(24, 78, 33, 0.76), rgba(3, 12, 8, 0.96));
+  clip-path: polygon(0 48%, 18% 59%, 33% 44%, 50% 62%, 72% 46%, 100% 55%, 100% 100%, 0 100%);
+}
+
+.mode-scene--adventure .scene-ground {
+  height: 30%;
+  background:
+    linear-gradient(180deg, transparent, rgba(114, 255, 106, 0.08) 18%, rgba(2, 6, 4, 0.96) 74%),
+    repeating-linear-gradient(100deg, transparent 0 48px, rgba(127, 255, 147, 0.11) 49px 51px, transparent 52px 112px);
+}
+
+.mode-scene--adventure .scene-energy--one {
+  background: linear-gradient(102deg, transparent 6%, rgba(126, 232, 94, 0.2) 35%, transparent 64%);
+}
+
+.mode-scene--adventure .scene-energy--two {
+  background: linear-gradient(18deg, transparent 20%, rgba(51, 208, 161, 0.18) 52%, transparent 78%);
+}
+
+.mode-scene--collection .background-base {
+  background:
+    linear-gradient(180deg, #061225 0%, #07142e 48%, #020407 100%),
+    #050507;
+}
+
+.mode-scene--collection .scene-paint {
+  background:
+    linear-gradient(90deg, rgba(2, 5, 13, 0.9), rgba(23, 63, 112, 0.2) 48%, rgba(3, 6, 14, 0.54)),
+    repeating-linear-gradient(90deg, transparent 0 72px, rgba(88, 201, 255, 0.09) 73px 75px, transparent 76px 148px),
+    repeating-linear-gradient(0deg, transparent 0 54px, rgba(142, 205, 255, 0.07) 55px 56px, transparent 57px 112px);
+}
+
+.mode-scene--collection .scene-sky {
+  background:
+    radial-gradient(ellipse at 64% 34%, rgba(93, 156, 255, 0.18), transparent 42%),
+    linear-gradient(180deg, rgba(62, 157, 255, 0.15), transparent 55%);
+}
+
+.mode-scene--collection .scene-horizon--back {
+  background:
+    repeating-linear-gradient(90deg, rgba(6, 14, 32, 0.94) 0 50px, rgba(42, 79, 133, 0.45) 50px 65px, rgba(8, 16, 34, 0.88) 65px 92px),
+    linear-gradient(180deg, rgba(100, 196, 255, 0.14), rgba(2, 5, 12, 0.8));
+  bottom: 18%;
+  clip-path: polygon(0 15%, 100% 6%, 100% 100%, 0 100%);
+  height: 44%;
+  transform: skewX(-3deg);
+}
+
+.mode-scene--collection .scene-horizon--mid {
+  background:
+    repeating-linear-gradient(90deg, rgba(11, 30, 65, 0.88) 0 38px, rgba(81, 148, 213, 0.26) 38px 46px, rgba(4, 11, 27, 0.88) 46px 76px),
+    repeating-linear-gradient(0deg, transparent 0 28px, rgba(152, 218, 255, 0.08) 29px 30px, transparent 31px 58px);
+  bottom: 14%;
+  clip-path: polygon(0 12%, 100% 20%, 100% 100%, 0 100%);
+  height: 34%;
+  transform: skewX(4deg);
+}
+
+.mode-scene--collection .scene-horizon--front {
+  background:
+    linear-gradient(90deg, rgba(2, 6, 16, 0.95), rgba(24, 60, 102, 0.7), rgba(2, 5, 13, 0.94)),
+    repeating-linear-gradient(90deg, transparent 0 68px, rgba(88, 201, 255, 0.12) 69px 72px, transparent 73px 136px);
+  bottom: 9%;
+  clip-path: polygon(0 36%, 100% 24%, 100% 100%, 0 100%);
+  height: 22%;
+}
+
+.mode-scene--collection .scene-ground {
+  height: 26%;
+  background:
+    linear-gradient(180deg, transparent, rgba(88, 201, 255, 0.08) 18%, rgba(2, 4, 9, 0.98) 76%),
+    repeating-linear-gradient(94deg, transparent 0 48px, rgba(88, 201, 255, 0.12) 49px 50px, transparent 51px 116px);
+}
+
+.mode-scene--collection .scene-energy--one {
+  background: linear-gradient(104deg, transparent 8%, rgba(88, 201, 255, 0.18) 38%, transparent 62%);
+}
+
+.mode-scene--collection .scene-energy--two {
+  background: linear-gradient(14deg, transparent 20%, rgba(71, 119, 255, 0.17) 52%, transparent 80%);
+}
+
+.mode-scene--online .background-base {
+  background:
+    linear-gradient(180deg, #100721 0%, #160b2d 45%, #050207 100%),
+    #050507;
+}
+
+.mode-scene--online .scene-paint {
+  background:
+    linear-gradient(90deg, rgba(5, 2, 12, 0.9), rgba(70, 35, 125, 0.18) 48%, rgba(8, 3, 17, 0.52)),
+    repeating-linear-gradient(112deg, transparent 0 50px, rgba(190, 150, 255, 0.12) 51px 53px, transparent 54px 116px),
+    repeating-linear-gradient(68deg, transparent 0 74px, rgba(243, 109, 255, 0.08) 75px 77px, transparent 78px 144px);
+}
+
+.mode-scene--online .scene-sky {
+  background:
+    linear-gradient(180deg, rgba(169, 133, 255, 0.2), transparent 55%),
+    radial-gradient(ellipse at 65% 36%, rgba(243, 109, 255, 0.18), transparent 42%);
+}
+
+.mode-scene--online .scene-horizon--back {
+  background:
+    linear-gradient(90deg, rgba(34, 15, 67, 0.58), rgba(78, 43, 140, 0.32), rgba(24, 10, 53, 0.62));
+  clip-path: polygon(0 78%, 11% 50%, 24% 72%, 36% 44%, 47% 70%, 61% 48%, 75% 72%, 88% 46%, 100% 68%, 100% 100%, 0 100%);
+}
+
+.mode-scene--online .scene-horizon--mid {
+  background:
+    repeating-linear-gradient(90deg, rgba(14, 5, 32, 0.94) 0 58px, rgba(119, 83, 208, 0.28) 58px 66px, transparent 66px 92px),
+    linear-gradient(180deg, transparent, rgba(8, 3, 20, 0.94));
+  clip-path: polygon(0 45%, 13% 22%, 28% 56%, 42% 28%, 58% 58%, 74% 30%, 90% 55%, 100% 37%, 100% 100%, 0 100%);
+}
+
+.mode-scene--online .scene-horizon--front {
+  background:
+    repeating-linear-gradient(92deg, rgba(243, 109, 255, 0.14) 0 3px, transparent 3px 32px),
+    linear-gradient(90deg, rgba(5, 2, 12, 0.96), rgba(55, 25, 95, 0.78), rgba(4, 2, 10, 0.96));
+  clip-path: polygon(0 48%, 18% 60%, 34% 45%, 52% 62%, 70% 43%, 100% 57%, 100% 100%, 0 100%);
+}
+
+.mode-scene--online .scene-ground {
+  height: 29%;
+  background:
+    linear-gradient(180deg, transparent, rgba(169, 133, 255, 0.09) 18%, rgba(3, 2, 7, 0.98) 75%),
+    repeating-linear-gradient(102deg, transparent 0 46px, rgba(208, 160, 255, 0.12) 47px 49px, transparent 50px 104px);
+}
+
+.mode-scene--online .scene-energy--one {
+  background: linear-gradient(105deg, transparent 6%, rgba(169, 133, 255, 0.25) 37%, transparent 65%);
+}
+
+.mode-scene--online .scene-energy--two {
+  background: linear-gradient(18deg, transparent 21%, rgba(243, 109, 255, 0.2) 52%, transparent 78%);
+}
+
+.mode-scene--free .background-base {
+  background:
+    linear-gradient(180deg, #230610 0%, #2a0710 44%, #070204 100%),
+    #050507;
+}
+
+.mode-scene--free .scene-paint {
+  background:
+    linear-gradient(90deg, rgba(10, 2, 4, 0.9), rgba(109, 19, 35, 0.2) 48%, rgba(12, 2, 5, 0.54)),
+    repeating-linear-gradient(112deg, transparent 0 42px, rgba(255, 130, 165, 0.12) 43px 45px, transparent 46px 112px),
+    repeating-linear-gradient(64deg, transparent 0 92px, rgba(255, 73, 109, 0.1) 93px 96px, transparent 97px 168px);
+}
+
+.mode-scene--free .scene-sky {
+  background:
+    linear-gradient(180deg, rgba(255, 73, 109, 0.2), transparent 58%),
+    radial-gradient(ellipse at 68% 40%, rgba(255, 149, 186, 0.2), transparent 40%);
+}
+
+.mode-scene--free .scene-horizon--back {
+  background:
+    linear-gradient(90deg, rgba(96, 16, 29, 0.58), rgba(174, 35, 58, 0.28), rgba(69, 11, 22, 0.62));
+  clip-path: polygon(0 73%, 14% 48%, 26% 69%, 40% 45%, 53% 70%, 67% 44%, 82% 69%, 100% 52%, 100% 100%, 0 100%);
+}
+
+.mode-scene--free .scene-horizon--mid {
+  background:
+    linear-gradient(90deg, rgba(18, 4, 9, 0.94), rgba(103, 17, 32, 0.72), rgba(15, 3, 8, 0.96)),
+    repeating-linear-gradient(88deg, transparent 0 58px, rgba(255, 149, 186, 0.1) 59px 62px, transparent 63px 128px);
+  clip-path: polygon(0 48%, 17% 34%, 30% 58%, 43% 31%, 59% 58%, 76% 35%, 100% 51%, 100% 100%, 0 100%);
+}
+
+.mode-scene--free .scene-horizon--front {
+  background:
+    repeating-linear-gradient(96deg, rgba(255, 149, 186, 0.13) 0 3px, transparent 3px 29px),
+    linear-gradient(90deg, rgba(6, 2, 4, 0.96), rgba(125, 19, 39, 0.78), rgba(6, 2, 4, 0.96));
+  clip-path: polygon(0 45%, 15% 62%, 32% 43%, 51% 64%, 72% 43%, 100% 58%, 100% 100%, 0 100%);
+}
+
+.mode-scene--free .scene-ground {
+  height: 30%;
+  background:
+    linear-gradient(180deg, transparent, rgba(255, 73, 109, 0.1) 19%, rgba(3, 1, 3, 0.98) 75%),
+    repeating-linear-gradient(104deg, transparent 0 40px, rgba(255, 149, 186, 0.13) 41px 43px, transparent 44px 98px);
+}
+
+.mode-scene--free .scene-energy--one {
+  background: linear-gradient(105deg, transparent 8%, rgba(255, 73, 109, 0.26) 39%, transparent 66%);
+}
+
+.mode-scene--free .scene-energy--two {
+  background: linear-gradient(15deg, transparent 18%, rgba(255, 149, 186, 0.2) 52%, transparent 79%);
+}
+
+.overlay-layer {
+  z-index: 4;
+}
+
+.overlay-vignette {
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.86) 0%, rgba(0, 0, 0, 0.58) 30%, rgba(0, 0, 0, 0.12) 61%, rgba(0, 0, 0, 0.46) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.58), transparent 32%, rgba(0, 0, 0, 0.72) 100%);
+  inset: 0;
+  position: absolute;
+}
+
+.overlay-bottom {
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.94), rgba(0, 0, 0, 0.52) 46%, transparent);
+  bottom: 0;
+  height: 45%;
+  left: 0;
+  position: absolute;
+  right: 0;
+}
+
+.overlay-left-ink {
+  background:
+    linear-gradient(92deg, rgba(0, 0, 0, 0.74), transparent 78%),
+    repeating-linear-gradient(112deg, rgba(255, 255, 255, 0.08) 0 1px, transparent 1px 11px);
+  inset: 0 auto 0 0;
+  mask-image: linear-gradient(90deg, #000, transparent);
+  opacity: 0.42;
+  position: absolute;
+  width: 47%;
+}
+
+.overlay-speed {
+  background:
+    repeating-linear-gradient(108deg, transparent 0 34px, rgba(255, 255, 255, 0.14) 35px 36px, transparent 37px 92px),
+    repeating-linear-gradient(108deg, transparent 0 118px, color-mix(in srgb, var(--mode-accent), transparent 74%) 120px 123px, transparent 124px 220px);
+  inset: 0;
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mix-blend-mode: screen;
+  position: absolute;
+  will-change: transform, opacity;
+}
+
+.overlay-sweep {
+  background:
+    linear-gradient(106deg, transparent 0%, color-mix(in srgb, var(--mode-accent), transparent 78%) 32%, rgba(255, 255, 255, 0.08) 43%, transparent 65%),
+    repeating-linear-gradient(106deg, transparent 0 48px, rgba(255, 255, 255, 0.08) 49px 50px, transparent 51px 108px);
+  inset: -2%;
+  mix-blend-mode: screen;
+  position: absolute;
+  will-change: transform, opacity;
+}
+
+.overlay-grain {
+  animation: grain-shift 900ms steps(2, end) infinite;
+  background-image:
+    repeating-radial-gradient(circle at 18% 24%, rgba(255, 255, 255, 0.13) 0 1px, transparent 1px 5px),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.04) 0 1px, transparent 1px 5px);
+  inset: -5%;
+  mix-blend-mode: overlay;
+  opacity: 0.22;
+  position: absolute;
+}
+
+.overlay-ui-line {
+  background: linear-gradient(90deg, transparent, var(--mode-accent), rgba(255, 255, 255, 0.32), transparent);
+  height: 1px;
+  left: 0;
+  opacity: 0.68;
+  position: absolute;
+  right: 0;
+}
+
+.overlay-ui-line--top {
+  top: 14%;
+}
+
+.overlay-ui-line--bottom {
+  bottom: 16%;
+}
+
+.game-mode-heading {
+  align-items: center;
+  background:
+    linear-gradient(100deg, rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.34) 70%, transparent),
+    linear-gradient(90deg, color-mix(in srgb, var(--mode-accent), transparent 28%), transparent 78%);
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.32);
+  clip-path: polygon(12px 0, 100% 0, calc(100% - 18px) 100%, 0 100%);
+  color: #fff9ed;
+  display: inline-flex;
+  gap: 0.7rem;
+  left: clamp(1.1rem, 5.6%, 4.9rem);
+  min-height: 2.7rem;
+  overflow: hidden;
+  padding: 0.65rem 1.5rem 0.65rem 1.05rem;
+  position: absolute;
+  text-transform: uppercase;
+  top: clamp(1.1rem, 4.2%, 2.55rem);
+  z-index: 24;
+}
+
+.game-mode-heading::before {
+  background:
+    repeating-linear-gradient(102deg, rgba(255, 255, 255, 0.18) 0 2px, transparent 2px 9px),
+    linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.16), transparent);
+  content: "";
+  inset: 0;
+  opacity: 0.58;
+  position: absolute;
+}
+
+.game-mode-heading__slash,
+.game-mode-heading__text,
+.game-mode-heading__count,
+.game-mode-heading__echo {
+  position: relative;
+  z-index: 1;
+}
+
+.game-mode-heading__slash {
+  background: var(--mode-accent);
+  box-shadow: 0 0 20px var(--mode-accent);
+  height: 1.35rem;
+  transform: skewX(-18deg);
+  width: 0.38rem;
+}
+
+.game-mode-heading__text {
+  font-size: 0.78rem;
+  font-weight: 950;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+.game-mode-heading__count {
+  color: color-mix(in srgb, var(--mode-accent), white 22%);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.74rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.game-mode-heading__echo {
+  bottom: -0.62rem;
+  color: rgba(255, 255, 255, 0.12);
+  font-size: 2rem;
+  font-weight: 1000;
+  left: 2.9rem;
+  line-height: 1;
+  position: absolute;
+  transform: skewX(-9deg);
+  white-space: nowrap;
+}
+
+.mode-title {
+  color: #fff8ec;
+  font-family: Impact, Haettenschweiler, "Arial Black", var(--font-geist-sans), sans-serif;
+  font-size: var(--title-size, 8.6rem);
+  font-style: italic;
+  font-weight: 1000;
+  left: clamp(1.2rem, 6.2%, 5.9rem);
+  letter-spacing: 0;
+  line-height: 0.76;
+  margin: 0;
+  max-width: min(58rem, 58%);
+  pointer-events: none;
+  position: absolute;
+  text-transform: uppercase;
+  top: clamp(8.4rem, 22%, 14rem);
+  transform: rotate(-1deg);
+  z-index: 18;
+}
+
+.mode-title::after {
+  background:
+    linear-gradient(92deg, color-mix(in srgb, var(--mode-accent), white 8%), transparent 76%),
+    repeating-linear-gradient(92deg, rgba(255, 255, 255, 0.42) 0 2px, transparent 2px 11px);
+  bottom: -0.18em;
+  box-shadow: 0 0 32px color-mix(in srgb, var(--mode-accent), transparent 30%);
   content: "";
   height: 0.12em;
-  left: 0.02em;
+  left: 0.03em;
   opacity: 0.95;
   position: absolute;
   transform: skewX(-18deg);
-  width: min(5.2em, 72vw);
+  width: min(5.7em, 52rem);
 }
 
-.lobby-brush-title::after {
-  background: linear-gradient(
-    90deg,
-    color-mix(in srgb, var(--title-accent), white 24%),
-    transparent 62%
-  );
-  content: "";
-  filter: blur(20px);
-  inset: 18% auto 10% -3%;
-  opacity: 0.58;
+.mode-title__word {
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.08);
+  color: #fff9f0;
+  display: block;
+  filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.48));
+  letter-spacing: 0;
+  position: relative;
+  text-shadow:
+    0 3px 0 rgba(0, 0, 0, 0.62),
+    0 7px 0 rgba(0, 0, 0, 0.2),
+    0 0 34px color-mix(in srgb, var(--mode-accent), transparent 40%);
+  transform-origin: left center;
+  white-space: nowrap;
+  width: max-content;
+}
+
+.mode-title__word::before {
+  -webkit-text-stroke: 0.05em rgba(0, 0, 0, 0.68);
+  color: var(--mode-shadow);
+  content: attr(data-word);
+  inset: 0;
+  opacity: 0.82;
   position: absolute;
-  width: min(58vw, 560px);
+  transform: translate(0.045em, 0.06em);
+  z-index: -2;
+}
+
+.mode-title__word::after {
+  background: linear-gradient(90deg, var(--mode-accent), transparent 72%);
+  bottom: 0.02em;
+  content: "";
+  height: 0.045em;
+  left: 0.02em;
+  opacity: 0.72;
+  position: absolute;
+  transform: skewX(-18deg);
+  width: 94%;
   z-index: -1;
 }
 
-.lobby-speed-lines {
-  animation: lobby-speed-drift 12s linear infinite;
+.mode-small-label {
+  align-items: center;
+  bottom: clamp(5.6rem, 12%, 8.5rem);
+  color: rgba(255, 255, 255, 0.82);
+  display: inline-flex;
+  gap: 0.8rem;
+  left: clamp(1.25rem, 6.3%, 6rem);
+  position: absolute;
+  text-transform: uppercase;
+  z-index: 20;
+}
+
+.mode-small-label span {
+  border-left: 4px solid var(--mode-accent);
+  color: color-mix(in srgb, var(--mode-accent), white 26%);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 1.05rem;
+  font-weight: 1000;
+  line-height: 1;
+  padding-left: 0.7rem;
+}
+
+.mode-small-label b {
+  font-size: 0.8rem;
+  font-weight: 950;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+.naruto-layer {
+  bottom: clamp(-4.5rem, -8%, -2rem);
+  height: min(84dvh, 48rem);
+  pointer-events: none;
+  position: absolute;
+  right: clamp(-4.8rem, -4.5%, -1.8rem);
+  transform-origin: 62% 58%;
+  width: min(47rem, 48%);
+  z-index: 16;
+}
+
+.naruto-aura {
   background:
-    repeating-linear-gradient(
-      108deg,
-      transparent 0 28px,
-      rgba(255, 255, 255, 0.12) 29px 30px,
-      transparent 31px 72px
-    ),
-    repeating-linear-gradient(
-      108deg,
-      transparent 0 92px,
-      color-mix(in srgb, var(--lobby-accent), transparent 78%) 94px 96px,
-      transparent 98px 180px
-    );
-  mask-image: linear-gradient(90deg, transparent, #000 15%, #000 86%, transparent);
+    linear-gradient(105deg, transparent 0%, color-mix(in srgb, var(--pose-accent), transparent 70%) 36%, rgba(255, 255, 255, 0.12) 46%, transparent 68%),
+    repeating-linear-gradient(105deg, transparent 0 44px, color-mix(in srgb, var(--pose-secondary), transparent 76%) 45px 47px, transparent 48px 116px);
+  filter: blur(1px);
+  inset: 4% -16% 10% -24%;
+  mix-blend-mode: screen;
+  opacity: 0.72;
+  position: absolute;
+  transform: skewX(-10deg);
 }
 
-.lobby-haze {
-  animation: lobby-haze-drift 9s ease-in-out infinite alternate;
-  background:
-    linear-gradient(
-      105deg,
-      transparent 8%,
-      color-mix(in srgb, var(--lobby-accent), transparent 86%) 35%,
-      transparent 62%
-    ),
-    linear-gradient(180deg, transparent 42%, rgba(255, 255, 255, 0.06) 54%, transparent 72%);
-  filter: blur(10px);
+.naruto-render {
+  display: block;
+  height: 100%;
+  overflow: visible;
+  position: relative;
+  transform: scale(var(--figure-scale, 1));
+  transform-origin: center bottom;
+  width: 100%;
+  z-index: 2;
 }
 
-.lobby-grain {
-  animation: lobby-grain-shift 900ms steps(2, end) infinite;
-  background-image:
-    repeating-radial-gradient(
-      circle at 18% 24%,
-      rgba(255, 255, 255, 0.18) 0 1px,
-      transparent 1px 5px
-    ),
-    repeating-linear-gradient(
-      0deg,
-      rgba(255, 255, 255, 0.05) 0 1px,
-      transparent 1px 5px
-    );
-  mix-blend-mode: overlay;
+.ninja-trails,
+.ninja-figure,
+.ninja-arm,
+.ninja-leg,
+.ninja-body,
+.ninja-head {
+  transform-box: fill-box;
+  transform-origin: center;
 }
 
-@keyframes lobby-speed-drift {
+.ninja-trails path {
+  fill: color-mix(in srgb, var(--pose-accent), transparent 72%);
+  opacity: 0.58;
+  stroke: color-mix(in srgb, var(--pose-secondary), white 14%);
+  stroke-width: 2;
+}
+
+.ninja-ground-shadow {
+  fill: rgba(0, 0, 0, 0.48);
+}
+
+.ninja-leg path:first-child,
+.ninja-arm path:first-child {
+  fill: #151a24;
+  stroke: rgba(255, 255, 255, 0.12);
+  stroke-width: 3;
+}
+
+.ninja-leg--front path:first-child,
+.ninja-arm--front path:first-child {
+  fill: #e96b1e;
+}
+
+.ninja-leg path:last-child,
+.ninja-arm path:last-child {
+  fill: #111621;
+  stroke: rgba(255, 255, 255, 0.13);
+  stroke-width: 3;
+}
+
+.ninja-jacket {
+  stroke: rgba(255, 255, 255, 0.16);
+  stroke-width: 3;
+}
+
+.ninja-jacket-dark,
+.ninja-collar,
+.ninja-waist {
+  fill: #111722;
+}
+
+.ninja-waist {
+  stroke: rgba(255, 255, 255, 0.12);
+  stroke-width: 2;
+}
+
+.ninja-zip {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.36);
+  stroke-linecap: round;
+  stroke-width: 3;
+}
+
+.ninja-hair {
+  fill: #ffce45;
+  stroke: #6b3c10;
+  stroke-linejoin: round;
+  stroke-width: 4;
+}
+
+.ninja-face,
+.ninja-ear {
+  fill: #f1b782;
+  stroke: rgba(42, 15, 8, 0.45);
+  stroke-width: 2;
+}
+
+.ninja-headband {
+  fill: #1a2334;
+  stroke: rgba(255, 255, 255, 0.18);
+  stroke-width: 3;
+}
+
+.ninja-plate {
+  fill: #d5dbe2;
+  stroke: #6c7480;
+  stroke-width: 2;
+}
+
+.ninja-eye,
+.ninja-mouth,
+.ninja-whisker {
+  fill: none;
+  stroke: #27150d;
+  stroke-linecap: round;
+}
+
+.ninja-eye {
+  stroke-width: 4;
+}
+
+.ninja-mouth {
+  stroke-width: 3;
+}
+
+.ninja-whisker {
+  opacity: 0.6;
+  stroke-width: 2.4;
+}
+
+.naruto-render--resolved .ninja-figure {
+  transform: translate(2px, -6px) rotate(-1deg);
+}
+
+.naruto-render--resolved .ninja-arm--front {
+  transform: rotate(4deg) translate(-2px, 4px);
+}
+
+.naruto-render--resolved .ninja-arm--back {
+  transform: rotate(-5deg) translate(4px, 2px);
+}
+
+.naruto-render--resolved .ninja-leg--front {
+  transform: rotate(3deg) translate(4px, 0);
+}
+
+.naruto-render--resolved .ninja-leg--back {
+  transform: rotate(-3deg) translate(-3px, 0);
+}
+
+.naruto-render--stride .ninja-figure {
+  transform: translate(-4px, -2px) rotate(-4deg);
+}
+
+.naruto-render--stride .ninja-arm--front {
+  transform: rotate(-18deg) translate(-10px, -4px);
+}
+
+.naruto-render--stride .ninja-arm--back {
+  transform: rotate(16deg) translate(10px, 4px);
+}
+
+.naruto-render--stride .ninja-leg--front {
+  transform: rotate(-16deg) translate(-16px, 8px);
+}
+
+.naruto-render--stride .ninja-leg--back {
+  transform: rotate(12deg) translate(12px, -2px);
+}
+
+.naruto-render--focus .ninja-figure {
+  transform: translate(0, -8px) scale(0.98);
+}
+
+.naruto-render--focus .ninja-arm--front {
+  transform: rotate(28deg) translate(20px, -34px);
+}
+
+.naruto-render--focus .ninja-arm--back {
+  transform: rotate(-28deg) translate(-18px, -32px);
+}
+
+.naruto-render--focus .ninja-head {
+  transform: translate(0, 5px);
+}
+
+.naruto-render--ready .ninja-figure {
+  transform: translate(6px, 18px) rotate(3deg) scale(0.98);
+}
+
+.naruto-render--ready .ninja-body {
+  transform: rotate(5deg);
+}
+
+.naruto-render--ready .ninja-arm--front {
+  transform: rotate(-28deg) translate(-22px, -8px);
+}
+
+.naruto-render--ready .ninja-arm--back {
+  transform: rotate(22deg) translate(18px, 0);
+}
+
+.naruto-render--ready .ninja-leg--front {
+  transform: rotate(-18deg) translate(-22px, 18px);
+}
+
+.naruto-render--ready .ninja-leg--back {
+  transform: rotate(20deg) translate(24px, 8px);
+}
+
+.naruto-render--strike .ninja-figure {
+  transform: translate(-12px, 4px) rotate(-7deg) scale(1.02);
+}
+
+.naruto-render--strike .ninja-body {
+  transform: rotate(-4deg);
+}
+
+.naruto-render--strike .ninja-arm--front {
+  transform: rotate(-44deg) translate(-52px, -22px) scale(1.06);
+}
+
+.naruto-render--strike .ninja-arm--back {
+  transform: rotate(30deg) translate(24px, 8px);
+}
+
+.naruto-render--strike .ninja-leg--front {
+  transform: rotate(-24deg) translate(-28px, 20px);
+}
+
+.naruto-render--strike .ninja-leg--back {
+  transform: rotate(18deg) translate(22px, 2px);
+}
+
+.mode-progress {
+  align-items: center;
+  bottom: clamp(1.6rem, 5%, 3rem);
+  display: flex;
+  gap: 0.5rem;
+  left: clamp(1.2rem, 6.2%, 5.9rem);
+  position: absolute;
+  z-index: 40;
+}
+
+.mode-progress::before {
+  background: linear-gradient(90deg, var(--mode-accent), rgba(255, 255, 255, 0.28), transparent);
+  content: "";
+  height: 1px;
+  left: 0;
+  opacity: 0.78;
+  position: absolute;
+  right: -8.6rem;
+  top: -0.85rem;
+}
+
+.mode-progress__marker {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  display: inline-flex;
+  height: 2.15rem;
+  justify-content: center;
+  padding: 0;
+  width: 1.15rem;
+}
+
+.mode-progress__marker:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.82);
+  outline-offset: 4px;
+}
+
+.mode-progress__mark {
+  background: rgba(255, 255, 255, 0.42);
+  height: 1.2rem;
+  transform: skewX(-18deg) scaleY(0.66);
+  transition:
+    background-color 220ms ease,
+    box-shadow 220ms ease,
+    transform 220ms ease;
+  width: 0.2rem;
+}
+
+.mode-progress__marker.is-active .mode-progress__mark {
+  background: var(--marker-accent);
+  box-shadow: 0 0 20px var(--marker-accent);
+  transform: skewX(-18deg) scaleY(1.35);
+  width: 0.34rem;
+}
+
+@keyframes energy-slide-one {
   from {
-    transform: translateX(-4%);
+    transform: translate3d(-1.4%, -0.8%, 0);
   }
 
   to {
-    transform: translateX(4%);
+    transform: translate3d(1.4%, 0.8%, 0);
   }
 }
 
-@keyframes lobby-haze-drift {
+@keyframes energy-slide-two {
   from {
-    transform: translate3d(-1.5%, 0, 0);
+    transform: translate3d(1.2%, 0.6%, 0);
   }
 
   to {
-    transform: translate3d(1.5%, 0, 0);
+    transform: translate3d(-1.2%, -0.6%, 0);
   }
 }
 
-@keyframes lobby-grain-shift {
+@keyframes grain-shift {
   from {
     transform: translate3d(0, 0, 0);
   }
@@ -159,20 +1022,170 @@ button {
   }
 }
 
-@media (max-width: 640px) {
-  .lobby-brush-title {
-    text-shadow:
-      0 2px 0 rgba(0, 0, 0, 0.7),
-      0 8px 24px rgba(0, 0, 0, 0.62),
-      0 0 20px color-mix(in srgb, var(--title-accent), transparent 52%);
+@media (max-width: 1180px) {
+  .mode-scene--story {
+    --title-size: 9rem;
+  }
+
+  .mode-scene--adventure {
+    --title-size: 7.6rem;
+  }
+
+  .mode-scene--collection {
+    --title-size: 7.2rem;
+  }
+
+  .mode-scene--online {
+    --title-size: 6.6rem;
+  }
+
+  .mode-scene--free {
+    --title-size: 7rem;
+  }
+
+  .mode-title {
+    max-width: 62%;
+  }
+
+  .naruto-layer {
+    height: min(80dvh, 42rem);
+    right: -5.8rem;
+    width: 48%;
   }
 }
 
-@media (min-width: 640px) {
-  .lobby-tab-rail {
-    left: 0;
-    transform: none;
-    width: 100vw;
+@media (max-width: 880px) {
+  .mode-scene--story,
+  .mode-scene--adventure,
+  .mode-scene--collection,
+  .mode-scene--online,
+  .mode-scene--free {
+    --title-size: 5.7rem;
+  }
+
+  .mode-scene--online,
+  .mode-scene--free {
+    --title-size: 5.1rem;
+  }
+
+  .mode-title {
+    left: 1.25rem;
+    max-width: calc(100% - 2.5rem);
+    top: 7.4rem;
+  }
+
+  .naruto-layer {
+    bottom: -4rem;
+    height: min(72dvh, 36rem);
+    opacity: 0.95;
+    right: -6.4rem;
+    width: 64%;
+  }
+
+  .game-mode-heading {
+    left: 1rem;
+    top: 1rem;
+  }
+
+  .mode-small-label {
+    bottom: 5.2rem;
+    left: 1.25rem;
+  }
+
+  .mode-progress {
+    bottom: 1.55rem;
+    left: 1.25rem;
+  }
+
+  .overlay-vignette {
+    background:
+      linear-gradient(90deg, rgba(0, 0, 0, 0.84) 0%, rgba(0, 0, 0, 0.44) 42%, rgba(0, 0, 0, 0.36) 100%),
+      linear-gradient(180deg, rgba(0, 0, 0, 0.6), transparent 28%, rgba(0, 0, 0, 0.82) 100%);
+  }
+}
+
+@media (max-width: 560px) {
+  .mode-scene--story,
+  .mode-scene--adventure,
+  .mode-scene--collection,
+  .mode-scene--online,
+  .mode-scene--free {
+    --title-size: 4.25rem;
+  }
+
+  .mode-scene--online,
+  .mode-scene--free,
+  .mode-scene--collection {
+    --title-size: 3.85rem;
+  }
+
+  .game-mode-heading {
+    gap: 0.55rem;
+    min-height: 2.45rem;
+    padding: 0.58rem 1.1rem 0.58rem 0.9rem;
+  }
+
+  .game-mode-heading__text {
+    font-size: 0.68rem;
+  }
+
+  .game-mode-heading__count {
+    font-size: 0.66rem;
+  }
+
+  .game-mode-heading__echo {
+    display: none;
+  }
+
+  .mode-title {
+    left: 1rem;
+    top: 6.9rem;
+  }
+
+  .mode-title::after {
+    width: min(4.8em, calc(100vw - 2rem));
+  }
+
+  .naruto-layer {
+    bottom: -2.8rem;
+    height: min(63dvh, 30rem);
+    right: -5.6rem;
+    width: 86%;
+  }
+
+  .mode-small-label {
+    bottom: 5rem;
+    left: 1rem;
+  }
+
+  .mode-small-label span {
+    font-size: 0.92rem;
+  }
+
+  .mode-small-label b {
+    font-size: 0.72rem;
+  }
+
+  .mode-progress {
+    left: 1rem;
+  }
+
+  .overlay-left-ink {
+    width: 72%;
+  }
+}
+
+@media (max-height: 680px) and (min-width: 700px) {
+  .mode-title {
+    top: 6.8rem;
+  }
+
+  .naruto-layer {
+    height: min(86dvh, 39rem);
+  }
+
+  .mode-small-label {
+    bottom: 4.9rem;
   }
 }
 
