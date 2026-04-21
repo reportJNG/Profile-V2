@@ -1,0 +1,188 @@
+@import "tailwindcss";
+
+:root {
+  --background: #050507;
+  --foreground: #f8fafc;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--background);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  min-width: 320px;
+  overflow: hidden;
+}
+
+button {
+  font: inherit;
+}
+
+.lobby-tab-rail {
+  left: 0;
+  transform: none;
+  width: min(100vw, 390px);
+}
+
+.lobby-brush-title {
+  color: #fff;
+  letter-spacing: 0;
+  text-shadow:
+    0 2px 0 rgba(0, 0, 0, 0.62),
+    0 10px 34px rgba(0, 0, 0, 0.56),
+    0 0 28px color-mix(in srgb, var(--title-accent), transparent 46%);
+  transform: skewX(-5deg);
+}
+
+.lobby-brush-title::before {
+  background:
+    linear-gradient(90deg, var(--title-accent), transparent 74%),
+    repeating-linear-gradient(
+      92deg,
+      rgba(255, 255, 255, 0.62) 0 2px,
+      transparent 2px 9px
+    );
+  bottom: -0.08em;
+  content: "";
+  height: 0.12em;
+  left: 0.02em;
+  opacity: 0.95;
+  position: absolute;
+  transform: skewX(-18deg);
+  width: min(5.2em, 72vw);
+}
+
+.lobby-brush-title::after {
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--title-accent), white 24%),
+    transparent 62%
+  );
+  content: "";
+  filter: blur(20px);
+  inset: 18% auto 10% -3%;
+  opacity: 0.58;
+  position: absolute;
+  width: min(58vw, 560px);
+  z-index: -1;
+}
+
+.lobby-speed-lines {
+  animation: lobby-speed-drift 12s linear infinite;
+  background:
+    repeating-linear-gradient(
+      108deg,
+      transparent 0 28px,
+      rgba(255, 255, 255, 0.12) 29px 30px,
+      transparent 31px 72px
+    ),
+    repeating-linear-gradient(
+      108deg,
+      transparent 0 92px,
+      color-mix(in srgb, var(--lobby-accent), transparent 78%) 94px 96px,
+      transparent 98px 180px
+    );
+  mask-image: linear-gradient(90deg, transparent, #000 15%, #000 86%, transparent);
+}
+
+.lobby-haze {
+  animation: lobby-haze-drift 9s ease-in-out infinite alternate;
+  background:
+    linear-gradient(
+      105deg,
+      transparent 8%,
+      color-mix(in srgb, var(--lobby-accent), transparent 86%) 35%,
+      transparent 62%
+    ),
+    linear-gradient(180deg, transparent 42%, rgba(255, 255, 255, 0.06) 54%, transparent 72%);
+  filter: blur(10px);
+}
+
+.lobby-grain {
+  animation: lobby-grain-shift 900ms steps(2, end) infinite;
+  background-image:
+    repeating-radial-gradient(
+      circle at 18% 24%,
+      rgba(255, 255, 255, 0.18) 0 1px,
+      transparent 1px 5px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.05) 0 1px,
+      transparent 1px 5px
+    );
+  mix-blend-mode: overlay;
+}
+
+@keyframes lobby-speed-drift {
+  from {
+    transform: translateX(-4%);
+  }
+
+  to {
+    transform: translateX(4%);
+  }
+}
+
+@keyframes lobby-haze-drift {
+  from {
+    transform: translate3d(-1.5%, 0, 0);
+  }
+
+  to {
+    transform: translate3d(1.5%, 0, 0);
+  }
+}
+
+@keyframes lobby-grain-shift {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(-1%, 1%, 0);
+  }
+}
+
+@media (max-width: 640px) {
+  .lobby-brush-title {
+    text-shadow:
+      0 2px 0 rgba(0, 0, 0, 0.7),
+      0 8px 24px rgba(0, 0, 0, 0.62),
+      0 0 20px color-mix(in srgb, var(--title-accent), transparent 52%);
+  }
+}
+
+@media (min-width: 640px) {
+  .lobby-tab-rail {
+    left: 0;
+    transform: none;
+    width: 100vw;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 1ms !important;
+  }
+}
