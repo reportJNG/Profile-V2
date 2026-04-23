@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { motion, useReducedMotion } from "motion/react";
 import { lobbyBackgroundTransition } from "@/lib/lobby-motion";
@@ -23,16 +23,18 @@ export function OverlayLayer({ direction, mode }: OverlayLayerProps) {
       <motion.div
         className="overlay-speed"
         animate={{
-          x: shouldReduceMotion ? 0 : direction > 0 ? 16 : -16,
-          opacity: shouldReduceMotion ? 0.12 : 0.26,
+          x: shouldReduceMotion ? 0 : direction > 0 ? 20 : -20,
+          y: shouldReduceMotion ? 0 : direction > 0 ? -8 : 8,
+          opacity: shouldReduceMotion ? 0.12 : 0.3,
         }}
         transition={lobbyBackgroundTransition}
       />
       <motion.div
         className="overlay-sweep"
         animate={{
-          x: shouldReduceMotion ? 0 : direction > 0 ? 24 : -24,
-          opacity: mode.scene === "collection" ? 0.16 : 0.22,
+          x: shouldReduceMotion ? 0 : direction > 0 ? 28 : -28,
+          scale: shouldReduceMotion ? 1 : 1.03,
+          opacity: mode.scene === "collection" ? 0.18 : 0.24,
         }}
         transition={lobbyBackgroundTransition}
       />

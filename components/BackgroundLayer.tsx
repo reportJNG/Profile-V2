@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
@@ -35,8 +35,11 @@ export function BackgroundLayer({ direction, mode }: BackgroundLayerProps) {
         <motion.div
           className="background-photo"
           animate={{
-            x: shouldReduceMotion ? 0 : direction > 0 ? -16 : 16,
-            y: shouldReduceMotion ? 0 : direction > 0 ? -10 : 10,
+            x: shouldReduceMotion ? 0 : direction > 0 ? -18 : 18,
+            y: shouldReduceMotion ? 0 : direction > 0 ? -12 : 12,
+            scale: shouldReduceMotion ? 1.02 : 1.06,
+            rotate: shouldReduceMotion ? 0 : direction > 0 ? -0.5 : 0.5,
+            opacity: shouldReduceMotion ? 0.32 : 0.38,
           }}
           transition={lobbyBackgroundTransition}
         >
@@ -59,6 +62,8 @@ export function BackgroundLayer({ direction, mode }: BackgroundLayerProps) {
 
         <div className="scene-paint" />
         <div className="scene-sky" />
+        <div className="scene-glow" />
+        <div className="scene-flare" />
         <div className="scene-horizon scene-horizon--back" />
         <div className="scene-horizon scene-horizon--mid" />
         <div className="scene-horizon scene-horizon--front" />

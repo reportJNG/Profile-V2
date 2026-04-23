@@ -1,5 +1,6 @@
 "use client";
 
+import { ChevronDown, ChevronUp } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import type { CSSProperties } from "react";
 import { BackgroundLayer } from "@/components/BackgroundLayer";
@@ -59,9 +60,12 @@ export function ModeScene({
           exit={shouldReduceMotion ? undefined : { opacity: 0, y: -10, scale: 0.92 }}
           transition={lobbyTitleTransition}
         >
-          <span className="mode-ornament__chevron" />
-          <span className="mode-ornament__chevron mode-ornament__chevron--inner" />
-          <span className="mode-ornament__spark" />
+          <span className="mode-ornament__track" />
+          <span className="mode-ornament__shell">
+            <span className="mode-ornament__icon-wrap">
+              <ChevronUp className="mode-ornament__icon" aria-hidden="true" />
+            </span>
+          </span>
         </motion.div>
 
         <motion.div
@@ -72,9 +76,12 @@ export function ModeScene({
           exit={shouldReduceMotion ? undefined : { opacity: 0, y: 10, scale: 0.92 }}
           transition={lobbyTitleTransition}
         >
-          <span className="mode-ornament__chevron" />
-          <span className="mode-ornament__chevron mode-ornament__chevron--inner" />
-          <span className="mode-ornament__spark" />
+          <span className="mode-ornament__shell">
+            <span className="mode-ornament__icon-wrap">
+              <ChevronDown className="mode-ornament__icon" aria-hidden="true" />
+            </span>
+          </span>
+          <span className="mode-ornament__track" />
         </motion.div>
 
         <div className="landing-layout">
