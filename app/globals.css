@@ -23,7 +23,7 @@ html {
 }
 
 body {
-  background: var(--background);
+  background: radial-gradient(circle at top, rgba(255, 255, 255, 0.04), transparent 34%), var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), "Segoe UI", sans-serif;
   margin: 0;
@@ -402,7 +402,7 @@ button {
 
 .overlay-vignette {
   background:
-    linear-gradient(90deg, rgba(3, 6, 10, 0.82) 0%, rgba(5, 9, 15, 0.22) 40%, rgba(5, 8, 13, 0.08) 62%, rgba(3, 5, 9, 0.46) 100%),
+    linear-gradient(90deg, rgba(3, 6, 10, 0.78) 0%, rgba(5, 9, 15, 0.16) 42%, rgba(5, 8, 13, 0.08) 64%, rgba(3, 5, 9, 0.5) 100%),
     linear-gradient(180deg, rgba(2, 4, 7, 0.76), transparent 32%, rgba(2, 4, 7, 0.88) 100%);
   inset: 0;
   position: absolute;
@@ -464,7 +464,7 @@ button {
   background: linear-gradient(90deg, transparent, var(--mode-accent), rgba(255, 255, 255, 0.18), transparent);
   height: 1px;
   left: 0;
-  opacity: 0.5;
+  opacity: 0.46;
   position: absolute;
   right: 0;
 }
@@ -482,35 +482,25 @@ button {
     linear-gradient(180deg, rgba(0, 0, 0, 0.18), transparent),
     linear-gradient(90deg, rgba(0, 0, 0, 0.86), rgba(0, 0, 0, 0.48) 68%, transparent);
   clip-path: polygon(0 0, 100% 0, calc(100% - 1.2rem) 100%, 0 100%);
-  color: #fbf7cb;
+  color: #fff7c6;
   display: inline-flex;
   gap: 0.85rem;
   left: clamp(1rem, 4.8vw, 4rem);
-  padding: 0.75rem 1.5rem 0.75rem 0.95rem;
+  padding: 0.72rem 1.5rem 0.72rem 1rem;
   position: absolute;
-  text-shadow: 0 0 12px rgba(255, 243, 147, 0.38);
+  text-shadow: 0 0 14px rgba(255, 243, 147, 0.34);
   top: clamp(1rem, 4vw, 2rem);
   z-index: 24;
 }
 
 .game-mode-heading__text,
-.game-mode-heading__count,
 .game-mode-heading__echo {
-  font-family: "Brush Script MT", "Segoe Print", "Comic Sans MS", cursive;
-  font-size: 2rem;
+  font-family: Georgia, "Palatino Linotype", "Times New Roman", serif;
+  font-size: 1.7rem;
   font-style: italic;
   font-weight: 700;
-  line-height: 0.95;
-}
-
-.game-mode-heading__count {
-  align-self: flex-end;
-  color: rgba(255, 252, 216, 0.62);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 0.76rem;
-  font-style: normal;
-  letter-spacing: 0.08em;
-  margin-bottom: 0.22rem;
+  letter-spacing: -0.03em;
+  line-height: 1;
 }
 
 .game-mode-heading__echo {
@@ -521,11 +511,11 @@ button {
   align-items: center;
   display: flex;
   min-height: 100dvh;
-  padding: clamp(6.5rem, 12vw, 8.6rem) clamp(1rem, 5vw, 4rem) clamp(10rem, 18vh, 12rem);
+  padding: clamp(2rem, 8vw, 4rem) clamp(1rem, 5vw, 4rem) clamp(10rem, 18vh, 12rem);
 }
 
 .landing-title-wrap {
-  max-width: min(60rem, 72vw);
+  max-width: min(54rem, 68vw);
   position: relative;
   z-index: 2;
 }
@@ -583,175 +573,108 @@ button {
 }
 
 .landing-title {
-  color: #fff8ed;
+  color: #fffaf2;
   display: block;
-  font-family: Impact, Haettenschweiler, "Arial Black", var(--font-geist-sans), sans-serif;
+  font-family: Georgia, "Palatino Linotype", "Times New Roman", serif;
   font-size: var(--title-size, 8rem);
-  font-style: italic;
-  font-weight: 900;
-  letter-spacing: -0.06em;
-  line-height: 0.82;
+  font-weight: 700;
+  letter-spacing: -0.08em;
+  line-height: 0.84;
   margin: 0;
-  max-width: 9.2ch;
+  max-width: 8.8ch;
   position: relative;
   text-shadow:
-    0 5px 0 rgba(0, 0, 0, 0.34),
-    0 12px 22px rgba(0, 0, 0, 0.34),
-    0 0 30px color-mix(in srgb, var(--mode-accent), transparent 68%);
-  text-transform: none;
+    0 6px 20px rgba(0, 0, 0, 0.34),
+    0 0 32px color-mix(in srgb, var(--mode-accent), transparent 72%);
+  text-transform: uppercase;
 }
 
 .landing-title span {
-  -webkit-text-stroke: 0.22rem #fff8de;
-  color: var(--mode-accent);
+  color: #fffaf2;
   display: block;
-  paint-order: stroke fill;
   position: relative;
 }
 
+.landing-title span:first-child {
+  color: color-mix(in srgb, var(--mode-accent), white 18%);
+}
+
 .landing-title span:last-child {
-  color: color-mix(in srgb, var(--mode-secondary), var(--mode-accent) 22%);
+  color: color-mix(in srgb, var(--mode-secondary), white 12%);
 }
 
 .landing-title::after {
   background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.84), transparent 72%),
-    repeating-linear-gradient(90deg, rgba(255, 240, 190, 0.32) 0 0.25rem, transparent 0.25rem 0.9rem);
+    linear-gradient(90deg, color-mix(in srgb, var(--mode-accent), white 16%), transparent 72%),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.42), transparent 55%);
   border-radius: 999px;
-  box-shadow: 0 0 22px color-mix(in srgb, var(--mode-secondary), transparent 56%);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--mode-secondary), transparent 56%);
   content: "";
-  height: 0.34rem;
-  left: 0.4rem;
-  opacity: 0.7;
+  height: 0.22rem;
+  left: 0.15rem;
+  opacity: 0.82;
   position: absolute;
-  top: calc(100% + 0.9rem);
-  transform: skewX(-24deg);
-  width: min(18rem, 55vw);
+  top: calc(100% + 0.7rem);
+  width: min(14rem, 42vw);
 }
 
 .landing-title.is-entered {
-  transform: scale(1.025);
+  transform: scale(1.018);
 }
 
 .landing-title.is-entered span {
-  filter: drop-shadow(0 0 18px color-mix(in srgb, var(--mode-secondary), transparent 36%));
-}
-
-.landing-enter-state {
-  align-items: center;
-  display: inline-flex;
-  gap: 0.7rem;
-  margin-top: 2rem;
-}
-
-.landing-enter-state span,
-.landing-enter-state b,
-.landing-enter-state small,
-.landing-enter-state button {
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 999px;
-  color: rgba(245, 247, 251, 0.82);
-  display: inline-flex;
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  line-height: 1;
-  padding: 0.66rem 0.84rem;
-  text-transform: uppercase;
-}
-
-.landing-enter-state span {
-  background: color-mix(in srgb, var(--mode-accent), transparent 80%);
-}
-
-.landing-enter-state button {
-  background: transparent;
-  cursor: pointer;
+  filter: drop-shadow(0 0 16px color-mix(in srgb, var(--mode-secondary), transparent 42%));
 }
 
 .mode-progress {
   bottom: clamp(1.4rem, 4vh, 2.6rem);
-  left: clamp(1rem, 5vw, 4rem);
+  right: clamp(1rem, 5vw, 4rem);
   position: absolute;
   z-index: 40;
 }
 
-.mode-progress__list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.24rem;
-}
-
-.mode-progress__marker {
-  background: transparent;
-  border: 0;
-  color: rgba(243, 245, 248, 0.42);
-  cursor: pointer;
-  display: inline-flex;
-  justify-content: flex-start;
-  padding: 0;
-  text-align: left;
-  transition:
-    color 180ms ease,
-    transform 180ms ease,
-    text-shadow 180ms ease,
-    filter 180ms ease;
-}
-
-.mode-progress__marker:hover {
-  color: rgba(255, 255, 255, 0.72);
-}
-
-.mode-progress__marker:focus-visible {
-  outline: none;
-  text-shadow: 0 0 12px rgba(255, 255, 255, 0.35);
-}
-
-.mode-progress__label {
-  font-family: Impact, Haettenschweiler, "Arial Black", var(--font-geist-sans), sans-serif;
-  font-size: clamp(1.8rem, 3.1vw, 2.6rem);
-  font-style: italic;
-  font-weight: 900;
-  letter-spacing: -0.04em;
-  line-height: 0.9;
-  text-transform: none;
-}
-
-.mode-progress__marker.is-active {
-  color: #fffaf0;
-  filter: drop-shadow(0 0 16px color-mix(in srgb, var(--marker-accent), transparent 56%));
-  text-shadow:
-    0 8px 18px rgba(0, 0, 0, 0.38),
-    0 0 24px color-mix(in srgb, var(--marker-accent), transparent 68%);
-  transform: translateX(0.55rem) scale(1.02);
-}
-
-.mode-progress__marker.is-entered .mode-progress__label::after {
-  background: linear-gradient(90deg, var(--marker-accent), transparent 72%);
-  border-radius: 999px;
-  content: "";
-  display: block;
-  height: 0.14rem;
-  margin-top: 0.3rem;
-  width: 88%;
-}
-
 .mode-progress__keys {
-  display: inline-flex;
-  gap: 0.55rem;
-  margin-top: 1.4rem;
+  display: grid;
+  gap: 0.65rem;
+  justify-items: end;
 }
 
-.mode-progress__keys span {
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 999px;
-  color: rgba(243, 246, 250, 0.8);
+.mode-progress__keycap {
+  align-items: center;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.04)),
+    rgba(6, 10, 18, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom-color: rgba(255, 255, 255, 0.22);
+  border-radius: 0.95rem;
+  box-shadow:
+    0 10px 22px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    inset 0 -3px 0 rgba(0, 0, 0, 0.24);
+  color: rgba(247, 249, 252, 0.92);
+  display: inline-flex;
+  gap: 0.65rem;
+  justify-content: center;
+  min-height: 2.8rem;
+  min-width: 6.1rem;
+  padding: 0.75rem 0.9rem;
+}
+
+.mode-progress__keycap svg {
+  color: color-mix(in srgb, var(--mode-accent), white 20%);
+  flex: 0 0 auto;
+}
+
+.mode-progress__keycap b {
   font-family: var(--font-geist-mono), monospace;
-  font-size: 0.74rem;
+  font-size: 0.78rem;
   font-weight: 800;
   letter-spacing: 0.08em;
-  padding: 0.5rem 0.72rem;
+  text-transform: uppercase;
+}
+
+.mode-progress__keycap--enter {
+  min-width: 7.2rem;
 }
 
 @keyframes energy-slide-one {
@@ -788,20 +711,15 @@ button {
   .landing-layout {
     align-items: flex-start;
     padding-bottom: 10rem;
-    padding-top: 7rem;
+    padding-top: 5rem;
   }
 
   .landing-title-wrap {
     max-width: min(100%, 34rem);
   }
 
-  .mode-ornament {
-    left: clamp(9rem, 27vw, 14rem);
-  }
-
   .mode-progress {
     bottom: 1.4rem;
-    left: 1rem;
     right: 1rem;
   }
 
@@ -812,38 +730,26 @@ button {
 
 @media (max-width: 640px) {
   .game-mode-heading {
-    gap: 0.7rem;
     left: 1rem;
-    padding: 0.6rem 1rem 0.6rem 0.78rem;
+    padding: 0.58rem 1rem 0.58rem 0.84rem;
     top: 1rem;
   }
 
   .game-mode-heading__text {
-    font-size: 1.4rem;
+    font-size: 1.22rem;
   }
 
   .landing-layout {
-    padding: 5.4rem 1rem 10.2rem;
+    padding: 3.8rem 1rem 10.2rem;
   }
 
   .landing-title {
-    font-size: clamp(3.8rem, 16vw, 5.4rem);
+    font-size: clamp(3.1rem, 14vw, 4.8rem);
     max-width: 100%;
   }
 
-  .landing-title span {
-    -webkit-text-stroke-width: 0.16rem;
-  }
-
   .landing-title::after {
-    width: min(11rem, calc(100vw - 3rem));
-  }
-
-  .landing-enter-state {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 0.5rem;
-    margin-top: 1.5rem;
+    width: min(9rem, calc(100vw - 3rem));
   }
 
   .mode-ornament {
@@ -859,17 +765,18 @@ button {
     bottom: 12.6rem;
   }
 
-  .mode-progress__label {
-    font-size: clamp(1.45rem, 7.2vw, 2.1rem);
-  }
-
-  .mode-progress__marker.is-active {
-    transform: translateX(0.2rem);
-  }
-
   .mode-progress__keys {
-    flex-wrap: wrap;
-    margin-top: 1rem;
+    gap: 0.5rem;
+  }
+
+  .mode-progress__keycap {
+    min-height: 2.55rem;
+    min-width: 5.2rem;
+    padding: 0.68rem 0.78rem;
+  }
+
+  .mode-progress__keycap--enter {
+    min-width: 6.2rem;
   }
 
   .overlay-vignette {

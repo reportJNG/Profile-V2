@@ -1,11 +1,11 @@
-﻿"use client";
+"use client";
 
 import { motion, useReducedMotion } from "motion/react";
 import type { CSSProperties } from "react";
 import { BackgroundLayer } from "@/components/BackgroundLayer";
 import { GameModeHeading } from "@/components/GameModeHeading";
 import { OverlayLayer } from "@/components/OverlayLayer";
-import { createLobbySwapVariants } from "@/lib/lobby-motion";
+import { createLobbySwapVariants, lobbyTitleTransition } from "@/lib/lobby-motion";
 import type { PortfolioSection } from "@/lib/portfolio-content";
 
 type Direction = 1 | -1;
@@ -25,6 +25,7 @@ export function ModeScene({
 }: ModeSceneProps) {
   const shouldReduceMotion = useReducedMotion();
   const sceneVariants = createLobbySwapVariants(Boolean(shouldReduceMotion));
+  const titleWords = mode.title.split(" ");
 
   return (
     <motion.section
@@ -50,8 +51,31 @@ export function ModeScene({
       <div className="mode-composition">
         <GameModeHeading mode={mode} />
 
-        <div className="mode-ornament mode-ornament--top" aria-hidden="true" />
-        <div className="mode-ornament mode-ornament--bottom" aria-hidden="true" />
+        <motion.div
+          className="mode-ornament mode-ornament--top"
+          aria-hidden="true"
+          initial={shouldReduceMotion ? false : { opacity: 0, y: -10, scale: 0.92 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={shouldReduceMotion ? undefined : { opacity: 0, y: -10, scale: 0.92 }}
+          transition={lobbyTitleTransition}
+        >
+          <span className="mode-ornament__chevron" />
+          <span className="mode-ornament__chevron mode-ornament__chevron--inner" />
+          <span className="mode-ornament__spark" />
+        </motion.div>
+
+        <motion.div
+          className="mode-ornament mode-ornament--bottom"
+          aria-hidden="true"
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 10, scale: 0.92 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={shouldReduceMotion ? undefined : { opacity: 0, y: 10, scale: 0.92 }}
+          transition={lobbyTitleTransition}
+        >
+          <span className="mode-ornament__chevron" />
+          <span className="mode-ornament__chevron mode-ornament__chevron--inner" />
+          <span className="mode-ornament__spark" />
+        </motion.div>
 
         <div className="landing-layout">
           <motion.div
@@ -59,25 +83,49 @@ export function ModeScene({
             initial={
               shouldReduceMotion
                 ? false
-                : { opacity: 0, y: direction > 0 ? 24 : -24, scale: 0.985 }
+                : { opacity: 0, y: direction > 0 ? 34 : -34, scale: 0.965, rotate: direction > 0 ? -1.1 : 1.1 }
             }
-            animate={{ opacity: 1, y: 0, scale: 1 }}
+            animate={{ opacity: 1, y: 0, scale: 1, rotate: 0 }}
             exit={
               shouldReduceMotion
                 ? undefined
-                : { opacity: 0, y: direction > 0 ? -24 : 24, scale: 1.02 }
+                : { opacity: 0, y: direction > 0 ? -28 : 28, scale: 1.03, rotate: direction > 0 ? 0.8 : -0.8 }
             }
-            transition={{ duration: 0.46, ease: [0.22, 1, 0.36, 1] }}
+            transition={lobbyTitleTransition}
           >
-            <h1
+            <motion.h1
               className={`landing-title ${isEntered ? "is-entered" : ""}`}
               data-title={mode.title}
               onClick={() => onEnterMode()}
+              animate={
+                shouldReduceMotion
+                  ? undefined
+                  : isEntered
+                    ? { scale: 1.026, filter: "drop-shadow(0 0 34px color-mix(in srgb, var(--mode-secondary), transparent 34%))" }
+                    : { scale: 1, filter: "drop-shadow(0 0 0 transparent)" }
+              }
+              transition={lobbyTitleTransition}
             >
-              {mode.title.split(" ").map((word) => (
-                <span key={`${mode.id}-${word}`}>{word}</span>
+              {titleWords.map((word, index) => (
+                <motion.span
+                  key={`${mode.id}-${word}`}
+                  initial={
+                    shouldReduceMotion
+                      ? false
+                      : { opacity: 0, x: direction > 0 ? -18 : 18, y: direction > 0 ? 12 : -12 }
+                  }
+                  animate={{ opacity: 1, x: 0, y: 0 }}
+                  exit={
+                    shouldReduceMotion
+                      ? undefined
+                      : { opacity: 0, x: direction > 0 ? 18 : -18, y: direction > 0 ? -12 : 12 }
+                  }
+                  transition={{ ...lobbyTitleTransition, delay: shouldReduceMotion ? 0 : index * 0.04 }}
+                >
+                  {word}
+                </motion.span>
               ))}
-            </h1>
+            </motion.h1>
           </motion.div>
         </div>
       </div>

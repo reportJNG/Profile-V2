@@ -1,5 +1,6 @@
 ﻿"use client";
 
+import { ArrowDown, ArrowUp, CornerDownLeft } from "lucide-react";
 import type { PortfolioSection } from "@/lib/portfolio-content";
 
 type ModeProgressMarkersProps = {
@@ -27,11 +28,20 @@ export function ModeProgressMarkers({
   void _onSelectMode;
 
   return (
-    <nav className="mode-progress" aria-label="Game mode menu">
+    <nav className="mode-progress" aria-label="Game mode menu controls">
       <div className="mode-progress__keys" aria-label="Controls hint">
-        <span>UP</span>
-        <span>DOWN</span>
-        <span>ENTER</span>
+        <span className="mode-progress__keycap">
+          <ArrowUp aria-hidden="true" size={16} strokeWidth={2.2} />
+          <b>Up</b>
+        </span>
+        <span className="mode-progress__keycap">
+          <ArrowDown aria-hidden="true" size={16} strokeWidth={2.2} />
+          <b>Down</b>
+        </span>
+        <span className="mode-progress__keycap mode-progress__keycap--enter">
+          <CornerDownLeft aria-hidden="true" size={16} strokeWidth={2.2} />
+          <b>Enter</b>
+        </span>
       </div>
     </nav>
   );
