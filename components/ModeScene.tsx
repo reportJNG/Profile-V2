@@ -1,36 +1,34 @@
-"use client";
+﻿"use client";
 
 import { motion, useReducedMotion } from "motion/react";
 import type { CSSProperties } from "react";
 import { BackgroundLayer } from "@/components/BackgroundLayer";
 import { GameModeHeading } from "@/components/GameModeHeading";
-import { ModeTitle } from "@/components/ModeTitle";
-import { NarutoRenderLayer } from "@/components/NarutoRenderLayer";
 import { OverlayLayer } from "@/components/OverlayLayer";
 import { createLobbySwapVariants } from "@/lib/lobby-motion";
-import type { LobbyMode } from "@/lib/lobby-modes";
+import type { PortfolioSection } from "@/lib/portfolio-content";
 
 type Direction = 1 | -1;
 
 type ModeSceneProps = {
-  activeIndex: number;
   direction: Direction;
-  mode: LobbyMode;
-  total: number;
+  isEntered: boolean;
+  mode: PortfolioSection;
+  onEnterMode: () => boolean;
 };
 
 export function ModeScene({
-  activeIndex,
   direction,
+  isEntered,
   mode,
-  total,
+  onEnterMode,
 }: ModeSceneProps) {
   const shouldReduceMotion = useReducedMotion();
   const sceneVariants = createLobbySwapVariants(Boolean(shouldReduceMotion));
 
   return (
     <motion.section
-      aria-label={mode.title}
+      aria-label={mode.kicker}
       className={`mode-scene mode-scene--${mode.scene}`}
       custom={direction}
       initial="enter"
@@ -43,7 +41,6 @@ export function ModeScene({
           "--mode-secondary": mode.secondaryAccent,
           "--mode-shadow": mode.shadowColor,
           "--title-size": mode.titleSize,
-          "--figure-scale": mode.figureScale,
         } as CSSProperties
       }
     >
@@ -51,28 +48,38 @@ export function ModeScene({
       <OverlayLayer direction={direction} mode={mode} />
 
       <div className="mode-composition">
-        <GameModeHeading activeIndex={activeIndex} mode={mode} total={total} />
-        <ModeTitle direction={direction} mode={mode} />
-        <NarutoRenderLayer direction={direction} mode={mode} />
+        <GameModeHeading mode={mode} />
 
-        <motion.div
-          className="mode-small-label"
-          initial={
-            shouldReduceMotion
-              ? false
-              : { opacity: 0, x: direction > 0 ? 20 : -20 }
-          }
-          animate={{ opacity: 1, x: 0 }}
-          exit={
-            shouldReduceMotion
-              ? undefined
-              : { opacity: 0, x: direction > 0 ? -20 : 20 }
-          }
-          transition={{ duration: 0.46, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <span>{String(activeIndex + 1).padStart(2, "0")}</span>
-          <b>{mode.shortLabel}</b>
-        </motion.div>
+        <div className="mode-ornament mode-ornament--top" aria-hidden="true" />
+        <div className="mode-ornament mode-ornament--bottom" aria-hidden="true" />
+
+        <div className="landing-layout">
+          <motion.div
+            className="landing-title-wrap"
+            initial={
+              shouldReduceMotion
+                ? false
+                : { opacity: 0, y: direction > 0 ? 24 : -24, scale: 0.985 }
+            }
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={
+              shouldReduceMotion
+                ? undefined
+                : { opacity: 0, y: direction > 0 ? -24 : 24, scale: 1.02 }
+            }
+            transition={{ duration: 0.46, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <h1
+              className={`landing-title ${isEntered ? "is-entered" : ""}`}
+              data-title={mode.title}
+              onClick={() => onEnterMode()}
+            >
+              {mode.title.split(" ").map((word) => (
+                <span key={`${mode.id}-${word}`}>{word}</span>
+              ))}
+            </h1>
+          </motion.div>
+        </div>
       </div>
     </motion.section>
   );

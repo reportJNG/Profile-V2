@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -13,8 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Storm Lobby",
-  description: "A polished anime game first-level lobby menu.",
+  title: "Game Mode Select",
+  description:
+    "A game-style animated mode select landing page with cinematic transitions.",
 };
 
 export default function RootLayout({
@@ -27,7 +28,7 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full overflow-hidden bg-[#050507]">{children}</body>
+      <body className="min-h-full overflow-hidden bg-[#071018]">{children}</body>
     </html>
   );
 }

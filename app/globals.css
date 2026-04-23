@@ -1,8 +1,8 @@
-@import "tailwindcss";
+﻿@import "tailwindcss";
 
 :root {
-  --background: #050507;
-  --foreground: #f8fafc;
+  --background: #071018;
+  --foreground: #f5f7fb;
 }
 
 @theme inline {
@@ -25,11 +25,16 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), "Segoe UI", sans-serif;
   margin: 0;
   min-width: 320px;
   overflow: hidden;
   overscroll-behavior: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
 button {
@@ -37,7 +42,7 @@ button {
 }
 
 .lobby-scene-shell {
-  background: #050507;
+  background: #071018;
   color: white;
   isolation: isolate;
   min-height: 100dvh;
@@ -71,7 +76,6 @@ button {
 }
 
 .background-layer {
-  background: #050507;
   z-index: 0;
 }
 
@@ -87,13 +91,14 @@ button {
 .scene-sky,
 .scene-horizon,
 .scene-ground,
+.scene-grid,
 .scene-energy {
   inset: 0;
   position: absolute;
 }
 
 .background-base {
-  background: #050507;
+  background: #071018;
 }
 
 .background-photo {
@@ -108,35 +113,44 @@ button {
 }
 
 .scene-paint {
-  mix-blend-mode: normal;
+  opacity: 0.9;
 }
 
 .scene-sky {
-  opacity: 0.98;
+  opacity: 0.94;
 }
 
 .scene-horizon {
-  opacity: 0.9;
-  transform: skewX(-9deg);
+  opacity: 0.84;
+  transform: skewX(-8deg);
   transform-origin: center bottom;
 }
 
 .scene-horizon--back {
-  bottom: 19%;
-  height: 26%;
+  bottom: 22%;
+  height: 25%;
   top: auto;
 }
 
 .scene-horizon--mid {
-  bottom: 15%;
-  height: 17%;
+  bottom: 14%;
+  height: 18%;
   top: auto;
 }
 
 .scene-horizon--front {
-  bottom: 8%;
-  height: 18%;
+  bottom: 7%;
+  height: 17%;
   top: auto;
+}
+
+.scene-grid {
+  background:
+    linear-gradient(transparent, rgba(255, 255, 255, 0.04), transparent),
+    repeating-linear-gradient(90deg, transparent 0 88px, rgba(255, 255, 255, 0.06) 89px 90px, transparent 91px 180px),
+    repeating-linear-gradient(0deg, transparent 0 66px, rgba(255, 255, 255, 0.04) 67px 68px, transparent 69px 132px);
+  mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.12) 18%, rgba(0, 0, 0, 0.7) 42%, transparent 90%);
+  opacity: 0.14;
 }
 
 .scene-ground {
@@ -145,290 +159,241 @@ button {
 
 .scene-energy {
   mix-blend-mode: screen;
-  opacity: 0.56;
+  opacity: 0.42;
 }
 
 .scene-energy--one {
-  animation: energy-slide-one 8s ease-in-out infinite alternate;
+  animation: energy-slide-one 9s ease-in-out infinite alternate;
 }
 
 .scene-energy--two {
-  animation: energy-slide-two 7s ease-in-out infinite alternate;
+  animation: energy-slide-two 8s ease-in-out infinite alternate;
 }
 
 .mode-scene--story .background-base {
-  background:
-    linear-gradient(180deg, #201006 0%, #2a1107 40%, #070302 100%),
-    #050507;
+  background: linear-gradient(180deg, #26140b 0%, #3a1910 44%, #090406 100%);
 }
 
 .mode-scene--story .scene-paint {
   background:
-    linear-gradient(90deg, rgba(12, 4, 1, 0.86), rgba(61, 24, 4, 0.22) 48%, rgba(17, 6, 2, 0.48)),
-    linear-gradient(120deg, rgba(255, 176, 58, 0.34), transparent 56%),
-    repeating-linear-gradient(112deg, transparent 0 58px, rgba(255, 235, 190, 0.08) 59px 61px, transparent 62px 128px);
+    linear-gradient(116deg, rgba(245, 155, 45, 0.18), transparent 40%),
+    linear-gradient(90deg, rgba(16, 7, 5, 0.9), rgba(57, 21, 12, 0.34) 50%, rgba(16, 7, 5, 0.88));
 }
 
 .mode-scene--story .scene-sky {
   background:
-    radial-gradient(ellipse at 64% 36%, rgba(255, 211, 117, 0.32), transparent 43%),
-    linear-gradient(180deg, rgba(255, 154, 55, 0.28), transparent 58%);
+    radial-gradient(circle at 26% 24%, rgba(255, 198, 87, 0.2), transparent 34%),
+    linear-gradient(180deg, rgba(255, 214, 126, 0.08), transparent 58%);
 }
 
 .mode-scene--story .scene-horizon--back {
-  background: linear-gradient(120deg, transparent 0 8%, rgba(255, 206, 91, 0.16) 8% 20%, transparent 20% 28%, rgba(80, 30, 8, 0.58) 28% 48%, transparent 48% 56%, rgba(120, 43, 10, 0.48) 56% 100%);
-  clip-path: polygon(0 78%, 10% 56%, 20% 66%, 31% 38%, 43% 74%, 55% 48%, 70% 70%, 83% 44%, 100% 68%, 100% 100%, 0 100%);
+  background: linear-gradient(90deg, rgba(84, 46, 18, 0.56), rgba(255, 181, 76, 0.14), rgba(50, 23, 13, 0.56));
+  clip-path: polygon(0 80%, 13% 60%, 28% 73%, 44% 54%, 60% 74%, 78% 57%, 100% 71%, 100% 100%, 0 100%);
 }
 
 .mode-scene--story .scene-horizon--mid {
-  background: linear-gradient(90deg, rgba(88, 34, 9, 0.82), rgba(31, 11, 4, 0.7));
-  clip-path: polygon(0 72%, 14% 48%, 29% 67%, 41% 42%, 58% 70%, 75% 46%, 100% 62%, 100% 100%, 0 100%);
+  background: linear-gradient(90deg, rgba(20, 8, 5, 0.94), rgba(113, 52, 18, 0.5), rgba(19, 8, 6, 0.96));
+  clip-path: polygon(0 54%, 14% 31%, 30% 58%, 44% 35%, 61% 59%, 77% 34%, 100% 52%, 100% 100%, 0 100%);
 }
 
 .mode-scene--story .scene-horizon--front {
-  background:
-    repeating-linear-gradient(96deg, rgba(255, 184, 70, 0.12) 0 2px, transparent 2px 28px),
-    linear-gradient(90deg, rgba(22, 7, 3, 0.92), rgba(66, 23, 6, 0.8), rgba(16, 5, 3, 0.94));
-  clip-path: polygon(0 40%, 18% 55%, 34% 44%, 52% 61%, 68% 47%, 86% 56%, 100% 45%, 100% 100%, 0 100%);
+  background: linear-gradient(90deg, rgba(9, 4, 4, 0.96), rgba(87, 44, 13, 0.78), rgba(8, 4, 3, 0.98));
+  clip-path: polygon(0 45%, 18% 60%, 33% 44%, 52% 64%, 71% 45%, 100% 56%, 100% 100%, 0 100%);
 }
 
 .mode-scene--story .scene-ground {
-  height: 28%;
-  background:
-    linear-gradient(180deg, transparent, rgba(255, 123, 35, 0.08) 20%, rgba(2, 1, 1, 0.96) 76%),
-    repeating-linear-gradient(102deg, transparent 0 54px, rgba(255, 190, 90, 0.1) 55px 57px, transparent 58px 126px);
+  height: 31%;
+  background: linear-gradient(180deg, transparent, rgba(245, 155, 45, 0.08) 18%, rgba(8, 4, 4, 0.98) 76%);
 }
 
 .mode-scene--story .scene-energy--one {
-  background: linear-gradient(104deg, transparent 8%, rgba(255, 179, 58, 0.23) 38%, transparent 62%);
+  background: linear-gradient(104deg, transparent 8%, rgba(245, 155, 45, 0.2) 40%, transparent 66%);
 }
 
 .mode-scene--story .scene-energy--two {
-  background: linear-gradient(18deg, transparent 18%, rgba(255, 103, 42, 0.16) 49%, transparent 76%);
+  background: linear-gradient(18deg, transparent 20%, rgba(255, 229, 90, 0.14) 50%, transparent 78%);
 }
 
 .mode-scene--adventure .background-base {
-  background:
-    linear-gradient(180deg, #061b16 0%, #0a2411 48%, #030504 100%),
-    #050507;
+  background: linear-gradient(180deg, #0f1d0a 0%, #18300e 46%, #070907 100%);
 }
 
 .mode-scene--adventure .scene-paint {
   background:
-    linear-gradient(90deg, rgba(1, 7, 4, 0.86), rgba(16, 65, 28, 0.18) 48%, rgba(1, 8, 7, 0.44)),
-    repeating-linear-gradient(112deg, transparent 0 46px, rgba(162, 255, 135, 0.09) 47px 49px, transparent 50px 118px),
-    linear-gradient(128deg, rgba(126, 232, 94, 0.25), transparent 58%);
+    linear-gradient(120deg, rgba(87, 194, 48, 0.18), transparent 42%),
+    linear-gradient(90deg, rgba(5, 12, 5, 0.9), rgba(28, 70, 16, 0.34) 50%, rgba(5, 12, 5, 0.88));
 }
 
 .mode-scene--adventure .scene-sky {
   background:
-    linear-gradient(180deg, rgba(89, 214, 150, 0.26), rgba(38, 125, 92, 0.08) 48%, transparent),
-    radial-gradient(ellipse at 70% 30%, rgba(184, 255, 139, 0.2), transparent 40%);
+    radial-gradient(circle at 68% 24%, rgba(160, 255, 118, 0.18), transparent 34%),
+    linear-gradient(180deg, rgba(203, 255, 98, 0.08), transparent 56%);
 }
 
 .mode-scene--adventure .scene-horizon--back {
-  background: linear-gradient(90deg, rgba(46, 112, 43, 0.44), rgba(84, 177, 75, 0.18), rgba(23, 82, 51, 0.4));
-  clip-path: polygon(0 77%, 16% 55%, 30% 68%, 43% 48%, 58% 68%, 73% 52%, 100% 72%, 100% 100%, 0 100%);
+  background: linear-gradient(90deg, rgba(50, 104, 32, 0.52), rgba(203, 255, 98, 0.12), rgba(27, 75, 28, 0.5));
+  clip-path: polygon(0 78%, 14% 57%, 27% 72%, 43% 52%, 59% 74%, 75% 56%, 100% 70%, 100% 100%, 0 100%);
 }
 
 .mode-scene--adventure .scene-horizon--mid {
-  background:
-    repeating-linear-gradient(90deg, rgba(9, 30, 17, 0.94) 0 42px, rgba(63, 122, 55, 0.54) 42px 58px, transparent 58px 78px),
-    linear-gradient(180deg, transparent, rgba(8, 28, 15, 0.94));
-  clip-path: polygon(0 52%, 8% 28%, 14% 52%, 24% 34%, 30% 55%, 44% 25%, 56% 58%, 70% 31%, 86% 57%, 100% 41%, 100% 100%, 0 100%);
+  background: linear-gradient(90deg, rgba(8, 18, 6, 0.94), rgba(46, 107, 28, 0.52), rgba(8, 18, 6, 0.96));
+  clip-path: polygon(0 54%, 12% 32%, 29% 60%, 43% 37%, 61% 58%, 76% 35%, 100% 51%, 100% 100%, 0 100%);
 }
 
 .mode-scene--adventure .scene-horizon--front {
-  background:
-    repeating-linear-gradient(96deg, rgba(154, 255, 127, 0.12) 0 3px, transparent 3px 31px),
-    linear-gradient(90deg, rgba(4, 18, 10, 0.96), rgba(24, 78, 33, 0.76), rgba(3, 12, 8, 0.96));
-  clip-path: polygon(0 48%, 18% 59%, 33% 44%, 50% 62%, 72% 46%, 100% 55%, 100% 100%, 0 100%);
+  background: linear-gradient(90deg, rgba(5, 11, 5, 0.96), rgba(39, 92, 24, 0.76), rgba(4, 10, 4, 0.98));
+  clip-path: polygon(0 46%, 16% 60%, 34% 44%, 51% 63%, 72% 45%, 100% 56%, 100% 100%, 0 100%);
 }
 
 .mode-scene--adventure .scene-ground {
   height: 30%;
-  background:
-    linear-gradient(180deg, transparent, rgba(114, 255, 106, 0.08) 18%, rgba(2, 6, 4, 0.96) 74%),
-    repeating-linear-gradient(100deg, transparent 0 48px, rgba(127, 255, 147, 0.11) 49px 51px, transparent 52px 112px);
+  background: linear-gradient(180deg, transparent, rgba(87, 194, 48, 0.08) 18%, rgba(4, 8, 4, 0.98) 76%);
 }
 
 .mode-scene--adventure .scene-energy--one {
-  background: linear-gradient(102deg, transparent 6%, rgba(126, 232, 94, 0.2) 35%, transparent 64%);
+  background: linear-gradient(104deg, transparent 7%, rgba(87, 194, 48, 0.18) 38%, transparent 66%);
 }
 
 .mode-scene--adventure .scene-energy--two {
-  background: linear-gradient(18deg, transparent 20%, rgba(51, 208, 161, 0.18) 52%, transparent 78%);
+  background: linear-gradient(18deg, transparent 20%, rgba(203, 255, 98, 0.14) 50%, transparent 78%);
 }
 
 .mode-scene--collection .background-base {
-  background:
-    linear-gradient(180deg, #061225 0%, #07142e 48%, #020407 100%),
-    #050507;
+  background: linear-gradient(180deg, #091427 0%, #0c1b3a 46%, #06080d 100%);
 }
 
 .mode-scene--collection .scene-paint {
   background:
-    linear-gradient(90deg, rgba(2, 5, 13, 0.9), rgba(23, 63, 112, 0.2) 48%, rgba(3, 6, 14, 0.54)),
-    repeating-linear-gradient(90deg, transparent 0 72px, rgba(88, 201, 255, 0.09) 73px 75px, transparent 76px 148px),
-    repeating-linear-gradient(0deg, transparent 0 54px, rgba(142, 205, 255, 0.07) 55px 56px, transparent 57px 112px);
+    linear-gradient(120deg, rgba(79, 168, 255, 0.2), transparent 44%),
+    linear-gradient(90deg, rgba(5, 10, 21, 0.9), rgba(22, 67, 133, 0.34) 48%, rgba(5, 10, 21, 0.88));
 }
 
 .mode-scene--collection .scene-sky {
   background:
-    radial-gradient(ellipse at 64% 34%, rgba(93, 156, 255, 0.18), transparent 42%),
-    linear-gradient(180deg, rgba(62, 157, 255, 0.15), transparent 55%);
+    radial-gradient(circle at 64% 24%, rgba(180, 245, 255, 0.16), transparent 34%),
+    linear-gradient(180deg, rgba(79, 168, 255, 0.08), transparent 56%);
 }
 
 .mode-scene--collection .scene-horizon--back {
-  background:
-    repeating-linear-gradient(90deg, rgba(6, 14, 32, 0.94) 0 50px, rgba(42, 79, 133, 0.45) 50px 65px, rgba(8, 16, 34, 0.88) 65px 92px),
-    linear-gradient(180deg, rgba(100, 196, 255, 0.14), rgba(2, 5, 12, 0.8));
-  bottom: 18%;
-  clip-path: polygon(0 15%, 100% 6%, 100% 100%, 0 100%);
-  height: 44%;
-  transform: skewX(-3deg);
+  background: linear-gradient(90deg, rgba(30, 63, 126, 0.54), rgba(180, 245, 255, 0.12), rgba(16, 48, 106, 0.5));
+  bottom: 20%;
+  clip-path: polygon(0 18%, 100% 8%, 100% 100%, 0 100%);
+  height: 39%;
 }
 
 .mode-scene--collection .scene-horizon--mid {
-  background:
-    repeating-linear-gradient(90deg, rgba(11, 30, 65, 0.88) 0 38px, rgba(81, 148, 213, 0.26) 38px 46px, rgba(4, 11, 27, 0.88) 46px 76px),
-    repeating-linear-gradient(0deg, transparent 0 28px, rgba(152, 218, 255, 0.08) 29px 30px, transparent 31px 58px);
+  background: linear-gradient(90deg, rgba(8, 18, 42, 0.94), rgba(31, 87, 168, 0.48), rgba(8, 17, 38, 0.94));
   bottom: 14%;
-  clip-path: polygon(0 12%, 100% 20%, 100% 100%, 0 100%);
-  height: 34%;
-  transform: skewX(4deg);
+  clip-path: polygon(0 14%, 100% 23%, 100% 100%, 0 100%);
+  height: 30%;
 }
 
 .mode-scene--collection .scene-horizon--front {
-  background:
-    linear-gradient(90deg, rgba(2, 6, 16, 0.95), rgba(24, 60, 102, 0.7), rgba(2, 5, 13, 0.94)),
-    repeating-linear-gradient(90deg, transparent 0 68px, rgba(88, 201, 255, 0.12) 69px 72px, transparent 73px 136px);
-  bottom: 9%;
-  clip-path: polygon(0 36%, 100% 24%, 100% 100%, 0 100%);
-  height: 22%;
+  background: linear-gradient(90deg, rgba(5, 9, 22, 0.96), rgba(28, 78, 148, 0.74), rgba(5, 9, 22, 0.98));
+  bottom: 8%;
+  clip-path: polygon(0 38%, 100% 26%, 100% 100%, 0 100%);
+  height: 21%;
 }
 
 .mode-scene--collection .scene-ground {
-  height: 26%;
-  background:
-    linear-gradient(180deg, transparent, rgba(88, 201, 255, 0.08) 18%, rgba(2, 4, 9, 0.98) 76%),
-    repeating-linear-gradient(94deg, transparent 0 48px, rgba(88, 201, 255, 0.12) 49px 50px, transparent 51px 116px);
+  height: 27%;
+  background: linear-gradient(180deg, transparent, rgba(79, 168, 255, 0.08) 18%, rgba(3, 6, 12, 0.98) 76%);
 }
 
 .mode-scene--collection .scene-energy--one {
-  background: linear-gradient(104deg, transparent 8%, rgba(88, 201, 255, 0.18) 38%, transparent 62%);
+  background: linear-gradient(103deg, transparent 8%, rgba(79, 168, 255, 0.19) 39%, transparent 66%);
 }
 
 .mode-scene--collection .scene-energy--two {
-  background: linear-gradient(14deg, transparent 20%, rgba(71, 119, 255, 0.17) 52%, transparent 80%);
+  background: linear-gradient(16deg, transparent 20%, rgba(180, 245, 255, 0.12) 50%, transparent 78%);
 }
 
 .mode-scene--online .background-base {
-  background:
-    linear-gradient(180deg, #100721 0%, #160b2d 45%, #050207 100%),
-    #050507;
+  background: linear-gradient(180deg, #170f2b 0%, #24143d 46%, #07060c 100%);
 }
 
 .mode-scene--online .scene-paint {
   background:
-    linear-gradient(90deg, rgba(5, 2, 12, 0.9), rgba(70, 35, 125, 0.18) 48%, rgba(8, 3, 17, 0.52)),
-    repeating-linear-gradient(112deg, transparent 0 50px, rgba(190, 150, 255, 0.12) 51px 53px, transparent 54px 116px),
-    repeating-linear-gradient(68deg, transparent 0 74px, rgba(243, 109, 255, 0.08) 75px 77px, transparent 78px 144px);
+    linear-gradient(120deg, rgba(161, 110, 255, 0.18), transparent 42%),
+    linear-gradient(90deg, rgba(8, 6, 18, 0.92), rgba(77, 41, 118, 0.34) 50%, rgba(8, 6, 18, 0.9));
 }
 
 .mode-scene--online .scene-sky {
   background:
-    linear-gradient(180deg, rgba(169, 133, 255, 0.2), transparent 55%),
-    radial-gradient(ellipse at 65% 36%, rgba(243, 109, 255, 0.18), transparent 42%);
+    radial-gradient(circle at 67% 24%, rgba(241, 194, 255, 0.14), transparent 34%),
+    linear-gradient(180deg, rgba(161, 110, 255, 0.08), transparent 58%);
 }
 
 .mode-scene--online .scene-horizon--back {
-  background:
-    linear-gradient(90deg, rgba(34, 15, 67, 0.58), rgba(78, 43, 140, 0.32), rgba(24, 10, 53, 0.62));
-  clip-path: polygon(0 78%, 11% 50%, 24% 72%, 36% 44%, 47% 70%, 61% 48%, 75% 72%, 88% 46%, 100% 68%, 100% 100%, 0 100%);
+  background: linear-gradient(90deg, rgba(65, 34, 110, 0.56), rgba(241, 194, 255, 0.12), rgba(46, 22, 92, 0.54));
+  clip-path: polygon(0 79%, 12% 58%, 26% 74%, 42% 54%, 60% 75%, 78% 55%, 100% 70%, 100% 100%, 0 100%);
 }
 
 .mode-scene--online .scene-horizon--mid {
-  background:
-    repeating-linear-gradient(90deg, rgba(14, 5, 32, 0.94) 0 58px, rgba(119, 83, 208, 0.28) 58px 66px, transparent 66px 92px),
-    linear-gradient(180deg, transparent, rgba(8, 3, 20, 0.94));
-  clip-path: polygon(0 45%, 13% 22%, 28% 56%, 42% 28%, 58% 58%, 74% 30%, 90% 55%, 100% 37%, 100% 100%, 0 100%);
+  background: linear-gradient(90deg, rgba(11, 7, 27, 0.94), rgba(93, 47, 161, 0.48), rgba(11, 7, 26, 0.96));
+  clip-path: polygon(0 53%, 14% 30%, 29% 60%, 44% 35%, 59% 59%, 76% 34%, 100% 52%, 100% 100%, 0 100%);
 }
 
 .mode-scene--online .scene-horizon--front {
-  background:
-    repeating-linear-gradient(92deg, rgba(243, 109, 255, 0.14) 0 3px, transparent 3px 32px),
-    linear-gradient(90deg, rgba(5, 2, 12, 0.96), rgba(55, 25, 95, 0.78), rgba(4, 2, 10, 0.96));
-  clip-path: polygon(0 48%, 18% 60%, 34% 45%, 52% 62%, 70% 43%, 100% 57%, 100% 100%, 0 100%);
+  background: linear-gradient(90deg, rgba(7, 4, 16, 0.96), rgba(70, 35, 125, 0.76), rgba(6, 3, 15, 0.98));
+  clip-path: polygon(0 46%, 17% 60%, 34% 44%, 53% 64%, 72% 44%, 100% 56%, 100% 100%, 0 100%);
 }
 
 .mode-scene--online .scene-ground {
   height: 29%;
-  background:
-    linear-gradient(180deg, transparent, rgba(169, 133, 255, 0.09) 18%, rgba(3, 2, 7, 0.98) 75%),
-    repeating-linear-gradient(102deg, transparent 0 46px, rgba(208, 160, 255, 0.12) 47px 49px, transparent 50px 104px);
+  background: linear-gradient(180deg, transparent, rgba(161, 110, 255, 0.08) 18%, rgba(5, 4, 9, 0.98) 76%);
 }
 
 .mode-scene--online .scene-energy--one {
-  background: linear-gradient(105deg, transparent 6%, rgba(169, 133, 255, 0.25) 37%, transparent 65%);
+  background: linear-gradient(104deg, transparent 8%, rgba(161, 110, 255, 0.19) 39%, transparent 66%);
 }
 
 .mode-scene--online .scene-energy--two {
-  background: linear-gradient(18deg, transparent 21%, rgba(243, 109, 255, 0.2) 52%, transparent 78%);
+  background: linear-gradient(16deg, transparent 20%, rgba(241, 194, 255, 0.12) 50%, transparent 78%);
 }
 
 .mode-scene--free .background-base {
-  background:
-    linear-gradient(180deg, #230610 0%, #2a0710 44%, #070204 100%),
-    #050507;
+  background: linear-gradient(180deg, #26101a 0%, #381421 46%, #080408 100%);
 }
 
 .mode-scene--free .scene-paint {
   background:
-    linear-gradient(90deg, rgba(10, 2, 4, 0.9), rgba(109, 19, 35, 0.2) 48%, rgba(12, 2, 5, 0.54)),
-    repeating-linear-gradient(112deg, transparent 0 42px, rgba(255, 130, 165, 0.12) 43px 45px, transparent 46px 112px),
-    repeating-linear-gradient(64deg, transparent 0 92px, rgba(255, 73, 109, 0.1) 93px 96px, transparent 97px 168px);
+    linear-gradient(120deg, rgba(255, 113, 155, 0.18), transparent 42%),
+    linear-gradient(90deg, rgba(17, 7, 11, 0.92), rgba(92, 30, 54, 0.34) 50%, rgba(17, 7, 11, 0.9));
 }
 
 .mode-scene--free .scene-sky {
   background:
-    linear-gradient(180deg, rgba(255, 73, 109, 0.2), transparent 58%),
-    radial-gradient(ellipse at 68% 40%, rgba(255, 149, 186, 0.2), transparent 40%);
+    radial-gradient(circle at 32% 24%, rgba(255, 211, 107, 0.14), transparent 34%),
+    linear-gradient(180deg, rgba(255, 113, 155, 0.08), transparent 58%);
 }
 
 .mode-scene--free .scene-horizon--back {
-  background:
-    linear-gradient(90deg, rgba(96, 16, 29, 0.58), rgba(174, 35, 58, 0.28), rgba(69, 11, 22, 0.62));
-  clip-path: polygon(0 73%, 14% 48%, 26% 69%, 40% 45%, 53% 70%, 67% 44%, 82% 69%, 100% 52%, 100% 100%, 0 100%);
+  background: linear-gradient(90deg, rgba(112, 34, 61, 0.56), rgba(255, 211, 107, 0.12), rgba(95, 27, 50, 0.54));
+  clip-path: polygon(0 79%, 13% 58%, 27% 75%, 43% 54%, 60% 75%, 79% 55%, 100% 70%, 100% 100%, 0 100%);
 }
 
 .mode-scene--free .scene-horizon--mid {
-  background:
-    linear-gradient(90deg, rgba(18, 4, 9, 0.94), rgba(103, 17, 32, 0.72), rgba(15, 3, 8, 0.96)),
-    repeating-linear-gradient(88deg, transparent 0 58px, rgba(255, 149, 186, 0.1) 59px 62px, transparent 63px 128px);
-  clip-path: polygon(0 48%, 17% 34%, 30% 58%, 43% 31%, 59% 58%, 76% 35%, 100% 51%, 100% 100%, 0 100%);
+  background: linear-gradient(90deg, rgba(20, 7, 14, 0.94), rgba(122, 39, 71, 0.48), rgba(20, 7, 14, 0.96));
+  clip-path: polygon(0 53%, 14% 30%, 29% 60%, 44% 35%, 61% 58%, 77% 34%, 100% 52%, 100% 100%, 0 100%);
 }
 
 .mode-scene--free .scene-horizon--front {
-  background:
-    repeating-linear-gradient(96deg, rgba(255, 149, 186, 0.13) 0 3px, transparent 3px 29px),
-    linear-gradient(90deg, rgba(6, 2, 4, 0.96), rgba(125, 19, 39, 0.78), rgba(6, 2, 4, 0.96));
-  clip-path: polygon(0 45%, 15% 62%, 32% 43%, 51% 64%, 72% 43%, 100% 58%, 100% 100%, 0 100%);
+  background: linear-gradient(90deg, rgba(9, 4, 8, 0.96), rgba(117, 35, 67, 0.76), rgba(9, 4, 8, 0.98));
+  clip-path: polygon(0 46%, 16% 60%, 34% 44%, 52% 63%, 72% 44%, 100% 56%, 100% 100%, 0 100%);
 }
 
 .mode-scene--free .scene-ground {
   height: 30%;
-  background:
-    linear-gradient(180deg, transparent, rgba(255, 73, 109, 0.1) 19%, rgba(3, 1, 3, 0.98) 75%),
-    repeating-linear-gradient(104deg, transparent 0 40px, rgba(255, 149, 186, 0.13) 41px 43px, transparent 44px 98px);
+  background: linear-gradient(180deg, transparent, rgba(255, 113, 155, 0.08) 18%, rgba(7, 4, 6, 0.98) 76%);
 }
 
 .mode-scene--free .scene-energy--one {
-  background: linear-gradient(105deg, transparent 8%, rgba(255, 73, 109, 0.26) 39%, transparent 66%);
+  background: linear-gradient(104deg, transparent 8%, rgba(255, 113, 155, 0.18) 39%, transparent 66%);
 }
 
 .mode-scene--free .scene-energy--two {
-  background: linear-gradient(15deg, transparent 18%, rgba(255, 149, 186, 0.2) 52%, transparent 79%);
+  background: linear-gradient(16deg, transparent 20%, rgba(255, 211, 107, 0.12) 50%, transparent 78%);
 }
 
 .overlay-layer {
@@ -437,16 +402,16 @@ button {
 
 .overlay-vignette {
   background:
-    linear-gradient(90deg, rgba(0, 0, 0, 0.86) 0%, rgba(0, 0, 0, 0.58) 30%, rgba(0, 0, 0, 0.12) 61%, rgba(0, 0, 0, 0.46) 100%),
-    linear-gradient(180deg, rgba(0, 0, 0, 0.58), transparent 32%, rgba(0, 0, 0, 0.72) 100%);
+    linear-gradient(90deg, rgba(3, 6, 10, 0.82) 0%, rgba(5, 9, 15, 0.22) 40%, rgba(5, 8, 13, 0.08) 62%, rgba(3, 5, 9, 0.46) 100%),
+    linear-gradient(180deg, rgba(2, 4, 7, 0.76), transparent 32%, rgba(2, 4, 7, 0.88) 100%);
   inset: 0;
   position: absolute;
 }
 
 .overlay-bottom {
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.94), rgba(0, 0, 0, 0.52) 46%, transparent);
+  background: linear-gradient(0deg, rgba(2, 4, 7, 0.95), rgba(2, 4, 7, 0.42) 42%, transparent);
   bottom: 0;
-  height: 45%;
+  height: 42%;
   left: 0;
   position: absolute;
   right: 0;
@@ -454,21 +419,21 @@ button {
 
 .overlay-left-ink {
   background:
-    linear-gradient(92deg, rgba(0, 0, 0, 0.74), transparent 78%),
-    repeating-linear-gradient(112deg, rgba(255, 255, 255, 0.08) 0 1px, transparent 1px 11px);
+    linear-gradient(92deg, rgba(4, 8, 13, 0.58), transparent 78%),
+    repeating-linear-gradient(112deg, rgba(255, 255, 255, 0.08) 0 1px, transparent 1px 12px);
   inset: 0 auto 0 0;
   mask-image: linear-gradient(90deg, #000, transparent);
-  opacity: 0.42;
+  opacity: 0.28;
   position: absolute;
-  width: 47%;
+  width: 46%;
 }
 
 .overlay-speed {
   background:
-    repeating-linear-gradient(108deg, transparent 0 34px, rgba(255, 255, 255, 0.14) 35px 36px, transparent 37px 92px),
-    repeating-linear-gradient(108deg, transparent 0 118px, color-mix(in srgb, var(--mode-accent), transparent 74%) 120px 123px, transparent 124px 220px);
+    repeating-linear-gradient(108deg, transparent 0 40px, rgba(255, 255, 255, 0.08) 41px 42px, transparent 43px 110px),
+    repeating-linear-gradient(108deg, transparent 0 118px, color-mix(in srgb, var(--mode-accent), transparent 78%) 120px 123px, transparent 124px 220px);
   inset: 0;
-  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent);
   mix-blend-mode: screen;
   position: absolute;
   will-change: transform, opacity;
@@ -476,8 +441,8 @@ button {
 
 .overlay-sweep {
   background:
-    linear-gradient(106deg, transparent 0%, color-mix(in srgb, var(--mode-accent), transparent 78%) 32%, rgba(255, 255, 255, 0.08) 43%, transparent 65%),
-    repeating-linear-gradient(106deg, transparent 0 48px, rgba(255, 255, 255, 0.08) 49px 50px, transparent 51px 108px);
+    linear-gradient(106deg, transparent 0%, color-mix(in srgb, var(--mode-accent), transparent 82%) 32%, rgba(255, 255, 255, 0.06) 43%, transparent 65%),
+    repeating-linear-gradient(106deg, transparent 0 52px, rgba(255, 255, 255, 0.05) 53px 54px, transparent 55px 120px);
   inset: -2%;
   mix-blend-mode: screen;
   position: absolute;
@@ -487,509 +452,306 @@ button {
 .overlay-grain {
   animation: grain-shift 900ms steps(2, end) infinite;
   background-image:
-    repeating-radial-gradient(circle at 18% 24%, rgba(255, 255, 255, 0.13) 0 1px, transparent 1px 5px),
+    repeating-radial-gradient(circle at 18% 24%, rgba(255, 255, 255, 0.12) 0 1px, transparent 1px 5px),
     repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.04) 0 1px, transparent 1px 5px);
   inset: -5%;
   mix-blend-mode: overlay;
-  opacity: 0.22;
+  opacity: 0.16;
   position: absolute;
 }
 
 .overlay-ui-line {
-  background: linear-gradient(90deg, transparent, var(--mode-accent), rgba(255, 255, 255, 0.32), transparent);
+  background: linear-gradient(90deg, transparent, var(--mode-accent), rgba(255, 255, 255, 0.18), transparent);
   height: 1px;
   left: 0;
-  opacity: 0.68;
+  opacity: 0.5;
   position: absolute;
   right: 0;
 }
 
 .overlay-ui-line--top {
-  top: 14%;
+  top: 13%;
 }
 
 .overlay-ui-line--bottom {
-  bottom: 16%;
+  bottom: 13%;
 }
 
 .game-mode-heading {
-  align-items: center;
   background:
-    linear-gradient(100deg, rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.34) 70%, transparent),
-    linear-gradient(90deg, color-mix(in srgb, var(--mode-accent), transparent 28%), transparent 78%);
-  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.32);
-  clip-path: polygon(12px 0, 100% 0, calc(100% - 18px) 100%, 0 100%);
-  color: #fff9ed;
+    linear-gradient(180deg, rgba(0, 0, 0, 0.18), transparent),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.86), rgba(0, 0, 0, 0.48) 68%, transparent);
+  clip-path: polygon(0 0, 100% 0, calc(100% - 1.2rem) 100%, 0 100%);
+  color: #fbf7cb;
   display: inline-flex;
-  gap: 0.7rem;
-  left: clamp(1.1rem, 5.6%, 4.9rem);
-  min-height: 2.7rem;
-  overflow: hidden;
-  padding: 0.65rem 1.5rem 0.65rem 1.05rem;
+  gap: 0.85rem;
+  left: clamp(1rem, 4.8vw, 4rem);
+  padding: 0.75rem 1.5rem 0.75rem 0.95rem;
   position: absolute;
-  text-transform: uppercase;
-  top: clamp(1.1rem, 4.2%, 2.55rem);
+  text-shadow: 0 0 12px rgba(255, 243, 147, 0.38);
+  top: clamp(1rem, 4vw, 2rem);
   z-index: 24;
 }
 
-.game-mode-heading::before {
-  background:
-    repeating-linear-gradient(102deg, rgba(255, 255, 255, 0.18) 0 2px, transparent 2px 9px),
-    linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.16), transparent);
-  content: "";
-  inset: 0;
-  opacity: 0.58;
-  position: absolute;
-}
-
-.game-mode-heading__slash,
 .game-mode-heading__text,
 .game-mode-heading__count,
 .game-mode-heading__echo {
-  position: relative;
-  z-index: 1;
-}
-
-.game-mode-heading__slash {
-  background: var(--mode-accent);
-  box-shadow: 0 0 20px var(--mode-accent);
-  height: 1.35rem;
-  transform: skewX(-18deg);
-  width: 0.38rem;
-}
-
-.game-mode-heading__text {
-  font-size: 0.78rem;
-  font-weight: 950;
-  letter-spacing: 0;
-  line-height: 1;
+  font-family: "Brush Script MT", "Segoe Print", "Comic Sans MS", cursive;
+  font-size: 2rem;
+  font-style: italic;
+  font-weight: 700;
+  line-height: 0.95;
 }
 
 .game-mode-heading__count {
-  color: color-mix(in srgb, var(--mode-accent), white 22%);
+  align-self: flex-end;
+  color: rgba(255, 252, 216, 0.62);
   font-family: var(--font-geist-mono), monospace;
-  font-size: 0.74rem;
-  font-weight: 900;
-  line-height: 1;
+  font-size: 0.76rem;
+  font-style: normal;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.22rem;
 }
 
 .game-mode-heading__echo {
-  bottom: -0.62rem;
-  color: rgba(255, 255, 255, 0.12);
-  font-size: 2rem;
-  font-weight: 1000;
-  left: 2.9rem;
-  line-height: 1;
-  position: absolute;
-  transform: skewX(-9deg);
-  white-space: nowrap;
+  display: none;
 }
 
-.mode-title {
-  color: #fff8ec;
-  font-family: Impact, Haettenschweiler, "Arial Black", var(--font-geist-sans), sans-serif;
-  font-size: var(--title-size, 8.6rem);
-  font-style: italic;
-  font-weight: 1000;
-  left: clamp(1.2rem, 6.2%, 5.9rem);
-  letter-spacing: 0;
-  line-height: 0.76;
-  margin: 0;
-  max-width: min(58rem, 58%);
-  pointer-events: none;
-  position: absolute;
-  text-transform: uppercase;
-  top: clamp(8.4rem, 22%, 14rem);
-  transform: rotate(-1deg);
-  z-index: 18;
-}
-
-.mode-title::after {
-  background:
-    linear-gradient(92deg, color-mix(in srgb, var(--mode-accent), white 8%), transparent 76%),
-    repeating-linear-gradient(92deg, rgba(255, 255, 255, 0.42) 0 2px, transparent 2px 11px);
-  bottom: -0.18em;
-  box-shadow: 0 0 32px color-mix(in srgb, var(--mode-accent), transparent 30%);
-  content: "";
-  height: 0.12em;
-  left: 0.03em;
-  opacity: 0.95;
-  position: absolute;
-  transform: skewX(-18deg);
-  width: min(5.7em, 52rem);
-}
-
-.mode-title__word {
-  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.08);
-  color: #fff9f0;
-  display: block;
-  filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.48));
-  letter-spacing: 0;
-  position: relative;
-  text-shadow:
-    0 3px 0 rgba(0, 0, 0, 0.62),
-    0 7px 0 rgba(0, 0, 0, 0.2),
-    0 0 34px color-mix(in srgb, var(--mode-accent), transparent 40%);
-  transform-origin: left center;
-  white-space: nowrap;
-  width: max-content;
-}
-
-.mode-title__word::before {
-  -webkit-text-stroke: 0.05em rgba(0, 0, 0, 0.68);
-  color: var(--mode-shadow);
-  content: attr(data-word);
-  inset: 0;
-  opacity: 0.82;
-  position: absolute;
-  transform: translate(0.045em, 0.06em);
-  z-index: -2;
-}
-
-.mode-title__word::after {
-  background: linear-gradient(90deg, var(--mode-accent), transparent 72%);
-  bottom: 0.02em;
-  content: "";
-  height: 0.045em;
-  left: 0.02em;
-  opacity: 0.72;
-  position: absolute;
-  transform: skewX(-18deg);
-  width: 94%;
-  z-index: -1;
-}
-
-.mode-small-label {
+.landing-layout {
   align-items: center;
-  bottom: clamp(5.6rem, 12%, 8.5rem);
-  color: rgba(255, 255, 255, 0.82);
-  display: inline-flex;
-  gap: 0.8rem;
-  left: clamp(1.25rem, 6.3%, 6rem);
-  position: absolute;
-  text-transform: uppercase;
-  z-index: 20;
+  display: flex;
+  min-height: 100dvh;
+  padding: clamp(6.5rem, 12vw, 8.6rem) clamp(1rem, 5vw, 4rem) clamp(10rem, 18vh, 12rem);
 }
 
-.mode-small-label span {
-  border-left: 4px solid var(--mode-accent);
-  color: color-mix(in srgb, var(--mode-accent), white 26%);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 1.05rem;
-  font-weight: 1000;
-  line-height: 1;
-  padding-left: 0.7rem;
-}
-
-.mode-small-label b {
-  font-size: 0.8rem;
-  font-weight: 950;
-  letter-spacing: 0;
-  line-height: 1;
-}
-
-.naruto-layer {
-  bottom: clamp(-4.5rem, -8%, -2rem);
-  height: min(84dvh, 48rem);
-  pointer-events: none;
-  position: absolute;
-  right: clamp(-4.8rem, -4.5%, -1.8rem);
-  transform-origin: 62% 58%;
-  width: min(47rem, 48%);
-  z-index: 16;
-}
-
-.naruto-aura {
-  background:
-    linear-gradient(105deg, transparent 0%, color-mix(in srgb, var(--pose-accent), transparent 70%) 36%, rgba(255, 255, 255, 0.12) 46%, transparent 68%),
-    repeating-linear-gradient(105deg, transparent 0 44px, color-mix(in srgb, var(--pose-secondary), transparent 76%) 45px 47px, transparent 48px 116px);
-  filter: blur(1px);
-  inset: 4% -16% 10% -24%;
-  mix-blend-mode: screen;
-  opacity: 0.72;
-  position: absolute;
-  transform: skewX(-10deg);
-}
-
-.naruto-render {
-  display: block;
-  height: 100%;
-  overflow: visible;
+.landing-title-wrap {
+  max-width: min(60rem, 72vw);
   position: relative;
-  transform: scale(var(--figure-scale, 1));
-  transform-origin: center bottom;
-  width: 100%;
   z-index: 2;
 }
 
-.ninja-trails,
-.ninja-figure,
-.ninja-arm,
-.ninja-leg,
-.ninja-body,
-.ninja-head {
-  transform-box: fill-box;
-  transform-origin: center;
+.mode-ornament {
+  left: clamp(13rem, 24vw, 21rem);
+  position: absolute;
+  width: 2.1rem;
+  z-index: 18;
 }
 
-.ninja-trails path {
-  fill: color-mix(in srgb, var(--pose-accent), transparent 72%);
-  opacity: 0.58;
-  stroke: color-mix(in srgb, var(--pose-secondary), white 14%);
-  stroke-width: 2;
+.mode-ornament::before,
+.mode-ornament::after {
+  content: "";
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
 }
 
-.ninja-ground-shadow {
-  fill: rgba(0, 0, 0, 0.48);
+.mode-ornament::before {
+  border-bottom: 0.95rem solid color-mix(in srgb, var(--mode-secondary), white 8%);
+  border-left: 0.62rem solid transparent;
+  border-right: 0.62rem solid transparent;
+  filter: drop-shadow(0 0 10px color-mix(in srgb, var(--mode-secondary), transparent 44%));
+  top: 0;
 }
 
-.ninja-leg path:first-child,
-.ninja-arm path:first-child {
-  fill: #151a24;
-  stroke: rgba(255, 255, 255, 0.12);
-  stroke-width: 3;
+.mode-ornament::after {
+  background: color-mix(in srgb, var(--mode-secondary), white 8%);
+  border-radius: 999px;
+  height: 0.46rem;
+  top: 1rem;
+  width: 0.34rem;
 }
 
-.ninja-leg--front path:first-child,
-.ninja-arm--front path:first-child {
-  fill: #e96b1e;
+.mode-ornament--top {
+  top: 8.8rem;
 }
 
-.ninja-leg path:last-child,
-.ninja-arm path:last-child {
-  fill: #111621;
-  stroke: rgba(255, 255, 255, 0.13);
-  stroke-width: 3;
+.mode-ornament--bottom {
+  bottom: 11.7rem;
 }
 
-.ninja-jacket {
-  stroke: rgba(255, 255, 255, 0.16);
-  stroke-width: 3;
+.mode-ornament--bottom::before {
+  border-bottom: 0;
+  border-left: 0.62rem solid transparent;
+  border-right: 0.62rem solid transparent;
+  border-top: 0.95rem solid color-mix(in srgb, var(--mode-secondary), white 8%);
+  top: auto;
 }
 
-.ninja-jacket-dark,
-.ninja-collar,
-.ninja-waist {
-  fill: #111722;
+.mode-ornament--bottom::after {
+  bottom: 1rem;
+  top: auto;
 }
 
-.ninja-waist {
-  stroke: rgba(255, 255, 255, 0.12);
-  stroke-width: 2;
+.landing-title {
+  color: #fff8ed;
+  display: block;
+  font-family: Impact, Haettenschweiler, "Arial Black", var(--font-geist-sans), sans-serif;
+  font-size: var(--title-size, 8rem);
+  font-style: italic;
+  font-weight: 900;
+  letter-spacing: -0.06em;
+  line-height: 0.82;
+  margin: 0;
+  max-width: 9.2ch;
+  position: relative;
+  text-shadow:
+    0 5px 0 rgba(0, 0, 0, 0.34),
+    0 12px 22px rgba(0, 0, 0, 0.34),
+    0 0 30px color-mix(in srgb, var(--mode-accent), transparent 68%);
+  text-transform: none;
 }
 
-.ninja-zip {
-  fill: none;
-  stroke: rgba(255, 255, 255, 0.36);
-  stroke-linecap: round;
-  stroke-width: 3;
+.landing-title span {
+  -webkit-text-stroke: 0.22rem #fff8de;
+  color: var(--mode-accent);
+  display: block;
+  paint-order: stroke fill;
+  position: relative;
 }
 
-.ninja-hair {
-  fill: #ffce45;
-  stroke: #6b3c10;
-  stroke-linejoin: round;
-  stroke-width: 4;
+.landing-title span:last-child {
+  color: color-mix(in srgb, var(--mode-secondary), var(--mode-accent) 22%);
 }
 
-.ninja-face,
-.ninja-ear {
-  fill: #f1b782;
-  stroke: rgba(42, 15, 8, 0.45);
-  stroke-width: 2;
+.landing-title::after {
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.84), transparent 72%),
+    repeating-linear-gradient(90deg, rgba(255, 240, 190, 0.32) 0 0.25rem, transparent 0.25rem 0.9rem);
+  border-radius: 999px;
+  box-shadow: 0 0 22px color-mix(in srgb, var(--mode-secondary), transparent 56%);
+  content: "";
+  height: 0.34rem;
+  left: 0.4rem;
+  opacity: 0.7;
+  position: absolute;
+  top: calc(100% + 0.9rem);
+  transform: skewX(-24deg);
+  width: min(18rem, 55vw);
 }
 
-.ninja-headband {
-  fill: #1a2334;
-  stroke: rgba(255, 255, 255, 0.18);
-  stroke-width: 3;
+.landing-title.is-entered {
+  transform: scale(1.025);
 }
 
-.ninja-plate {
-  fill: #d5dbe2;
-  stroke: #6c7480;
-  stroke-width: 2;
+.landing-title.is-entered span {
+  filter: drop-shadow(0 0 18px color-mix(in srgb, var(--mode-secondary), transparent 36%));
 }
 
-.ninja-eye,
-.ninja-mouth,
-.ninja-whisker {
-  fill: none;
-  stroke: #27150d;
-  stroke-linecap: round;
+.landing-enter-state {
+  align-items: center;
+  display: inline-flex;
+  gap: 0.7rem;
+  margin-top: 2rem;
 }
 
-.ninja-eye {
-  stroke-width: 4;
+.landing-enter-state span,
+.landing-enter-state b,
+.landing-enter-state small,
+.landing-enter-state button {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  color: rgba(245, 247, 251, 0.82);
+  display: inline-flex;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  padding: 0.66rem 0.84rem;
+  text-transform: uppercase;
 }
 
-.ninja-mouth {
-  stroke-width: 3;
+.landing-enter-state span {
+  background: color-mix(in srgb, var(--mode-accent), transparent 80%);
 }
 
-.ninja-whisker {
-  opacity: 0.6;
-  stroke-width: 2.4;
-}
-
-.naruto-render--resolved .ninja-figure {
-  transform: translate(2px, -6px) rotate(-1deg);
-}
-
-.naruto-render--resolved .ninja-arm--front {
-  transform: rotate(4deg) translate(-2px, 4px);
-}
-
-.naruto-render--resolved .ninja-arm--back {
-  transform: rotate(-5deg) translate(4px, 2px);
-}
-
-.naruto-render--resolved .ninja-leg--front {
-  transform: rotate(3deg) translate(4px, 0);
-}
-
-.naruto-render--resolved .ninja-leg--back {
-  transform: rotate(-3deg) translate(-3px, 0);
-}
-
-.naruto-render--stride .ninja-figure {
-  transform: translate(-4px, -2px) rotate(-4deg);
-}
-
-.naruto-render--stride .ninja-arm--front {
-  transform: rotate(-18deg) translate(-10px, -4px);
-}
-
-.naruto-render--stride .ninja-arm--back {
-  transform: rotate(16deg) translate(10px, 4px);
-}
-
-.naruto-render--stride .ninja-leg--front {
-  transform: rotate(-16deg) translate(-16px, 8px);
-}
-
-.naruto-render--stride .ninja-leg--back {
-  transform: rotate(12deg) translate(12px, -2px);
-}
-
-.naruto-render--focus .ninja-figure {
-  transform: translate(0, -8px) scale(0.98);
-}
-
-.naruto-render--focus .ninja-arm--front {
-  transform: rotate(28deg) translate(20px, -34px);
-}
-
-.naruto-render--focus .ninja-arm--back {
-  transform: rotate(-28deg) translate(-18px, -32px);
-}
-
-.naruto-render--focus .ninja-head {
-  transform: translate(0, 5px);
-}
-
-.naruto-render--ready .ninja-figure {
-  transform: translate(6px, 18px) rotate(3deg) scale(0.98);
-}
-
-.naruto-render--ready .ninja-body {
-  transform: rotate(5deg);
-}
-
-.naruto-render--ready .ninja-arm--front {
-  transform: rotate(-28deg) translate(-22px, -8px);
-}
-
-.naruto-render--ready .ninja-arm--back {
-  transform: rotate(22deg) translate(18px, 0);
-}
-
-.naruto-render--ready .ninja-leg--front {
-  transform: rotate(-18deg) translate(-22px, 18px);
-}
-
-.naruto-render--ready .ninja-leg--back {
-  transform: rotate(20deg) translate(24px, 8px);
-}
-
-.naruto-render--strike .ninja-figure {
-  transform: translate(-12px, 4px) rotate(-7deg) scale(1.02);
-}
-
-.naruto-render--strike .ninja-body {
-  transform: rotate(-4deg);
-}
-
-.naruto-render--strike .ninja-arm--front {
-  transform: rotate(-44deg) translate(-52px, -22px) scale(1.06);
-}
-
-.naruto-render--strike .ninja-arm--back {
-  transform: rotate(30deg) translate(24px, 8px);
-}
-
-.naruto-render--strike .ninja-leg--front {
-  transform: rotate(-24deg) translate(-28px, 20px);
-}
-
-.naruto-render--strike .ninja-leg--back {
-  transform: rotate(18deg) translate(22px, 2px);
+.landing-enter-state button {
+  background: transparent;
+  cursor: pointer;
 }
 
 .mode-progress {
-  align-items: center;
-  bottom: clamp(1.6rem, 5%, 3rem);
-  display: flex;
-  gap: 0.5rem;
-  left: clamp(1.2rem, 6.2%, 5.9rem);
+  bottom: clamp(1.4rem, 4vh, 2.6rem);
+  left: clamp(1rem, 5vw, 4rem);
   position: absolute;
   z-index: 40;
 }
 
-.mode-progress::before {
-  background: linear-gradient(90deg, var(--mode-accent), rgba(255, 255, 255, 0.28), transparent);
-  content: "";
-  height: 1px;
-  left: 0;
-  opacity: 0.78;
-  position: absolute;
-  right: -8.6rem;
-  top: -0.85rem;
+.mode-progress__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.24rem;
 }
 
 .mode-progress__marker {
-  align-items: center;
   background: transparent;
   border: 0;
+  color: rgba(243, 245, 248, 0.42);
   cursor: pointer;
   display: inline-flex;
-  height: 2.15rem;
-  justify-content: center;
+  justify-content: flex-start;
   padding: 0;
-  width: 1.15rem;
+  text-align: left;
+  transition:
+    color 180ms ease,
+    transform 180ms ease,
+    text-shadow 180ms ease,
+    filter 180ms ease;
+}
+
+.mode-progress__marker:hover {
+  color: rgba(255, 255, 255, 0.72);
 }
 
 .mode-progress__marker:focus-visible {
-  outline: 2px solid rgba(255, 255, 255, 0.82);
-  outline-offset: 4px;
+  outline: none;
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.35);
 }
 
-.mode-progress__mark {
-  background: rgba(255, 255, 255, 0.42);
-  height: 1.2rem;
-  transform: skewX(-18deg) scaleY(0.66);
-  transition:
-    background-color 220ms ease,
-    box-shadow 220ms ease,
-    transform 220ms ease;
-  width: 0.2rem;
+.mode-progress__label {
+  font-family: Impact, Haettenschweiler, "Arial Black", var(--font-geist-sans), sans-serif;
+  font-size: clamp(1.8rem, 3.1vw, 2.6rem);
+  font-style: italic;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  text-transform: none;
 }
 
-.mode-progress__marker.is-active .mode-progress__mark {
-  background: var(--marker-accent);
-  box-shadow: 0 0 20px var(--marker-accent);
-  transform: skewX(-18deg) scaleY(1.35);
-  width: 0.34rem;
+.mode-progress__marker.is-active {
+  color: #fffaf0;
+  filter: drop-shadow(0 0 16px color-mix(in srgb, var(--marker-accent), transparent 56%));
+  text-shadow:
+    0 8px 18px rgba(0, 0, 0, 0.38),
+    0 0 24px color-mix(in srgb, var(--marker-accent), transparent 68%);
+  transform: translateX(0.55rem) scale(1.02);
+}
+
+.mode-progress__marker.is-entered .mode-progress__label::after {
+  background: linear-gradient(90deg, var(--marker-accent), transparent 72%);
+  border-radius: 999px;
+  content: "";
+  display: block;
+  height: 0.14rem;
+  margin-top: 0.3rem;
+  width: 88%;
+}
+
+.mode-progress__keys {
+  display: inline-flex;
+  gap: 0.55rem;
+  margin-top: 1.4rem;
+}
+
+.mode-progress__keys span {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  color: rgba(243, 246, 250, 0.8);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 0.5rem 0.72rem;
 }
 
 @keyframes energy-slide-one {
@@ -1022,170 +784,98 @@ button {
   }
 }
 
-@media (max-width: 1180px) {
-  .mode-scene--story {
-    --title-size: 9rem;
+@media (max-width: 980px) {
+  .landing-layout {
+    align-items: flex-start;
+    padding-bottom: 10rem;
+    padding-top: 7rem;
   }
 
-  .mode-scene--adventure {
-    --title-size: 7.6rem;
+  .landing-title-wrap {
+    max-width: min(100%, 34rem);
   }
 
-  .mode-scene--collection {
-    --title-size: 7.2rem;
-  }
-
-  .mode-scene--online {
-    --title-size: 6.6rem;
-  }
-
-  .mode-scene--free {
-    --title-size: 7rem;
-  }
-
-  .mode-title {
-    max-width: 62%;
-  }
-
-  .naruto-layer {
-    height: min(80dvh, 42rem);
-    right: -5.8rem;
-    width: 48%;
-  }
-}
-
-@media (max-width: 880px) {
-  .mode-scene--story,
-  .mode-scene--adventure,
-  .mode-scene--collection,
-  .mode-scene--online,
-  .mode-scene--free {
-    --title-size: 5.7rem;
-  }
-
-  .mode-scene--online,
-  .mode-scene--free {
-    --title-size: 5.1rem;
-  }
-
-  .mode-title {
-    left: 1.25rem;
-    max-width: calc(100% - 2.5rem);
-    top: 7.4rem;
-  }
-
-  .naruto-layer {
-    bottom: -4rem;
-    height: min(72dvh, 36rem);
-    opacity: 0.95;
-    right: -6.4rem;
-    width: 64%;
-  }
-
-  .game-mode-heading {
-    left: 1rem;
-    top: 1rem;
-  }
-
-  .mode-small-label {
-    bottom: 5.2rem;
-    left: 1.25rem;
+  .mode-ornament {
+    left: clamp(9rem, 27vw, 14rem);
   }
 
   .mode-progress {
-    bottom: 1.55rem;
-    left: 1.25rem;
+    bottom: 1.4rem;
+    left: 1rem;
+    right: 1rem;
+  }
+
+  .overlay-left-ink {
+    width: 62%;
+  }
+}
+
+@media (max-width: 640px) {
+  .game-mode-heading {
+    gap: 0.7rem;
+    left: 1rem;
+    padding: 0.6rem 1rem 0.6rem 0.78rem;
+    top: 1rem;
+  }
+
+  .game-mode-heading__text {
+    font-size: 1.4rem;
+  }
+
+  .landing-layout {
+    padding: 5.4rem 1rem 10.2rem;
+  }
+
+  .landing-title {
+    font-size: clamp(3.8rem, 16vw, 5.4rem);
+    max-width: 100%;
+  }
+
+  .landing-title span {
+    -webkit-text-stroke-width: 0.16rem;
+  }
+
+  .landing-title::after {
+    width: min(11rem, calc(100vw - 3rem));
+  }
+
+  .landing-enter-state {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .mode-ornament {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .mode-ornament--top {
+    top: 6.4rem;
+  }
+
+  .mode-ornament--bottom {
+    bottom: 12.6rem;
+  }
+
+  .mode-progress__label {
+    font-size: clamp(1.45rem, 7.2vw, 2.1rem);
+  }
+
+  .mode-progress__marker.is-active {
+    transform: translateX(0.2rem);
+  }
+
+  .mode-progress__keys {
+    flex-wrap: wrap;
+    margin-top: 1rem;
   }
 
   .overlay-vignette {
     background:
-      linear-gradient(90deg, rgba(0, 0, 0, 0.84) 0%, rgba(0, 0, 0, 0.44) 42%, rgba(0, 0, 0, 0.36) 100%),
-      linear-gradient(180deg, rgba(0, 0, 0, 0.6), transparent 28%, rgba(0, 0, 0, 0.82) 100%);
-  }
-}
-
-@media (max-width: 560px) {
-  .mode-scene--story,
-  .mode-scene--adventure,
-  .mode-scene--collection,
-  .mode-scene--online,
-  .mode-scene--free {
-    --title-size: 4.25rem;
-  }
-
-  .mode-scene--online,
-  .mode-scene--free,
-  .mode-scene--collection {
-    --title-size: 3.85rem;
-  }
-
-  .game-mode-heading {
-    gap: 0.55rem;
-    min-height: 2.45rem;
-    padding: 0.58rem 1.1rem 0.58rem 0.9rem;
-  }
-
-  .game-mode-heading__text {
-    font-size: 0.68rem;
-  }
-
-  .game-mode-heading__count {
-    font-size: 0.66rem;
-  }
-
-  .game-mode-heading__echo {
-    display: none;
-  }
-
-  .mode-title {
-    left: 1rem;
-    top: 6.9rem;
-  }
-
-  .mode-title::after {
-    width: min(4.8em, calc(100vw - 2rem));
-  }
-
-  .naruto-layer {
-    bottom: -2.8rem;
-    height: min(63dvh, 30rem);
-    right: -5.6rem;
-    width: 86%;
-  }
-
-  .mode-small-label {
-    bottom: 5rem;
-    left: 1rem;
-  }
-
-  .mode-small-label span {
-    font-size: 0.92rem;
-  }
-
-  .mode-small-label b {
-    font-size: 0.72rem;
-  }
-
-  .mode-progress {
-    left: 1rem;
-  }
-
-  .overlay-left-ink {
-    width: 72%;
-  }
-}
-
-@media (max-height: 680px) and (min-width: 700px) {
-  .mode-title {
-    top: 6.8rem;
-  }
-
-  .naruto-layer {
-    height: min(86dvh, 39rem);
-  }
-
-  .mode-small-label {
-    bottom: 4.9rem;
+      linear-gradient(90deg, rgba(3, 6, 10, 0.86) 0%, rgba(5, 9, 15, 0.18) 46%, rgba(3, 6, 10, 0.6) 100%),
+      linear-gradient(180deg, rgba(2, 4, 7, 0.78), transparent 28%, rgba(2, 4, 7, 0.9) 100%);
   }
 }
 

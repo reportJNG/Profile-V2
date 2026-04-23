@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
@@ -7,13 +7,13 @@ import {
   createBackgroundVariants,
   lobbyBackgroundTransition,
 } from "@/lib/lobby-motion";
-import type { LobbyMode } from "@/lib/lobby-modes";
+import type { PortfolioSection } from "@/lib/portfolio-content";
 
 type Direction = 1 | -1;
 
 type BackgroundLayerProps = {
   direction: Direction;
-  mode: LobbyMode;
+  mode: PortfolioSection;
 };
 
 export function BackgroundLayer({ direction, mode }: BackgroundLayerProps) {
@@ -62,6 +62,7 @@ export function BackgroundLayer({ direction, mode }: BackgroundLayerProps) {
         <div className="scene-horizon scene-horizon--back" />
         <div className="scene-horizon scene-horizon--mid" />
         <div className="scene-horizon scene-horizon--front" />
+        <div className="scene-grid" />
         <div className="scene-ground" />
         <div className="scene-energy scene-energy--one" />
         <div className="scene-energy scene-energy--two" />

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { LobbySceneShell } from "@/components/LobbySceneShell";
 import { useModeSwitch } from "@/lib/use-mode-switch";
@@ -8,13 +8,17 @@ export function LobbyShell() {
   const playMenuSound = useMenuSound();
   const modeSwitch = useModeSwitch({
     onModeChange: () => playMenuSound(),
+    onEnterMode: () => playMenuSound(),
   });
 
   return (
     <LobbySceneShell
       activeIndex={modeSwitch.activeIndex}
       direction={modeSwitch.direction}
+      isEntered={modeSwitch.isEntered}
       isSwitching={modeSwitch.isSwitching}
+      onEnterMode={modeSwitch.enterMode}
+      onOpenMode={modeSwitch.openMode}
       onSelectMode={modeSwitch.selectMode}
     />
   );

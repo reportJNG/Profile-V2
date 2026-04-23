@@ -1,54 +1,63 @@
-"use client";
+﻿"use client";
 
 import { AnimatePresence } from "motion/react";
 import type { CSSProperties } from "react";
 import { ModeProgressMarkers } from "@/components/ModeProgressMarkers";
 import { ModeScene } from "@/components/ModeScene";
-import { lobbyModes } from "@/lib/lobby-modes";
+import { portfolioSections } from "@/lib/portfolio-content";
 
 type Direction = 1 | -1;
 
 type LobbySceneShellProps = {
   activeIndex: number;
   direction: Direction;
+  isEntered: boolean;
   isSwitching: boolean;
+  onEnterMode: () => boolean;
+  onOpenMode: (index: number) => boolean;
   onSelectMode: (index: number) => boolean;
 };
 
 export function LobbySceneShell({
   activeIndex,
   direction,
+  isEntered,
   isSwitching,
+  onEnterMode,
+  onOpenMode,
   onSelectMode,
 }: LobbySceneShellProps) {
-  const activeMode = lobbyModes[activeIndex];
+  const activeSection = portfolioSections[activeIndex];
 
   return (
     <main
-      aria-label="Game Mode Select"
+      aria-label="Game style portfolio menu"
       className="lobby-scene-shell"
       data-switching={isSwitching}
       style={
         {
-          "--mode-accent": activeMode.accent,
-          "--mode-secondary": activeMode.secondaryAccent,
-          "--mode-shadow": activeMode.shadowColor,
+          "--mode-accent": activeSection.accent,
+          "--mode-secondary": activeSection.secondaryAccent,
+          "--mode-shadow": activeSection.shadowColor,
         } as CSSProperties
       }
     >
       <AnimatePresence custom={direction} initial={false} mode="sync">
         <ModeScene
-          key={activeMode.id}
-          activeIndex={activeIndex}
+          key={activeSection.id}
           direction={direction}
-          mode={activeMode}
-          total={lobbyModes.length}
+          isEntered={isEntered}
+          mode={activeSection}
+          onEnterMode={onEnterMode}
         />
       </AnimatePresence>
 
       <ModeProgressMarkers
         activeIndex={activeIndex}
-        modes={lobbyModes}
+        isEntered={isEntered}
+        modes={portfolioSections}
+        onEnterMode={onEnterMode}
+        onOpenMode={onOpenMode}
         onSelectMode={onSelectMode}
       />
     </main>

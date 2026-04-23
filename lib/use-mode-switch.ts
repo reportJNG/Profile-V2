@@ -1,17 +1,18 @@
-"use client";
+﻿"use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { portfolioSections } from "@/lib/portfolio-content";
 import { lobbyChangeLockMs } from "@/lib/lobby-motion";
-import { lobbyModes } from "@/lib/lobby-modes";
 
 type Direction = 1 | -1;
 
 type UseModeSwitchOptions = {
   onModeChange?: (direction: Direction, index: number) => void;
+  onEnterMode?: (index: number) => void;
 };
 
 function normalizeModeIndex(index: number) {
-  return ((index % lobbyModes.length) + lobbyModes.length) % lobbyModes.length;
+  return ((index % portfolioSections.length) + portfolioSections.length) % portfolioSections.length;
 }
 
 function getClickDirection(currentIndex: number, nextIndex: number): Direction {
@@ -20,17 +21,18 @@ function getClickDirection(currentIndex: number, nextIndex: number): Direction {
   }
 
   const forwardDistance =
-    (nextIndex - currentIndex + lobbyModes.length) % lobbyModes.length;
+    (nextIndex - currentIndex + portfolioSections.length) % portfolioSections.length;
   const backwardDistance =
-    (currentIndex - nextIndex + lobbyModes.length) % lobbyModes.length;
+    (currentIndex - nextIndex + portfolioSections.length) % portfolioSections.length;
 
   return forwardDistance <= backwardDistance ? 1 : -1;
 }
 
-export function useModeSwitch({ onModeChange }: UseModeSwitchOptions = {}) {
+export function useModeSwitch({ onModeChange, onEnterMode }: UseModeSwitchOptions = {}) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [direction, setDirection] = useState<Direction>(1);
   const [isSwitching, setIsSwitching] = useState(false);
+  const [enteredIndex, setEnteredIndex] = useState<number | null>(null);
   const activeIndexRef = useRef(activeIndex);
   const lockedUntilRef = useRef(0);
   const releaseTimerRef = useRef<number | null>(null);
@@ -46,6 +48,17 @@ export function useModeSwitch({ onModeChange }: UseModeSwitchOptions = {}) {
         window.clearTimeout(releaseTimerRef.current);
       }
     };
+  }, []);
+
+  const enterMode = useCallback((index = activeIndexRef.current) => {
+    const normalizedIndex = normalizeModeIndex(index);
+    setEnteredIndex(normalizedIndex);
+    onEnterMode?.(normalizedIndex);
+    return true;
+  }, [onEnterMode]);
+
+  const closeEnteredMode = useCallback(() => {
+    setEnteredIndex(null);
   }, []);
 
   const selectMode = useCallback(
@@ -65,6 +78,7 @@ export function useModeSwitch({ onModeChange }: UseModeSwitchOptions = {}) {
       setDirection(nextDirection);
       setIsSwitching(true);
       setActiveIndex(normalizedIndex);
+      setEnteredIndex(null);
       onModeChange?.(nextDirection, normalizedIndex);
 
       if (releaseTimerRef.current !== null) {
@@ -80,6 +94,15 @@ export function useModeSwitch({ onModeChange }: UseModeSwitchOptions = {}) {
     },
     [onModeChange],
   );
+
+  const openMode = useCallback((nextIndex: number) => {
+    const normalizedIndex = normalizeModeIndex(nextIndex);
+    if (normalizedIndex !== activeIndexRef.current) {
+      selectMode(normalizedIndex);
+    }
+
+    return enterMode(normalizedIndex);
+  }, [enterMode, selectMode]);
 
   const goNext = useCallback(() => {
     return selectMode(activeIndexRef.current + 1, 1);
@@ -124,17 +147,22 @@ export function useModeSwitch({ onModeChange }: UseModeSwitchOptions = {}) {
 
       if (event.key === "End") {
         event.preventDefault();
-        selectMode(lobbyModes.length - 1);
+        selectMode(portfolioSections.length - 1);
       }
 
       if (event.key === "Enter" || event.key === " ") {
         event.preventDefault();
+        enterMode();
+      }
+
+      if (event.key === "Escape" || event.key === "Backspace") {
+        setEnteredIndex(null);
       }
     }
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [goNext, goPrevious, selectMode]);
+  }, [enterMode, goNext, goPrevious, selectMode]);
 
   useEffect(() => {
     let wheelRemainder = 0;
@@ -229,15 +257,20 @@ export function useModeSwitch({ onModeChange }: UseModeSwitchOptions = {}) {
     };
   }, [goNext, goPrevious]);
 
-  const activeMode = useMemo(() => lobbyModes[activeIndex], [activeIndex]);
+  const activeMode = useMemo(() => portfolioSections[activeIndex], [activeIndex]);
 
   return {
     activeIndex,
     activeMode,
+    closeEnteredMode,
     direction,
+    enteredIndex,
+    enterMode,
     goNext,
     goPrevious,
+    isEntered: enteredIndex === activeIndex,
     isSwitching,
+    openMode,
     selectMode,
   };
 }

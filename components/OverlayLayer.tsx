@@ -1,14 +1,14 @@
-"use client";
+﻿"use client";
 
 import { motion, useReducedMotion } from "motion/react";
 import { lobbyBackgroundTransition } from "@/lib/lobby-motion";
-import type { LobbyMode } from "@/lib/lobby-modes";
+import type { PortfolioSection } from "@/lib/portfolio-content";
 
 type Direction = 1 | -1;
 
 type OverlayLayerProps = {
   direction: Direction;
-  mode: LobbyMode;
+  mode: PortfolioSection;
 };
 
 export function OverlayLayer({ direction, mode }: OverlayLayerProps) {
@@ -23,16 +23,16 @@ export function OverlayLayer({ direction, mode }: OverlayLayerProps) {
       <motion.div
         className="overlay-speed"
         animate={{
-          x: shouldReduceMotion ? 0 : direction > 0 ? 22 : -22,
-          opacity: shouldReduceMotion ? 0.15 : 0.42,
+          x: shouldReduceMotion ? 0 : direction > 0 ? 16 : -16,
+          opacity: shouldReduceMotion ? 0.12 : 0.26,
         }}
         transition={lobbyBackgroundTransition}
       />
       <motion.div
         className="overlay-sweep"
         animate={{
-          x: shouldReduceMotion ? 0 : direction > 0 ? 32 : -32,
-          opacity: mode.scene === "collection" ? 0.18 : 0.28,
+          x: shouldReduceMotion ? 0 : direction > 0 ? 24 : -24,
+          opacity: mode.scene === "collection" ? 0.16 : 0.22,
         }}
         transition={lobbyBackgroundTransition}
       />
