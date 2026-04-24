@@ -9,6 +9,7 @@ type WebAudioWindow = Window &
   };
 
 type Direction = 1 | -1;
+type BrowserAudioContextState = AudioContextState | "interrupted";
 
 export type ModeSwitchSource = "control" | "keyboard" | "touch" | "wheel";
 
@@ -226,10 +227,35 @@ export function useLobbyAudio() {
         return;
       }
 
+      let retryCount = 0;
+      let retryTimer: number | null = null;
+      let didRun = false;
+      let cleanupStateChange: (() => void) | null = null;
+
+      const clearRetry = () => {
+        if (retryTimer !== null) {
+          window.clearTimeout(retryTimer);
+          retryTimer = null;
+        }
+      };
+
+      const cleanup = () => {
+        clearRetry();
+        cleanupStateChange?.();
+        cleanupStateChange = null;
+      };
+
       const run = () => {
-        if (context.state !== "running") {
+        if (didRun) {
           return;
         }
+
+        if ((context.state as BrowserAudioContextState) !== "running") {
+          return;
+        }
+
+        didRun = true;
+        cleanup();
 
         if (shouldStartTheme && isMusicEnabledRef.current) {
           startTheme();
@@ -238,10 +264,47 @@ export function useLobbyAudio() {
         callback?.(context);
       };
 
-      if (context.state === "suspended") {
+      const tryResume = () => {
+        if ((context.state as BrowserAudioContextState) === "closed") {
+          clearRetry();
+          return;
+        }
+
+        if ((context.state as BrowserAudioContextState) === "running") {
+          run();
+          return;
+        }
+
         void context.resume().then(run).catch(() => {
           // Browsers can block audible autoplay until a user gesture.
         });
+      };
+
+      const retryResume = () => {
+        tryResume();
+
+        if ((context.state as BrowserAudioContextState) === "running") {
+          return;
+        }
+
+        retryCount += 1;
+        if (retryCount <= 4) {
+          retryTimer = window.setTimeout(retryResume, 50);
+        } else {
+          cleanup();
+        }
+      };
+
+      if ((context.state as BrowserAudioContextState) !== "running") {
+        const handleStateChange = () => {
+          run();
+        };
+
+        context.addEventListener("statechange", handleStateChange);
+        cleanupStateChange = () => {
+          context.removeEventListener("statechange", handleStateChange);
+        };
+        retryResume();
         return;
       }
 
@@ -464,25 +527,29 @@ export function useLobbyAudio() {
   }, [isMusicEnabled]);
 
   useEffect(() => {
-    const context = getContext();
-    if (!context) {
-      return;
-    }
-
-    runWithAudio();
-
     const unlockAudio = () => runWithAudio();
 
-    window.addEventListener("pointerdown", unlockAudio, { passive: true });
-    window.addEventListener("keydown", unlockAudio);
-    window.addEventListener("touchstart", unlockAudio, { passive: true });
+    window.addEventListener("pointerdown", unlockAudio, {
+      capture: true,
+      passive: true,
+    });
+    window.addEventListener("click", unlockAudio, {
+      capture: true,
+      passive: true,
+    });
+    window.addEventListener("keydown", unlockAudio, { capture: true });
+    window.addEventListener("touchstart", unlockAudio, {
+      capture: true,
+      passive: true,
+    });
 
     return () => {
-      window.removeEventListener("pointerdown", unlockAudio);
-      window.removeEventListener("keydown", unlockAudio);
-      window.removeEventListener("touchstart", unlockAudio);
+      window.removeEventListener("pointerdown", unlockAudio, { capture: true });
+      window.removeEventListener("click", unlockAudio, { capture: true });
+      window.removeEventListener("keydown", unlockAudio, { capture: true });
+      window.removeEventListener("touchstart", unlockAudio, { capture: true });
     };
-  }, [getContext, runWithAudio]);
+  }, [runWithAudio]);
 
   useEffect(() => {
     return () => {
