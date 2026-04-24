@@ -1,44 +1,44 @@
 "use client";
 
-import { ArrowDown, ArrowUp, CornerDownLeft } from "lucide-react";
+import { ArrowDown, ArrowUp, Delete } from "lucide-react";
 import { GameControlHud } from "@/components/GameControlHud";
 
-type ModeProgressMarkersProps = {
-  onEnterMode: () => boolean;
+type ModePageControlsProps = {
+  onBack: () => boolean;
   onNextMode: () => boolean;
   onPreviousMode: () => boolean;
 };
 
-export function ModeProgressMarkers({
-  onEnterMode,
+export function ModePageControls({
+  onBack,
   onNextMode,
   onPreviousMode,
-}: ModeProgressMarkersProps) {
+}: ModePageControlsProps) {
   return (
     <GameControlHud
-      ariaLabel="Portfolio section controls"
-      label="Mode keys"
+      ariaLabel="Portfolio page controls"
+      label="Page keys"
       actions={[
         {
           actionLabel: "Prev",
-          hint: "Previous section",
+          hint: "Previous portfolio page",
           icon: ArrowUp,
           keyLabel: "UP",
           onClick: onPreviousMode,
         },
         {
           actionLabel: "Next",
-          hint: "Next section",
+          hint: "Next portfolio page",
           icon: ArrowDown,
           keyLabel: "DN",
           onClick: onNextMode,
         },
         {
-          actionLabel: "Open",
-          hint: "Open selected section",
-          icon: CornerDownLeft,
-          keyLabel: "ENT",
-          onClick: onEnterMode,
+          actionLabel: "Back",
+          hint: "Backspace to previous page",
+          icon: Delete,
+          keyLabel: "BSP",
+          onClick: onBack,
           wide: true,
         },
       ]}

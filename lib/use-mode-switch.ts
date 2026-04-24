@@ -115,53 +115,21 @@ export function useModeSwitch({ onModeChange, onEnterMode }: UseModeSwitchOption
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape" || event.key === "Backspace") {
-        event.preventDefault();
-        setEnteredIndex(null);
-        return;
-      }
-
       if (enteredIndexRef.current !== null) {
         return;
       }
 
-      if (
-        event.key === "ArrowDown" ||
-        event.key === "ArrowRight" ||
-        event.key === "PageDown" ||
-        event.key === "s" ||
-        event.key === "S" ||
-        event.key === "d" ||
-        event.key === "D"
-      ) {
+      if (event.key === "ArrowDown") {
         event.preventDefault();
         goNext("keyboard");
       }
 
-      if (
-        event.key === "ArrowUp" ||
-        event.key === "ArrowLeft" ||
-        event.key === "PageUp" ||
-        event.key === "w" ||
-        event.key === "W" ||
-        event.key === "a" ||
-        event.key === "A"
-      ) {
+      if (event.key === "ArrowUp") {
         event.preventDefault();
         goPrevious("keyboard");
       }
 
-      if (event.key === "Home") {
-        event.preventDefault();
-        selectMode(0, undefined, "keyboard");
-      }
-
-      if (event.key === "End") {
-        event.preventDefault();
-        selectMode(portfolioSections.length - 1, undefined, "keyboard");
-      }
-
-      if (event.key === "Enter" || event.key === " ") {
+      if (event.key === "Enter") {
         event.preventDefault();
         enterMode();
       }
@@ -169,7 +137,7 @@ export function useModeSwitch({ onModeChange, onEnterMode }: UseModeSwitchOption
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [enterMode, goNext, goPrevious, selectMode]);
+  }, [enterMode, goNext, goPrevious]);
 
   useEffect(() => {
     let wheelRemainder = 0;

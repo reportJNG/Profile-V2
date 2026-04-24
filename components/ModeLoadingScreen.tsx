@@ -6,6 +6,7 @@ import type { CSSProperties } from "react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { CornerDownLeft } from "lucide-react";
 import { BackgroundLayer } from "@/components/BackgroundLayer";
+import { GameControlHud } from "@/components/GameControlHud";
 import { OverlayLayer } from "@/components/OverlayLayer";
 import {
   createLobbySwapVariants,
@@ -61,10 +62,11 @@ export function ModeLoadingScreen({
 
   const startMode = useCallback(() => {
     if (!isComplete) {
-      return;
+      return false;
     }
 
     router.push(sectionHref);
+    return true;
   }, [isComplete, router, sectionHref]);
 
   useEffect(() => {
@@ -129,10 +131,12 @@ export function ModeLoadingScreen({
           transition={lobbyTitleTransition}
         >
           <span
-            className="relative inline-flex items-center gap-3 overflow-hidden rounded-[0.45rem] border border-white/14 bg-black/28 px-4 py-2.5 shadow-2xl backdrop-blur-md sm:gap-4 sm:px-5"
+            className="relative inline-flex items-center gap-2 overflow-hidden border border-white/10 bg-black/30 px-3 py-2 shadow-xl backdrop-blur-md sm:gap-3 sm:px-4"
             style={{
               boxShadow:
-                "0 14px 34px rgba(0,0,0,0.34), 0 0 22px color-mix(in srgb, var(--mode-accent), transparent 82%), inset 0 1px 0 rgba(255,255,255,0.14)",
+                "0 12px 24px rgba(0,0,0,0.32), 0 0 16px color-mix(in srgb, var(--mode-accent), transparent 86%), inset 0 1px 0 rgba(255,255,255,0.13)",
+              clipPath:
+                "polygon(0.32rem 0, calc(100% - 0.32rem) 0, 100% 0.32rem, 100% calc(100% - 0.28rem), calc(100% - 0.28rem) 100%, 0.28rem 100%, 0 calc(100% - 0.32rem), 0 0.28rem)",
             }}
           >
             <span
@@ -160,7 +164,7 @@ export function ModeLoadingScreen({
             />
             <span
               aria-hidden="true"
-              className="relative h-[0.16rem] w-8 skew-x-[-18deg] rounded-full sm:w-12"
+              className="relative h-px w-7 skew-x-[-18deg] sm:w-10"
               style={{
                 background:
                   "linear-gradient(90deg, transparent, color-mix(in srgb, var(--mode-secondary), white 8%))",
@@ -168,7 +172,7 @@ export function ModeLoadingScreen({
                   "0 0 14px color-mix(in srgb, var(--mode-secondary), transparent 50%)",
               }}
             />
-            <span className="relative inline-flex items-center gap-2 font-mono text-[0.62rem] font-black uppercase leading-none tracking-[0.26em] text-white/90 [text-shadow:0_0_14px_color-mix(in_srgb,var(--mode-secondary),transparent_45%),0_2px_10px_rgba(0,0,0,0.58)] sm:text-xs sm:tracking-[0.32em]">
+            <span className="relative inline-flex items-center gap-2 font-mono text-[0.58rem] font-black uppercase leading-none tracking-0 text-white/84 [text-shadow:0_0_12px_color-mix(in_srgb,var(--mode-secondary),transparent_55%),0_2px_10px_rgba(0,0,0,0.58)] sm:text-[0.68rem]">
               <span
                 aria-hidden="true"
                 className="size-1.5 rounded-full"
@@ -179,11 +183,11 @@ export function ModeLoadingScreen({
                     "0 0 12px color-mix(in srgb, var(--mode-secondary), transparent 18%)",
                 }}
               />
-              Selected Mode
+              Selected mode
             </span>
             <span
               aria-hidden="true"
-              className="relative h-[0.16rem] w-8 skew-x-[-18deg] rounded-full sm:w-12"
+              className="relative h-px w-7 skew-x-[-18deg] sm:w-10"
               style={{
                 background:
                   "linear-gradient(90deg, color-mix(in srgb, var(--mode-accent), white 8%), transparent)",
@@ -294,7 +298,7 @@ export function ModeLoadingScreen({
                 delay: shouldReduceMotion ? 0 : 0.64,
               }}
             >
-              <div className="mb-3 flex items-center justify-between gap-4 font-mono text-[0.62rem] font-black uppercase tracking-[0.18em] text-white/70 sm:text-xs">
+              <div className="mb-3 flex items-center justify-between gap-4 font-mono text-[0.58rem] font-black uppercase tracking-0 text-white/66 sm:text-[0.68rem]">
                 <motion.span
                   key={message}
                   className="min-w-0 truncate text-left"
@@ -313,14 +317,16 @@ export function ModeLoadingScreen({
                 aria-valuemin={0}
                 aria-valuenow={progress}
                 role="progressbar"
-                className="relative h-3 overflow-hidden rounded-full border border-white/14 bg-white/8 p-[3px] shadow-2xl backdrop-blur-md"
+                className="relative h-2.5 overflow-hidden border border-white/12 bg-white/8 p-[2px] shadow-xl backdrop-blur-md"
                 style={{
                   boxShadow:
-                    "0 16px 36px rgba(0,0,0,0.34), 0 0 22px color-mix(in srgb, var(--mode-accent), transparent 80%), inset 0 1px 0 rgba(255,255,255,0.12)",
+                    "0 12px 24px rgba(0,0,0,0.32), 0 0 16px color-mix(in srgb, var(--mode-accent), transparent 86%), inset 0 1px 0 rgba(255,255,255,0.12)",
+                  clipPath:
+                    "polygon(0.28rem 0, calc(100% - 0.28rem) 0, 100% 0.28rem, 100% calc(100% - 0.24rem), calc(100% - 0.24rem) 100%, 0.24rem 100%, 0 calc(100% - 0.28rem), 0 0.24rem)",
                 }}
               >
                 <motion.div
-                  className="relative h-full overflow-hidden rounded-full"
+                  className="relative h-full overflow-hidden"
                   style={{
                     background:
                       "linear-gradient(90deg, color-mix(in srgb, var(--mode-accent), white 4%), color-mix(in srgb, var(--mode-secondary), white 20%), rgba(255,255,255,0.94))",
@@ -349,7 +355,7 @@ export function ModeLoadingScreen({
               </div>
 
               <motion.p
-                className="mt-4 font-mono text-[0.62rem] font-bold uppercase tracking-[0.24em] text-white/50"
+                className="mt-4 font-mono text-[0.58rem] font-bold uppercase tracking-0 text-white/46 sm:text-[0.66rem]"
                 animate={{ opacity: isComplete ? 1 : 0.58 }}
                 transition={{ duration: 0.28 }}
               >
@@ -361,83 +367,20 @@ export function ModeLoadingScreen({
       </div>
 
       {isComplete && (
-        <motion.nav
-          aria-label="Start loaded section"
-          className="absolute bottom-4 right-4 z-40 sm:bottom-6 sm:right-6"
-          initial={shouldReduceMotion ? false : { opacity: 0, y: 12, scale: 0.98 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={shouldReduceMotion ? undefined : { opacity: 0, y: 8, scale: 0.98 }}
-          transition={lobbyTitleTransition}
-        >
-          <div className="relative flex items-center gap-3 overflow-hidden rounded-[0.6rem] border border-white/10 bg-black/24 p-1.5 pl-4 shadow-xl backdrop-blur-md">
-            <div
-              aria-hidden="true"
-              className="absolute inset-x-2 top-0 h-px opacity-70"
-              style={{
-                background:
-                  "linear-gradient(90deg, transparent, color-mix(in srgb, var(--mode-secondary), white 8%), transparent)",
-              }}
-            />
-            <motion.span
-              className="font-mono text-[0.62rem] font-black uppercase tracking-[0.2em] text-white/82 [text-shadow:0_0_14px_color-mix(in_srgb,var(--mode-accent),transparent_48%),0_2px_10px_rgba(0,0,0,0.58)] sm:text-xs"
-              animate={
-                shouldReduceMotion
-                  ? undefined
-                  : {
-                      opacity: [0.36, 1, 0.36],
-                      x: [4, 0, 4],
-                    }
-              }
-              transition={{
-                duration: 1.08,
-                ease: "easeInOut",
-                repeat: shouldReduceMotion ? 0 : Infinity,
-              }}
-            >
-              Press Enter
-            </motion.span>
-            <motion.div
-              aria-label="Press Enter to start"
-              title="Press Enter to start"
-              className="group relative grid size-11 place-items-center overflow-hidden rounded-[0.42rem] border border-white/14 bg-black/30 text-white/88 outline-none backdrop-blur-md sm:size-11"
-              style={{
-                background:
-                  "linear-gradient(180deg, rgba(255,255,255,0.11), rgba(255,255,255,0.02)), rgba(5, 7, 14, 0.72)",
-                borderColor:
-                  "color-mix(in srgb, var(--mode-secondary), transparent 76%)",
-                boxShadow:
-                  "0 8px 14px rgba(0,0,0,0.24), inset 0 1px 0 rgba(255,255,255,0.14), inset 0 -2px 0 rgba(0,0,0,0.34)",
-              }}
-              animate={
-                shouldReduceMotion
-                  ? undefined
-                  : {
-                      opacity: [0.72, 1, 0.72],
-                      scale: [1, 1.04, 1],
-                    }
-              }
-              transition={{
-                duration: 1.05,
-                ease: "easeInOut",
-                repeat: shouldReduceMotion ? 0 : Infinity,
-              }}
-            >
-              <span
-                aria-hidden="true"
-                className="absolute inset-x-1.5 top-1 h-px opacity-55"
-                style={{
-                  background:
-                    "linear-gradient(90deg, transparent, color-mix(in srgb, var(--mode-secondary), white 8%), transparent)",
-                }}
-              />
-              <CornerDownLeft
-                aria-hidden="true"
-                className="relative size-5"
-                strokeWidth={2.6}
-              />
-            </motion.div>
-          </div>
-        </motion.nav>
+        <GameControlHud
+          ariaLabel="Start loaded section"
+          label="Ready"
+          actions={[
+            {
+              actionLabel: "Start",
+              hint: "Press Enter to start",
+              icon: CornerDownLeft,
+              keyLabel: "ENT",
+              onClick: startMode,
+              wide: true,
+            },
+          ]}
+        />
       )}
     </motion.section>
   );

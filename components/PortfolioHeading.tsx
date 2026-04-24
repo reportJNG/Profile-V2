@@ -9,7 +9,11 @@ export function SelectTechModeHeading() {
   return (
     <motion.header
       aria-label="Select tech mode"
-      className="absolute left-4 top-4 z-30 max-w-[calc(100vw-6.5rem)] overflow-hidden rounded-md border border-white/12 bg-[#050812]/70 px-5 py-3 shadow-2xl backdrop-blur-md [box-shadow:0_18px_46px_rgba(0,0,0,0.34),inset_0_1px_0_rgba(255,255,255,0.13)] sm:left-8 sm:top-6 sm:max-w-[calc(100vw-8rem)] lg:left-14 lg:top-8"
+      className="absolute left-3 top-3 z-30 max-w-[calc(100vw-6.2rem)] overflow-hidden border border-white/10 bg-[#050812]/64 px-4 py-2.5 shadow-xl backdrop-blur-md [box-shadow:0_12px_28px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.12)] sm:left-5 sm:top-5 sm:max-w-[calc(100vw-7.5rem)] lg:left-7 lg:top-7"
+      style={{
+        clipPath:
+          "polygon(0.32rem 0, calc(100% - 0.32rem) 0, 100% 0.32rem, 100% calc(100% - 0.28rem), calc(100% - 0.28rem) 100%, 0.28rem 100%, 0 calc(100% - 0.32rem), 0 0.28rem)",
+      }}
       initial={shouldReduceMotion ? false : { opacity: 0, x: -22 }}
       animate={{ opacity: 1, x: 0 }}
       exit={shouldReduceMotion ? undefined : { opacity: 0, x: -22 }}
@@ -23,7 +27,7 @@ export function SelectTechModeHeading() {
             "linear-gradient(90deg, transparent, color-mix(in srgb, var(--mode-secondary), white 10%), color-mix(in srgb, var(--mode-accent), white 4%), transparent)",
         }}
       />
-      <span className="relative block font-mono text-sm font-black uppercase leading-none tracking-[0.26em] text-white [text-shadow:0_0_16px_color-mix(in_srgb,var(--mode-secondary),transparent_48%),0_2px_12px_rgba(0,0,0,0.55)] sm:text-base">
+      <span className="relative block font-mono text-[0.68rem] font-black uppercase leading-none tracking-0 text-white/88 [text-shadow:0_0_12px_color-mix(in_srgb,var(--mode-secondary),transparent_58%),0_2px_10px_rgba(0,0,0,0.55)] sm:text-xs">
         select tech mode
       </span>
     </motion.header>

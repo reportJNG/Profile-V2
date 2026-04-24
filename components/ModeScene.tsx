@@ -113,9 +113,9 @@ export function ModeScene({
       <div className="relative z-10 min-h-dvh">
         <SelectTechModeHeading />
 
-        <div className="flex min-h-dvh items-center px-4 pb-36 pt-32 sm:px-8 sm:pt-36 lg:px-14 lg:pb-32 lg:pt-32">
+        <div className="flex min-h-dvh items-center px-4 pb-32 pt-28 sm:px-8 sm:pt-32 lg:px-14 lg:pb-32 lg:pt-28">
           <motion.div
-            className="relative isolate z-20 max-w-[min(56rem,100%)] -rotate-1 cursor-pointer lg:max-w-[min(58rem,72vw)]"
+            className="relative isolate z-20 max-w-[min(56rem,100%)] cursor-pointer lg:max-w-[min(58rem,72vw)]"
             initial={
               shouldReduceMotion
                 ? false
@@ -139,7 +139,7 @@ export function ModeScene({
               }}
             />
             <motion.div
-              className="mb-3 ml-1 inline-flex skew-x-[-6deg] items-center gap-2 font-mono text-[0.62rem] font-black uppercase leading-none tracking-[0.16em] text-white/80 [text-shadow:0_0_8px_color-mix(in_srgb,var(--mode-secondary),transparent_58%),0_2px_8px_rgba(0,0,0,0.55)] sm:text-xs sm:tracking-[0.2em]"
+              className="mb-3 ml-1 inline-flex items-center gap-2 border border-white/10 bg-black/24 px-3 py-2 font-mono text-[0.58rem] font-black uppercase leading-none tracking-0 text-white/72 backdrop-blur-md [text-shadow:0_0_8px_color-mix(in_srgb,var(--mode-secondary),transparent_62%),0_2px_8px_rgba(0,0,0,0.55)] sm:text-[0.68rem]"
               initial={shouldReduceMotion ? false : { opacity: 0, x: -18 }}
               animate={{ opacity: 1, x: 0 }}
               exit={shouldReduceMotion ? undefined : { opacity: 0, x: 18 }}
@@ -168,7 +168,7 @@ export function ModeScene({
               />
             </motion.div>
             <motion.h1
-              className="relative m-0 grid max-w-full origin-left skew-x-[-2deg] text-[clamp(3.2rem,15vw,5rem)] font-extrabold uppercase leading-[0.86] tracking-[-0.052em] text-[#fff8e2] [font-family:var(--font-display),Georgia,serif] sm:text-[clamp(4.6rem,10vw,var(--title-size))] lg:max-w-[9.8ch] lg:text-[var(--title-size)]"
+              className="relative m-0 grid max-w-full origin-left text-[clamp(3.2rem,15vw,5rem)] font-extrabold uppercase leading-[0.88] tracking-0 text-[#fff8e2] [font-family:var(--font-display),Georgia,serif] sm:text-[clamp(4.6rem,10vw,var(--title-size))] lg:max-w-[9.8ch] lg:text-[var(--title-size)]"
               animate={shouldReduceMotion ? undefined : { scale: 1 }}
               whileHover={shouldReduceMotion ? undefined : { scale: 1.018 }}
               transition={lobbyTitleTransition}
@@ -196,7 +196,7 @@ export function ModeScene({
                   >
                     {word}
                   </span>
-                  <span className="relative z-[1] block bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,color-mix(in_srgb,var(--mode-secondary),white_14%)_42%,color-mix(in_srgb,var(--mode-accent),white_12%)_100%)] bg-clip-text text-transparent [-webkit-text-stroke:1.15px_rgba(255,255,255,0.76)] [filter:drop-shadow(0_0.02em_0_rgba(255,255,255,0.42))_drop-shadow(0_0.065em_0_rgba(20,12,8,0.72))_drop-shadow(0_0_0.07em_color-mix(in_srgb,var(--mode-accent),transparent_80%))]">
+                  <span className="relative z-[1] block bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,color-mix(in_srgb,var(--mode-secondary),white_12%)_44%,color-mix(in_srgb,var(--mode-accent),white_9%)_100%)] bg-clip-text text-transparent [-webkit-text-stroke:0.8px_rgba(255,255,255,0.62)] [filter:drop-shadow(0_0.02em_0_rgba(255,255,255,0.28))_drop-shadow(0_0.06em_0_rgba(20,12,8,0.66))_drop-shadow(0_0_0.06em_color-mix(in_srgb,var(--mode-accent),transparent_86%))]">
                     {word}
                   </span>
                   <span
