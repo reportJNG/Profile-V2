@@ -14,8 +14,8 @@ type LobbySceneShellProps = {
   isEntered: boolean;
   isSwitching: boolean;
   onEnterMode: () => boolean;
-  onOpenMode: (index: number) => boolean;
-  onSelectMode: (index: number) => boolean;
+  onNextMode: () => boolean;
+  onPreviousMode: () => boolean;
 };
 
 export function LobbySceneShell({
@@ -24,8 +24,8 @@ export function LobbySceneShell({
   isEntered,
   isSwitching,
   onEnterMode,
-  onOpenMode,
-  onSelectMode,
+  onNextMode,
+  onPreviousMode,
 }: LobbySceneShellProps) {
   const activeSection = portfolioSections[activeIndex];
 
@@ -49,6 +49,8 @@ export function LobbySceneShell({
           isEntered={isEntered}
           mode={activeSection}
           onEnterMode={onEnterMode}
+          onNextMode={onNextMode}
+          onPreviousMode={onPreviousMode}
         />
       </AnimatePresence>
 
@@ -57,8 +59,8 @@ export function LobbySceneShell({
         isEntered={isEntered}
         modes={portfolioSections}
         onEnterMode={onEnterMode}
-        onOpenMode={onOpenMode}
-        onSelectMode={onSelectMode}
+        onNextMode={onNextMode}
+        onPreviousMode={onPreviousMode}
       />
     </main>
   );

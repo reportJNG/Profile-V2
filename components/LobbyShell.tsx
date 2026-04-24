@@ -18,8 +18,8 @@ export function LobbyShell() {
       isEntered={modeSwitch.isEntered}
       isSwitching={modeSwitch.isSwitching}
       onEnterMode={modeSwitch.enterMode}
-      onOpenMode={modeSwitch.openMode}
-      onSelectMode={modeSwitch.selectMode}
+      onNextMode={modeSwitch.goNext}
+      onPreviousMode={modeSwitch.goPrevious}
     />
   );
 }
