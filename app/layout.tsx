@@ -31,9 +31,9 @@ const headingFont = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: "Game Mode Select",
+  title: "Portfolio Mode Select",
   description:
-    "A game-style animated mode select landing page with cinematic transitions.",
+    "A cinematic game-style portfolio menu for profile, work, skills, credentials, and contact.",
 };
 
 export default function RootLayout({

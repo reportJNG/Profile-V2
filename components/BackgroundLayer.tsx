@@ -21,9 +21,9 @@ export function BackgroundLayer({ direction, mode }: BackgroundLayerProps) {
   const variants = createBackgroundVariants(Boolean(shouldReduceMotion));
 
   return (
-    <div aria-hidden="true" className="background-layer">
+    <div aria-hidden="true" className="background-layer absolute inset-0 overflow-hidden pointer-events-none">
       <motion.div
-        className="background-depth"
+        className="background-depth absolute -inset-[10%] will-change-transform"
         custom={direction}
         initial="enter"
         animate="center"
@@ -33,13 +33,15 @@ export function BackgroundLayer({ direction, mode }: BackgroundLayerProps) {
         <div className="background-base" />
 
         <motion.div
-          className="background-photo"
+          className="background-photo absolute -inset-[3%] overflow-hidden"
           animate={{
-            x: shouldReduceMotion ? 0 : direction > 0 ? -18 : 18,
-            y: shouldReduceMotion ? 0 : direction > 0 ? -12 : 12,
-            scale: shouldReduceMotion ? 1.02 : 1.06,
-            rotate: shouldReduceMotion ? 0 : direction > 0 ? -0.5 : 0.5,
-            opacity: shouldReduceMotion ? 0.32 : 0.38,
+            x: shouldReduceMotion ? 0 : direction > 0 ? -24 : 24,
+            y: shouldReduceMotion ? 0 : direction > 0 ? -10 : 10,
+            scale: shouldReduceMotion ? 1.01 : 1.045,
+            rotate: shouldReduceMotion ? 0 : direction > 0 ? -0.35 : 0.35,
+            opacity: shouldReduceMotion
+              ? Math.max(mode.background.imageOpacity - 0.08, 0.56)
+              : mode.background.imageOpacity,
           }}
           transition={lobbyBackgroundTransition}
         >
@@ -48,15 +50,22 @@ export function BackgroundLayer({ direction, mode }: BackgroundLayerProps) {
             alt=""
             fill
             sizes="100vw"
-            preload={mode.id === "story"}
+            preload={mode.id === "about"}
             draggable={false}
-            className="background-photo__image"
+            className="background-photo__image object-cover"
             style={
               {
                 filter: mode.background.filter,
                 objectPosition: mode.background.objectPosition,
               } as CSSProperties
             }
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(90deg, rgba(2, 3, 8, 0.42), transparent 34%, transparent 68%, rgba(2, 3, 8, 0.38)), linear-gradient(180deg, rgba(2, 3, 8, 0.18), transparent 46%, rgba(2, 3, 8, 0.54))",
+            }}
           />
         </motion.div>
 

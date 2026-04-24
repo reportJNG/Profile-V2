@@ -1,101 +1,109 @@
-﻿export type GameMenuSection = {
-  id:
-    | "story"
-    | "adventure"
-    | "collection"
-    | "online-battle"
-    | "free-battle";
+export type PortfolioSectionId =
+  | "about"
+  | "projects"
+  | "skills"
+  | "certificates"
+  | "contact";
+
+export type PortfolioSceneTheme =
+  | "story"
+  | "adventure"
+  | "collection"
+  | "online"
+  | "free";
+
+export type PortfolioSectionData = {
+  id: PortfolioSectionId;
   title: string;
   kicker: string;
   accent: string;
   secondaryAccent: string;
-  shadowColor: string;
-  scene: "story" | "adventure" | "collection" | "online" | "free";
+  scene: PortfolioSceneTheme;
   titleSize: string;
   background: {
     image: string;
     objectPosition: string;
     filter: string;
+    imageOpacity: number;
   };
 };
 
 export const portfolioSections = [
   {
-    id: "story",
-    title: "Story",
-    kicker: "Story Mode",
+    id: "about",
+    title: "About Me",
+    kicker: "Who I Am",
     accent: "#ff8a1f",
     secondaryAccent: "#ffe95f",
-    shadowColor: "#8d2b08",
     scene: "story",
     titleSize: "9.2rem",
     background: {
-      image: "/images/lobby-backdrop.png",
-      objectPosition: "54% 44%",
-      filter: "saturate(1.02) contrast(1.08) brightness(0.78) sepia(0.14)",
+      image: "/images/mode-story.png",
+      objectPosition: "50% 50%",
+      filter: "saturate(1.02) contrast(1.04) brightness(0.82)",
+      imageOpacity: 0.72,
     },
   },
   {
-    id: "adventure",
-    title: "Adventure",
-    kicker: "Adventure Mode",
+    id: "projects",
+    title: "Projects",
+    kicker: "Selected Work",
     accent: "#44ff66",
     secondaryAccent: "#d6ff4f",
-    shadowColor: "#0b6a25",
     scene: "adventure",
     titleSize: "8.5rem",
     background: {
-      image: "/images/lobby-backdrop.png",
-      objectPosition: "47% 45%",
-      filter: "saturate(1.06) contrast(1.05) brightness(0.84) hue-rotate(34deg)",
+      image: "/images/mode-adventure.png",
+      objectPosition: "50% 50%",
+      filter: "saturate(1.04) contrast(1.04) brightness(0.78)",
+      imageOpacity: 0.7,
     },
   },
   {
-    id: "collection",
-    title: "Collection",
-    kicker: "Collection Mode",
+    id: "skills",
+    title: "Skills",
+    kicker: "Tech Stack",
     accent: "#3fb7ff",
     secondaryAccent: "#87fff4",
-    shadowColor: "#083f91",
     scene: "collection",
     titleSize: "8rem",
     background: {
-      image: "/images/lobby-backdrop.png",
+      image: "/images/mode-collection.png",
       objectPosition: "50% 50%",
-      filter: "saturate(0.94) contrast(1.08) brightness(0.78) hue-rotate(160deg)",
+      filter: "saturate(0.96) contrast(1.06) brightness(0.75)",
+      imageOpacity: 0.72,
     },
   },
   {
-    id: "online-battle",
-    title: "Online Battle",
-    kicker: "Online Battle",
+    id: "certificates",
+    title: "Certificates",
+    kicker: "Proof Of Growth",
     accent: "#a972ff",
     secondaryAccent: "#ff8df0",
-    shadowColor: "#4d1397",
     scene: "online",
     titleSize: "7.7rem",
     background: {
-      image: "/images/lobby-backdrop.png",
-      objectPosition: "60% 48%",
-      filter: "saturate(1.04) contrast(1.06) brightness(0.76) hue-rotate(226deg)",
+      image: "/images/mode-online.png",
+      objectPosition: "50% 50%",
+      filter: "saturate(1.04) contrast(1.05) brightness(0.74)",
+      imageOpacity: 0.7,
     },
   },
   {
-    id: "free-battle",
-    title: "Free Battle",
-    kicker: "Free Battle",
+    id: "contact",
+    title: "Contact",
+    kicker: "Settings & Reach Out",
     accent: "#ff3f78",
     secondaryAccent: "#ffcf4f",
-    shadowColor: "#8e1539",
     scene: "free",
     titleSize: "7.9rem",
     background: {
-      image: "/images/lobby-backdrop.png",
-      objectPosition: "57% 50%",
-      filter: "saturate(1.05) contrast(1.05) brightness(0.8) hue-rotate(-10deg)",
+      image: "/images/mode-free.png",
+      objectPosition: "50% 50%",
+      filter: "saturate(1.03) contrast(1.05) brightness(0.76)",
+      imageOpacity: 0.72,
     },
   },
-] as const satisfies readonly GameMenuSection[];
+] as const satisfies readonly PortfolioSectionData[];
 
-export type PortfolioSection = GameMenuSection;
-export type PortfolioSectionId = PortfolioSection["id"];
+export type PortfolioSection = PortfolioSectionData;

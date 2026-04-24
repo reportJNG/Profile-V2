@@ -31,14 +31,13 @@ export function LobbySceneShell({
 
   return (
     <main
-      aria-label="Game style portfolio menu"
+      aria-label="Cinematic portfolio menu"
       className="lobby-scene-shell"
       data-switching={isSwitching}
       style={
         {
           "--mode-accent": activeSection.accent,
           "--mode-secondary": activeSection.secondaryAccent,
-          "--mode-shadow": activeSection.shadowColor,
         } as CSSProperties
       }
     >
@@ -47,7 +46,7 @@ export function LobbySceneShell({
           key={activeSection.id}
           direction={direction}
           isEntered={isEntered}
-          mode={activeSection}
+          section={activeSection}
           onEnterMode={onEnterMode}
           onNextMode={onNextMode}
           onPreviousMode={onPreviousMode}
@@ -55,9 +54,6 @@ export function LobbySceneShell({
       </AnimatePresence>
 
       <ModeProgressMarkers
-        activeIndex={activeIndex}
-        isEntered={isEntered}
-        modes={portfolioSections}
         onEnterMode={onEnterMode}
         onNextMode={onNextMode}
         onPreviousMode={onPreviousMode}

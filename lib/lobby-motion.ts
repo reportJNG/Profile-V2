@@ -8,23 +8,13 @@ export const lobbyTransition = {
   ease: lobbyEase,
 };
 
-export const lobbyFastTransition = {
-  duration: 0.34,
-  ease: lobbyEase,
-};
-
 export const lobbyTitleTransition = {
   duration: 0.54,
   ease: lobbyEase,
 };
 
-export const lobbyCharacterTransition = {
-  duration: 0.68,
-  ease: lobbyEase,
-};
-
 export const lobbyBackgroundTransition = {
-  duration: 0.82,
+  duration: 0.72,
   ease: lobbyBackgroundEase,
 };
 
@@ -68,15 +58,15 @@ export function createBackgroundVariants(shouldReduceMotion: boolean): Variants 
       y: shouldReduceMotion ? 0 : direction > 0 ? 74 : -74,
       x: shouldReduceMotion ? 0 : direction > 0 ? 62 : -62,
       opacity: shouldReduceMotion ? 1 : 0,
-      scale: shouldReduceMotion ? 1 : 1.14,
-      filter: shouldReduceMotion ? "none" : "saturate(1.42) contrast(1.08) blur(8px)",
+      scale: shouldReduceMotion ? 1 : 1.095,
+      filter: shouldReduceMotion ? "none" : "saturate(1.18) contrast(1.04) blur(4px)",
     }),
     center: {
       y: 0,
       x: 0,
       opacity: 1,
       scale: 1,
-      filter: "saturate(1.04) contrast(1.02) blur(0px)",
+      filter: "saturate(1) contrast(1) blur(0px)",
       transition: shouldReduceMotion
         ? { duration: 0.16, ease: "easeOut" as const }
         : lobbyBackgroundTransition,
@@ -85,8 +75,8 @@ export function createBackgroundVariants(shouldReduceMotion: boolean): Variants 
       y: shouldReduceMotion ? 0 : direction > 0 ? -62 : 62,
       x: shouldReduceMotion ? 0 : direction > 0 ? -54 : 54,
       opacity: shouldReduceMotion ? 0 : 0,
-      scale: shouldReduceMotion ? 1 : 1.09,
-      filter: shouldReduceMotion ? "none" : "saturate(1.36) contrast(1.08) blur(8px)",
+      scale: shouldReduceMotion ? 1 : 1.075,
+      filter: shouldReduceMotion ? "none" : "saturate(1.16) contrast(1.04) blur(4px)",
       transition: shouldReduceMotion
         ? { duration: 0.12, ease: "easeOut" as const }
         : lobbyBackgroundTransition,

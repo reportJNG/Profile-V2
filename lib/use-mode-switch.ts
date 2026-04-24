@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { portfolioSections } from "@/lib/portfolio-content";
 import { lobbyChangeLockMs } from "@/lib/lobby-motion";
 
@@ -57,10 +57,6 @@ export function useModeSwitch({ onModeChange, onEnterMode }: UseModeSwitchOption
     return true;
   }, [onEnterMode]);
 
-  const closeEnteredMode = useCallback(() => {
-    setEnteredIndex(null);
-  }, []);
-
   const selectMode = useCallback(
     (nextIndex: number, explicitDirection?: Direction) => {
       const normalizedIndex = normalizeModeIndex(nextIndex);
@@ -94,15 +90,6 @@ export function useModeSwitch({ onModeChange, onEnterMode }: UseModeSwitchOption
     },
     [onModeChange],
   );
-
-  const openMode = useCallback((nextIndex: number) => {
-    const normalizedIndex = normalizeModeIndex(nextIndex);
-    if (normalizedIndex !== activeIndexRef.current) {
-      selectMode(normalizedIndex);
-    }
-
-    return enterMode(normalizedIndex);
-  }, [enterMode, selectMode]);
 
   const goNext = useCallback(() => {
     return selectMode(activeIndexRef.current + 1, 1);
@@ -257,20 +244,14 @@ export function useModeSwitch({ onModeChange, onEnterMode }: UseModeSwitchOption
     };
   }, [goNext, goPrevious]);
 
-  const activeMode = useMemo(() => portfolioSections[activeIndex], [activeIndex]);
-
   return {
     activeIndex,
-    activeMode,
-    closeEnteredMode,
     direction,
-    enteredIndex,
     enterMode,
     goNext,
     goPrevious,
     isEntered: enteredIndex === activeIndex,
     isSwitching,
-    openMode,
     selectMode,
   };
 }
