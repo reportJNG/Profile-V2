@@ -13,30 +13,17 @@ type Direction = 1 | -1;
 export type ModeSwitchSource = "control" | "keyboard" | "touch" | "wheel";
 
 const noiseLength = 0.42;
-const themePhraseSeconds = 24;
-const schedulerIntervalMs = 480;
-const scheduleAheadSeconds = 1.5;
+const themeVolume = 0.10;
 
 const note = {
   a2: 110,
-  b2: 123.47,
-  c3: 130.81,
   d3: 146.83,
-  e3: 164.81,
-  f3: 174.61,
-  g3: 196,
   a3: 220,
-  b3: 246.94,
   c4: 261.63,
   d4: 293.66,
-  e4: 329.63,
-  f4: 349.23,
-  g4: 392,
   a4: 440,
-  b4: 493.88,
   c5: 523.25,
   d5: 587.33,
-  e5: 659.25,
 };
 
 type TrackedSourceRef = MutableRefObject<AudioScheduledSourceNode[]>;
@@ -143,282 +130,14 @@ function scheduleTone({
   oscillator.stop(startAt + duration + 0.04);
 }
 
-function schedulePad({
-  context,
-  destination,
-  sourceRef,
-  frequency,
-  startAt,
-  duration,
-  peakGain,
-  detune = 0,
-}: {
-  context: AudioContext;
-  destination: AudioNode;
-  sourceRef: TrackedSourceRef;
-  frequency: number;
-  startAt: number;
-  duration: number;
-  peakGain: number;
-  detune?: number;
-}) {
-  const oscillator = context.createOscillator();
-  const gain = context.createGain();
-  const filter = context.createBiquadFilter();
-
-  oscillator.type = "sine";
-  oscillator.frequency.setValueAtTime(frequency, startAt);
-  oscillator.detune.setValueAtTime(detune, startAt);
-
-  filter.type = "lowpass";
-  filter.frequency.setValueAtTime(520, startAt);
-  filter.frequency.linearRampToValueAtTime(720, startAt + duration * 0.58);
-  filter.frequency.linearRampToValueAtTime(440, startAt + duration);
-  filter.Q.setValueAtTime(0.34, startAt);
-
-  gain.gain.cancelScheduledValues(startAt);
-  gain.gain.setValueAtTime(0.0001, startAt);
-  gain.gain.exponentialRampToValueAtTime(peakGain, startAt + 2.8);
-  gain.gain.setValueAtTime(peakGain * 0.76, startAt + duration - 3.2);
-  gain.gain.exponentialRampToValueAtTime(0.0001, startAt + duration);
-
-  oscillator.connect(filter);
-  filter.connect(gain);
-  gain.connect(destination);
-
-  trackSource(sourceRef, oscillator);
-
-  oscillator.start(startAt);
-  oscillator.stop(startAt + duration + 0.05);
-}
-
-function scheduleChoirTone({
-  context,
-  destination,
-  sourceRef,
-  frequency,
-  startAt,
-  duration,
-  peakGain,
-}: {
-  context: AudioContext;
-  destination: AudioNode;
-  sourceRef: TrackedSourceRef;
-  frequency: number;
-  startAt: number;
-  duration: number;
-  peakGain: number;
-}) {
-  const lowVoice = context.createOscillator();
-  const highVoice = context.createOscillator();
-  const shimmerVoice = context.createOscillator();
-  const gain = context.createGain();
-  const filter = context.createBiquadFilter();
-
-  lowVoice.type = "sine";
-  lowVoice.frequency.setValueAtTime(frequency, startAt);
-  lowVoice.detune.setValueAtTime(-9, startAt);
-
-  highVoice.type = "sine";
-  highVoice.frequency.setValueAtTime(frequency * 2, startAt);
-  highVoice.detune.setValueAtTime(7, startAt);
-
-  shimmerVoice.type = "triangle";
-  shimmerVoice.frequency.setValueAtTime(frequency * 3, startAt);
-  shimmerVoice.detune.setValueAtTime(-4, startAt);
-
-  filter.type = "lowpass";
-  filter.frequency.setValueAtTime(1050, startAt);
-  filter.frequency.linearRampToValueAtTime(1350, startAt + duration * 0.5);
-  filter.frequency.linearRampToValueAtTime(760, startAt + duration);
-  filter.Q.setValueAtTime(0.48, startAt);
-
-  gain.gain.cancelScheduledValues(startAt);
-  gain.gain.setValueAtTime(0.0001, startAt);
-  gain.gain.exponentialRampToValueAtTime(peakGain, startAt + 0.9);
-  gain.gain.setValueAtTime(peakGain * 0.74, startAt + duration - 0.9);
-  gain.gain.exponentialRampToValueAtTime(0.0001, startAt + duration);
-
-  lowVoice.connect(gain);
-  highVoice.connect(gain);
-  shimmerVoice.connect(gain);
-  gain.connect(filter);
-  filter.connect(destination);
-
-  [lowVoice, highVoice, shimmerVoice].forEach((source) =>
-    trackSource(sourceRef, source),
-  );
-
-  lowVoice.start(startAt);
-  highVoice.start(startAt);
-  shimmerVoice.start(startAt);
-
-  lowVoice.stop(startAt + duration + 0.08);
-  highVoice.stop(startAt + duration + 0.08);
-  shimmerVoice.stop(startAt + duration + 0.08);
-}
-
-function scheduleBellTone({
-  context,
-  destination,
-  sourceRef,
-  frequency,
-  startAt,
-  duration,
-  peakGain,
-}: {
-  context: AudioContext;
-  destination: AudioNode;
-  sourceRef: TrackedSourceRef;
-  frequency: number;
-  startAt: number;
-  duration: number;
-  peakGain: number;
-}) {
-  const fundamental = context.createOscillator();
-  const overtone = context.createOscillator();
-  const gain = context.createGain();
-  const filter = context.createBiquadFilter();
-
-  fundamental.type = "sine";
-  fundamental.frequency.setValueAtTime(frequency, startAt);
-
-  overtone.type = "triangle";
-  overtone.frequency.setValueAtTime(frequency * 2.01, startAt);
-  overtone.detune.setValueAtTime(5, startAt);
-
-  filter.type = "bandpass";
-  filter.frequency.setValueAtTime(frequency * 2.2, startAt);
-  filter.Q.setValueAtTime(1.4, startAt);
-
-  gain.gain.cancelScheduledValues(startAt);
-  gain.gain.setValueAtTime(0.0001, startAt);
-  gain.gain.exponentialRampToValueAtTime(peakGain, startAt + 0.018);
-  gain.gain.exponentialRampToValueAtTime(0.0001, startAt + duration);
-
-  fundamental.connect(gain);
-  overtone.connect(gain);
-  gain.connect(filter);
-  filter.connect(destination);
-
-  [fundamental, overtone].forEach((source) => trackSource(sourceRef, source));
-
-  fundamental.start(startAt);
-  overtone.start(startAt);
-  fundamental.stop(startAt + duration + 0.05);
-  overtone.stop(startAt + duration + 0.05);
-}
-
-function scheduleThemePhrase(
-  context: AudioContext,
-  musicGain: AudioNode,
-  sourceRef: TrackedSourceRef,
-  startAt: number,
-) {
-  const beat = themePhraseSeconds / 32;
-
-  [
-    [note.e3, 0, 8],
-    [note.c3, 8, 8],
-    [note.g3, 16, 8],
-    [note.d3, 24, 8],
-  ].forEach(([frequency, beatStart, beats]) => {
-    schedulePad({
-      context,
-      destination: musicGain,
-      sourceRef,
-      frequency,
-      startAt: startAt + beatStart * beat,
-      duration: beats * beat + 4.6,
-      peakGain: 0.05,
-    });
-    schedulePad({
-      context,
-      destination: musicGain,
-      sourceRef,
-      frequency: frequency * 1.5,
-      startAt: startAt + beatStart * beat + 0.18,
-      duration: beats * beat + 4.2,
-      peakGain: 0.017,
-      detune: -6,
-    });
-  });
-
-  [
-    [note.e4, 0.3, 5.6],
-    [note.g4, 8.2, 4.8],
-    [note.b3, 16.4, 5.2],
-    [note.a3, 24.15, 4.9],
-  ].forEach(([frequency, beatStart, beats]) => {
-    scheduleChoirTone({
-      context,
-      destination: musicGain,
-      sourceRef,
-      frequency,
-      startAt: startAt + beatStart * beat,
-      duration: beats * beat,
-      peakGain: 0.028,
-    });
-  });
-
-  [
-    [note.e4, 1.0],
-    [note.b3, 2.5],
-    [note.g4, 4.0],
-    [note.e5, 6.65],
-    [note.c4, 9.1],
-    [note.g3, 10.45],
-    [note.e4, 12.15],
-    [note.b4, 14.7],
-    [note.g4, 17.2],
-    [note.d4, 18.65],
-    [note.b4, 20.2],
-    [note.d5, 22.85],
-    [note.d4, 25.15],
-    [note.a3, 26.65],
-    [note.f4, 28.1],
-    [note.a4, 30.25],
-  ].forEach(([frequency, beatStart], index) => {
-    scheduleBellTone({
-      context,
-      destination: musicGain,
-      sourceRef,
-      frequency,
-      startAt: startAt + beatStart * beat,
-      duration: index % 4 === 3 ? 1.7 : 1.25,
-      peakGain: index % 4 === 0 ? 0.026 : 0.018,
-    });
-  });
-
-  [
-    [note.b4, 7.35],
-    [note.e5, 15.45],
-    [note.a4, 23.6],
-    [note.g4, 31.1],
-  ].forEach(([frequency, beatStart]) => {
-    scheduleChoirTone({
-      context,
-      destination: musicGain,
-      sourceRef,
-      frequency,
-      startAt: startAt + beatStart * beat,
-      duration: 2.15 * beat,
-      peakGain: 0.014,
-    });
-  });
-}
-
 export function useLobbyAudio() {
   const [isMusicEnabled, setIsMusicEnabled] = useState(false);
   const contextRef = useRef<AudioContext | null>(null);
   const masterGainRef = useRef<GainNode | null>(null);
-  const musicGainRef = useRef<GainNode | null>(null);
   const sfxGainRef = useRef<GainNode | null>(null);
+  const themeAudioRef = useRef<HTMLAudioElement | null>(null);
   const noiseBufferRef = useRef<AudioBuffer | null>(null);
-  const activeMusicSourcesRef = useRef<AudioScheduledSourceNode[]>([]);
   const activeSfxSourcesRef = useRef<AudioScheduledSourceNode[]>([]);
-  const schedulerRef = useRef<number | null>(null);
-  const nextPhraseStartRef = useRef(0);
   const isThemePlayingRef = useRef(false);
   const isMusicEnabledRef = useRef(false);
 
@@ -440,106 +159,65 @@ export function useLobbyAudio() {
 
     const context = new AudioContextConstructor({ latencyHint: "interactive" });
     const masterGain = context.createGain();
-    const musicGain = context.createGain();
     const sfxGain = context.createGain();
 
     masterGain.gain.setValueAtTime(0.86, context.currentTime);
-    musicGain.gain.setValueAtTime(0.0001, context.currentTime);
     sfxGain.gain.setValueAtTime(0.95, context.currentTime);
 
-    musicGain.connect(masterGain);
     sfxGain.connect(masterGain);
     masterGain.connect(context.destination);
 
     contextRef.current = context;
     masterGainRef.current = masterGain;
-    musicGainRef.current = musicGain;
     sfxGainRef.current = sfxGain;
     noiseBufferRef.current = createNoiseBuffer(context);
 
     return context;
   }, []);
 
-  const clearScheduler = useCallback(() => {
-    if (schedulerRef.current !== null) {
-      window.clearInterval(schedulerRef.current);
-      schedulerRef.current = null;
+  const getThemeAudio = useCallback(() => {
+    if (typeof window === "undefined") {
+      return null;
     }
+
+    if (themeAudioRef.current) {
+      return themeAudioRef.current;
+    }
+
+    const audio = new Audio("/theme.mp3");
+    audio.loop = true;
+    audio.preload = "auto";
+    audio.volume = themeVolume;
+    themeAudioRef.current = audio;
+
+    return audio;
   }, []);
 
   const startTheme = useCallback(() => {
-    const context = getContext();
-    const musicGain = musicGainRef.current;
-
-    if (!context || !musicGain || context.state !== "running") {
+    const audio = getThemeAudio();
+    if (!audio || isThemePlayingRef.current) {
       return;
     }
 
-    const audioContext = context;
-    const musicOutput = musicGain;
-
-    if (isThemePlayingRef.current) {
-      return;
-    }
-
-    isThemePlayingRef.current = true;
-    nextPhraseStartRef.current = audioContext.currentTime + 0.08;
-
-    const now = audioContext.currentTime;
-    musicOutput.gain.cancelScheduledValues(now);
-    musicOutput.gain.setValueAtTime(
-      Math.max(musicOutput.gain.value, 0.0001),
-      now,
-    );
-    musicOutput.gain.exponentialRampToValueAtTime(0.58, now + 2.8);
-
-    function scheduleAhead() {
-      if (!isMusicEnabledRef.current || audioContext.state !== "running") {
-        return;
-      }
-
-      while (
-        nextPhraseStartRef.current <
-        audioContext.currentTime + scheduleAheadSeconds
-      ) {
-        scheduleThemePhrase(
-          audioContext,
-          musicOutput,
-          activeMusicSourcesRef,
-          nextPhraseStartRef.current,
-        );
-        nextPhraseStartRef.current += themePhraseSeconds;
-      }
-    }
-
-    clearScheduler();
-    scheduleAhead();
-    schedulerRef.current = window.setInterval(
-      scheduleAhead,
-      schedulerIntervalMs,
-    );
-  }, [clearScheduler, getContext]);
+    audio.volume = themeVolume;
+    void audio
+      .play()
+      .then(() => {
+        isThemePlayingRef.current = true;
+      })
+      .catch(() => {
+        isThemePlayingRef.current = false;
+      });
+  }, [getThemeAudio]);
 
   const pauseTheme = useCallback(() => {
-    clearScheduler();
     isThemePlayingRef.current = false;
 
-    const context = contextRef.current;
-    const musicGain = musicGainRef.current;
-    if (!context || !musicGain || context.state === "closed") {
-      stopTrackedSources(activeMusicSourcesRef);
-      return;
+    const audio = themeAudioRef.current;
+    if (audio) {
+      audio.pause();
     }
-
-    const now = context.currentTime;
-    musicGain.gain.cancelScheduledValues(now);
-    musicGain.gain.setValueAtTime(Math.max(musicGain.gain.value, 0.0001), now);
-    musicGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.28);
-
-    window.setTimeout(() => {
-      stopTrackedSources(activeMusicSourcesRef);
-    }, 340);
-  }, [clearScheduler]);
+  }, []);
 
   const runWithAudio = useCallback(
     (callback?: (context: AudioContext) => void, shouldStartTheme = true) => {
@@ -778,7 +456,7 @@ export function useLobbyAudio() {
       } else {
         pauseTheme();
       }
-    }, nextEnabled);
+    }, false);
   }, [pauseTheme, playNoise, runWithAudio, startTheme]);
 
   useEffect(() => {
@@ -808,8 +486,7 @@ export function useLobbyAudio() {
 
   useEffect(() => {
     return () => {
-      clearScheduler();
-      stopTrackedSources(activeMusicSourcesRef);
+      pauseTheme();
       stopTrackedSources(activeSfxSourcesRef);
 
       const context = contextRef.current;
@@ -817,7 +494,7 @@ export function useLobbyAudio() {
         void context.close();
       }
     };
-  }, [clearScheduler]);
+  }, [pauseTheme]);
 
   return {
     isMusicEnabled,
