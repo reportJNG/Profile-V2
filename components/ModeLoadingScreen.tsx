@@ -23,7 +23,7 @@ type ModeLoadingScreenProps = {
 };
 
 const progressMax = 100;
-const loadingDurationMs = 5000;
+const loadingDurationMs = 3200;
 const letterStartDelay = 0.32;
 const letterSettleSeconds = 0.74;
 
@@ -128,7 +128,13 @@ export function ModeLoadingScreen({
           exit={shouldReduceMotion ? undefined : { opacity: 0, y: -12 }}
           transition={lobbyTitleTransition}
         >
-          <span className="relative inline-flex items-center gap-3 overflow-hidden rounded-md border border-white/12 bg-black/22 px-4 py-2.5 shadow-2xl backdrop-blur-md sm:gap-4 sm:px-5">
+          <span
+            className="relative inline-flex items-center gap-3 overflow-hidden rounded-[0.45rem] border border-white/14 bg-black/28 px-4 py-2.5 shadow-2xl backdrop-blur-md sm:gap-4 sm:px-5"
+            style={{
+              boxShadow:
+                "0 14px 34px rgba(0,0,0,0.34), 0 0 22px color-mix(in srgb, var(--mode-accent), transparent 82%), inset 0 1px 0 rgba(255,255,255,0.14)",
+            }}
+          >
             <span
               aria-hidden="true"
               className="absolute inset-x-3 top-0 h-px opacity-90"
@@ -137,9 +143,24 @@ export function ModeLoadingScreen({
                   "linear-gradient(90deg, transparent, color-mix(in srgb, var(--mode-secondary), white 12%), color-mix(in srgb, var(--mode-accent), white 8%), transparent)",
               }}
             />
+            <motion.span
+              aria-hidden="true"
+              className="absolute inset-y-0 w-16 -skew-x-12 opacity-30"
+              style={{
+                background:
+                  "linear-gradient(90deg, transparent, rgba(255,255,255,0.42), transparent)",
+              }}
+              animate={shouldReduceMotion ? undefined : { x: ["-170%", "520%"] }}
+              transition={{
+                duration: 2.2,
+                ease: "easeInOut",
+                repeat: shouldReduceMotion ? 0 : Infinity,
+                repeatDelay: 1.1,
+              }}
+            />
             <span
               aria-hidden="true"
-              className="h-[0.16rem] w-8 skew-x-[-18deg] rounded-full sm:w-12"
+              className="relative h-[0.16rem] w-8 skew-x-[-18deg] rounded-full sm:w-12"
               style={{
                 background:
                   "linear-gradient(90deg, transparent, color-mix(in srgb, var(--mode-secondary), white 8%))",
@@ -147,12 +168,22 @@ export function ModeLoadingScreen({
                   "0 0 14px color-mix(in srgb, var(--mode-secondary), transparent 50%)",
               }}
             />
-            <span className="font-mono text-[0.62rem] font-black uppercase leading-none tracking-[0.3em] text-white/82 [text-shadow:0_0_14px_color-mix(in_srgb,var(--mode-secondary),transparent_52%),0_2px_10px_rgba(0,0,0,0.58)] sm:text-xs sm:tracking-[0.34em]">
-              selected mode
+            <span className="relative inline-flex items-center gap-2 font-mono text-[0.62rem] font-black uppercase leading-none tracking-[0.26em] text-white/90 [text-shadow:0_0_14px_color-mix(in_srgb,var(--mode-secondary),transparent_45%),0_2px_10px_rgba(0,0,0,0.58)] sm:text-xs sm:tracking-[0.32em]">
+              <span
+                aria-hidden="true"
+                className="size-1.5 rounded-full"
+                style={{
+                  background:
+                    "color-mix(in srgb, var(--mode-secondary), white 20%)",
+                  boxShadow:
+                    "0 0 12px color-mix(in srgb, var(--mode-secondary), transparent 18%)",
+                }}
+              />
+              Selected Mode
             </span>
             <span
               aria-hidden="true"
-              className="h-[0.16rem] w-8 skew-x-[-18deg] rounded-full sm:w-12"
+              className="relative h-[0.16rem] w-8 skew-x-[-18deg] rounded-full sm:w-12"
               style={{
                 background:
                   "linear-gradient(90deg, color-mix(in srgb, var(--mode-accent), white 8%), transparent)",
@@ -163,20 +194,20 @@ export function ModeLoadingScreen({
           </span>
         </motion.div>
 
-        <div className="flex flex-1 items-center justify-center">
-          <div className="relative isolate w-full max-w-[min(46rem,92vw)]">
+        <div className="flex flex-1 items-center justify-center pb-[7dvh] pt-[2dvh]">
+          <div className="relative isolate w-full max-w-[min(44rem,92vw)]">
             <span
               aria-hidden="true"
-              className="absolute -inset-x-10 -inset-y-8 -z-10 opacity-70 blur-3xl"
+              className="absolute -inset-x-8 -inset-y-6 -z-10 opacity-60 blur-3xl"
               style={{
                 background:
-                  "radial-gradient(circle at 50% 48%, color-mix(in srgb, var(--mode-accent), transparent 66%), transparent 62%)",
+                  "radial-gradient(circle at 50% 48%, color-mix(in srgb, var(--mode-accent), transparent 72%), transparent 64%)",
               }}
             />
 
             <motion.h1
               aria-label={loadingTitle}
-              className="mb-10 flex flex-wrap justify-center gap-x-[0.09em] gap-y-2 overflow-visible text-[clamp(3.25rem,14vw,8.2rem)] font-extrabold uppercase leading-[0.86] tracking-0 [font-family:var(--font-display),Georgia,serif] sm:mb-12"
+              className="mb-8 flex flex-wrap justify-center gap-x-[0.09em] gap-y-2 overflow-visible text-[clamp(3rem,12vw,7.4rem)] font-extrabold uppercase leading-[0.86] tracking-0 [font-family:var(--font-display),Georgia,serif] sm:mb-10"
               initial="hidden"
               animate="visible"
             >
@@ -254,7 +285,7 @@ export function ModeLoadingScreen({
             </motion.h1>
 
             <motion.div
-              className="mx-auto w-full max-w-[34rem]"
+              className="mx-auto w-full max-w-[31rem]"
               initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={shouldReduceMotion ? undefined : { opacity: 0, y: 14 }}
@@ -263,8 +294,16 @@ export function ModeLoadingScreen({
                 delay: shouldReduceMotion ? 0 : 0.64,
               }}
             >
-              <div className="mb-3 flex items-center justify-between gap-4 font-mono text-[0.65rem] font-black uppercase tracking-[0.2em] text-white/76 sm:text-xs">
-                <span className="truncate text-left">{message}</span>
+              <div className="mb-3 flex items-center justify-between gap-4 font-mono text-[0.62rem] font-black uppercase tracking-[0.18em] text-white/70 sm:text-xs">
+                <motion.span
+                  key={message}
+                  className="min-w-0 truncate text-left"
+                  initial={shouldReduceMotion ? false : { opacity: 0, y: 5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.18, ease: "easeOut" }}
+                >
+                  {message}
+                </motion.span>
                 <span className="shrink-0 text-white">{progress}%</span>
               </div>
 
@@ -274,46 +313,43 @@ export function ModeLoadingScreen({
                 aria-valuemin={0}
                 aria-valuenow={progress}
                 role="progressbar"
-                className="relative h-4 overflow-hidden rounded-[0.35rem] border border-white/16 bg-black/42 p-1 shadow-2xl backdrop-blur-md"
+                className="relative h-3 overflow-hidden rounded-full border border-white/14 bg-white/8 p-[3px] shadow-2xl backdrop-blur-md"
                 style={{
                   boxShadow:
-                    "0 18px 46px rgba(0,0,0,0.38), 0 0 28px color-mix(in srgb, var(--mode-accent), transparent 74%), inset 0 1px 0 rgba(255,255,255,0.16)",
+                    "0 16px 36px rgba(0,0,0,0.34), 0 0 22px color-mix(in srgb, var(--mode-accent), transparent 80%), inset 0 1px 0 rgba(255,255,255,0.12)",
                 }}
               >
                 <motion.div
-                  className="h-full rounded-[0.18rem]"
+                  className="relative h-full overflow-hidden rounded-full"
                   style={{
                     background:
-                      "linear-gradient(90deg, color-mix(in srgb, var(--mode-accent), white 4%), color-mix(in srgb, var(--mode-secondary), white 18%), rgba(255,255,255,0.92))",
+                      "linear-gradient(90deg, color-mix(in srgb, var(--mode-accent), white 4%), color-mix(in srgb, var(--mode-secondary), white 20%), rgba(255,255,255,0.94))",
                     boxShadow:
-                      "0 0 18px color-mix(in srgb, var(--mode-secondary), transparent 42%)",
+                      "0 0 16px color-mix(in srgb, var(--mode-secondary), transparent 46%)",
                   }}
                   initial={{ width: "0%" }}
                   animate={{ width: `${progress}%` }}
-                  transition={{ duration: 0.06, ease: "linear" }}
-                />
-                <motion.span
-                  aria-hidden="true"
-                  className="absolute top-1 h-[calc(100%-0.5rem)] w-8 rounded-full opacity-80 blur-[1px]"
-                  style={{
-                    left: `${progress}%`,
-                    background:
-                      "linear-gradient(90deg, transparent, rgba(255,255,255,0.92), transparent)",
-                    transform: "translateX(-50%)",
-                  }}
-                />
-                <div
-                  aria-hidden="true"
-                  className="absolute inset-1 rounded-[0.18rem] opacity-40 mix-blend-screen"
-                  style={{
-                    background:
-                      "repeating-linear-gradient(110deg, transparent 0 18px, rgba(255,255,255,0.34) 19px 20px, transparent 21px 38px)",
-                  }}
-                />
+                  transition={{ duration: 0.05, ease: "linear" }}
+                >
+                  <motion.span
+                    aria-hidden="true"
+                    className="absolute inset-y-0 w-12 opacity-70"
+                    style={{
+                      background:
+                        "linear-gradient(90deg, transparent, rgba(255,255,255,0.74), transparent)",
+                    }}
+                    animate={shouldReduceMotion ? undefined : { x: ["-80%", "680%"] }}
+                    transition={{
+                      duration: 1,
+                      ease: "easeInOut",
+                      repeat: shouldReduceMotion ? 0 : Infinity,
+                    }}
+                  />
+                </motion.div>
               </div>
 
               <motion.p
-                className="mt-5 font-mono text-[0.62rem] font-bold uppercase tracking-[0.24em] text-white/52"
+                className="mt-4 font-mono text-[0.62rem] font-bold uppercase tracking-[0.24em] text-white/50"
                 animate={{ opacity: isComplete ? 1 : 0.58 }}
                 transition={{ duration: 0.28 }}
               >
