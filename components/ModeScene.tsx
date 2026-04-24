@@ -5,7 +5,7 @@ import { motion, useReducedMotion } from "motion/react";
 import type { CSSProperties } from "react";
 import { BackgroundLayer } from "@/components/BackgroundLayer";
 import { OverlayLayer } from "@/components/OverlayLayer";
-import { PortfolioHeading } from "@/components/PortfolioHeading";
+import { SelectTechModeHeading } from "@/components/PortfolioHeading";
 import { createLobbySwapVariants, lobbyTitleTransition } from "@/lib/lobby-motion";
 import type { PortfolioSection } from "@/lib/portfolio-content";
 
@@ -112,11 +112,11 @@ export function ModeScene({
       <OverlayLayer direction={direction} mode={section} />
 
       <div className="relative z-10 min-h-dvh">
-        <PortfolioHeading section={section} />
+        <SelectTechModeHeading />
 
-        <div className="flex min-h-dvh items-center px-4 pb-36 pt-28 sm:px-8 sm:pt-32 lg:px-14 lg:pb-32">
+        <div className="flex min-h-dvh items-center px-4 pb-36 pt-32 sm:px-8 sm:pt-36 lg:px-14 lg:pb-32 lg:pt-32">
           <motion.div
-            className="relative isolate z-20 max-w-[min(56rem,100%)] -rotate-1 lg:max-w-[min(56rem,70vw)]"
+            className="relative isolate z-20 max-w-[min(56rem,100%)] -rotate-1 lg:max-w-[min(58rem,72vw)]"
             initial={
               shouldReduceMotion
                 ? false
