@@ -2,6 +2,7 @@
 
 import { AnimatePresence } from "motion/react";
 import type { CSSProperties } from "react";
+import { AudioToggleButton } from "@/components/AudioToggleButton";
 import { ModeProgressMarkers } from "@/components/ModeProgressMarkers";
 import { ModeScene } from "@/components/ModeScene";
 import { portfolioSections } from "@/lib/portfolio-content";
@@ -12,20 +13,24 @@ type LobbySceneShellProps = {
   activeIndex: number;
   direction: Direction;
   isEntered: boolean;
+  isMusicEnabled: boolean;
   isSwitching: boolean;
   onEnterMode: () => boolean;
   onNextMode: () => boolean;
   onPreviousMode: () => boolean;
+  onToggleMusic: () => void;
 };
 
 export function LobbySceneShell({
   activeIndex,
   direction,
   isEntered,
+  isMusicEnabled,
   isSwitching,
   onEnterMode,
   onNextMode,
   onPreviousMode,
+  onToggleMusic,
 }: LobbySceneShellProps) {
   const activeSection = portfolioSections[activeIndex];
 
@@ -52,6 +57,11 @@ export function LobbySceneShell({
           onPreviousMode={onPreviousMode}
         />
       </AnimatePresence>
+
+      <AudioToggleButton
+        isEnabled={isMusicEnabled}
+        onToggle={onToggleMusic}
+      />
 
       <ModeProgressMarkers
         onEnterMode={onEnterMode}

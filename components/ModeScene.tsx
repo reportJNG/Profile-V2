@@ -1,13 +1,14 @@
 "use client";
 
 import { ChevronDown, ChevronUp } from "lucide-react";
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
 import type { CSSProperties } from "react";
 import { BackgroundLayer } from "@/components/BackgroundLayer";
 import { OverlayLayer } from "@/components/OverlayLayer";
 import { SelectTechModeHeading } from "@/components/PortfolioHeading";
 import { createLobbySwapVariants, lobbyTitleTransition } from "@/lib/lobby-motion";
 import type { PortfolioSection } from "@/lib/portfolio-content";
+import { useHydratedReducedMotion } from "@/lib/use-hydrated-reduced-motion";
 
 type Direction = 1 | -1;
 
@@ -87,7 +88,7 @@ export function ModeScene({
   onNextMode,
   onPreviousMode,
 }: ModeSceneProps) {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useHydratedReducedMotion();
   const sceneVariants = createLobbySwapVariants(Boolean(shouldReduceMotion));
   const titleWords = section.title.split(" ");
 

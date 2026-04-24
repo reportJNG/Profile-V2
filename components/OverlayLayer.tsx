@@ -1,8 +1,9 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
 import { lobbyBackgroundTransition } from "@/lib/lobby-motion";
 import type { PortfolioSection } from "@/lib/portfolio-content";
+import { useHydratedReducedMotion } from "@/lib/use-hydrated-reduced-motion";
 
 type Direction = 1 | -1;
 
@@ -12,7 +13,7 @@ type OverlayLayerProps = {
 };
 
 export function OverlayLayer({ direction, mode }: OverlayLayerProps) {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useHydratedReducedMotion();
 
   return (
     <div aria-hidden="true" className="overlay-layer">

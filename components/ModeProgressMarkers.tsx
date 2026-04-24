@@ -2,8 +2,9 @@
 
 import type { LucideIcon } from "lucide-react";
 import { ArrowDown, ArrowUp, CornerDownLeft } from "lucide-react";
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
 import { lobbyTitleTransition } from "@/lib/lobby-motion";
+import { useHydratedReducedMotion } from "@/lib/use-hydrated-reduced-motion";
 
 type ModeProgressMarkersProps = {
   onEnterMode: () => boolean;
@@ -53,7 +54,7 @@ export function ModeProgressMarkers({
   onNextMode,
   onPreviousMode,
 }: ModeProgressMarkersProps) {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useHydratedReducedMotion();
 
   return (
     <motion.nav

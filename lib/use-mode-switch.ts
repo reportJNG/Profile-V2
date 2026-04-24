@@ -3,11 +3,16 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { portfolioSections } from "@/lib/portfolio-content";
 import { lobbyChangeLockMs } from "@/lib/lobby-motion";
+import type { ModeSwitchSource } from "@/lib/use-lobby-audio";
 
 type Direction = 1 | -1;
 
 type UseModeSwitchOptions = {
-  onModeChange?: (direction: Direction, index: number) => void;
+  onModeChange?: (
+    direction: Direction,
+    index: number,
+    source: ModeSwitchSource,
+  ) => void;
   onEnterMode?: (index: number) => void;
 };
 
@@ -58,7 +63,11 @@ export function useModeSwitch({ onModeChange, onEnterMode }: UseModeSwitchOption
   }, [onEnterMode]);
 
   const selectMode = useCallback(
-    (nextIndex: number, explicitDirection?: Direction) => {
+    (
+      nextIndex: number,
+      explicitDirection?: Direction,
+      source: ModeSwitchSource = "control",
+    ) => {
       const normalizedIndex = normalizeModeIndex(nextIndex);
       const currentIndex = activeIndexRef.current;
       const now = performance.now();
@@ -75,7 +84,7 @@ export function useModeSwitch({ onModeChange, onEnterMode }: UseModeSwitchOption
       setIsSwitching(true);
       setActiveIndex(normalizedIndex);
       setEnteredIndex(null);
-      onModeChange?.(nextDirection, normalizedIndex);
+      onModeChange?.(nextDirection, normalizedIndex, source);
 
       if (releaseTimerRef.current !== null) {
         window.clearTimeout(releaseTimerRef.current);
@@ -91,12 +100,12 @@ export function useModeSwitch({ onModeChange, onEnterMode }: UseModeSwitchOption
     [onModeChange],
   );
 
-  const goNext = useCallback(() => {
-    return selectMode(activeIndexRef.current + 1, 1);
+  const goNext = useCallback((source: ModeSwitchSource = "control") => {
+    return selectMode(activeIndexRef.current + 1, 1, source);
   }, [selectMode]);
 
-  const goPrevious = useCallback(() => {
-    return selectMode(activeIndexRef.current - 1, -1);
+  const goPrevious = useCallback((source: ModeSwitchSource = "control") => {
+    return selectMode(activeIndexRef.current - 1, -1, source);
   }, [selectMode]);
 
   useEffect(() => {
@@ -111,7 +120,7 @@ export function useModeSwitch({ onModeChange, onEnterMode }: UseModeSwitchOption
         event.key === "D"
       ) {
         event.preventDefault();
-        goNext();
+        goNext("keyboard");
       }
 
       if (
@@ -124,17 +133,17 @@ export function useModeSwitch({ onModeChange, onEnterMode }: UseModeSwitchOption
         event.key === "A"
       ) {
         event.preventDefault();
-        goPrevious();
+        goPrevious("keyboard");
       }
 
       if (event.key === "Home") {
         event.preventDefault();
-        selectMode(0);
+        selectMode(0, undefined, "keyboard");
       }
 
       if (event.key === "End") {
         event.preventDefault();
-        selectMode(portfolioSections.length - 1);
+        selectMode(portfolioSections.length - 1, undefined, "keyboard");
       }
 
       if (event.key === "Enter" || event.key === " ") {
@@ -195,7 +204,8 @@ export function useModeSwitch({ onModeChange, onEnterMode }: UseModeSwitchOption
         return;
       }
 
-      const didSwitch = wheelRemainder > 0 ? goNext() : goPrevious();
+      const didSwitch =
+        wheelRemainder > 0 ? goNext("wheel") : goPrevious("wheel");
 
       if (didSwitch) {
         wheelGestureBlockedUntil = performance.now() + 120;
@@ -229,9 +239,9 @@ export function useModeSwitch({ onModeChange, onEnterMode }: UseModeSwitchOption
       }
 
       if (deltaY > 0) {
-        goNext();
+        goNext("touch");
       } else {
-        goPrevious();
+        goPrevious("touch");
       }
     }
 

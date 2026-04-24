@@ -1,13 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
 import type { CSSProperties } from "react";
 import {
   createBackgroundVariants,
   lobbyBackgroundTransition,
 } from "@/lib/lobby-motion";
 import type { PortfolioSection } from "@/lib/portfolio-content";
+import { useHydratedReducedMotion } from "@/lib/use-hydrated-reduced-motion";
 
 type Direction = 1 | -1;
 
@@ -17,7 +18,7 @@ type BackgroundLayerProps = {
 };
 
 export function BackgroundLayer({ direction, mode }: BackgroundLayerProps) {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useHydratedReducedMotion();
   const variants = createBackgroundVariants(Boolean(shouldReduceMotion));
 
   return (
