@@ -143,3 +143,7 @@ export const portfolioSections = [
 ] as const satisfies readonly PortfolioSectionData[];
 
 export type PortfolioSection = PortfolioSectionData;
+
+export function getPortfolioSection(id: string) {
+  return portfolioSections.find((section) => section.id === id);
+}

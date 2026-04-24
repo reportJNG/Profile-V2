@@ -1,8 +1,10 @@
 "use client";
 
 import { motion } from "motion/react";
+import { useRouter } from "next/navigation";
 import type { CSSProperties } from "react";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { CornerDownLeft } from "lucide-react";
 import { BackgroundLayer } from "@/components/BackgroundLayer";
 import { OverlayLayer } from "@/components/OverlayLayer";
 import {
@@ -39,6 +41,7 @@ export function ModeLoadingScreen({
   direction,
   section,
 }: ModeLoadingScreenProps) {
+  const router = useRouter();
   const shouldReduceMotion = useHydratedReducedMotion();
   const sceneVariants = createLobbySwapVariants(Boolean(shouldReduceMotion));
   const loadingTitle = section.title;
@@ -53,6 +56,16 @@ export function ModeLoadingScreen({
   const [animatedProgress, setAnimatedProgress] = useState(0);
   const progress = animatedProgress;
   const message = getLoadingMessage(section.loadingMessages, progress);
+  const isComplete = progress >= progressMax;
+  const sectionHref = `/${section.id}`;
+
+  const startMode = useCallback(() => {
+    if (!isComplete) {
+      return;
+    }
+
+    router.push(sectionHref);
+  }, [isComplete, router, sectionHref]);
 
   useEffect(() => {
     const startedAt = performance.now();
@@ -73,6 +86,20 @@ export function ModeLoadingScreen({
 
     return () => window.cancelAnimationFrame(animationFrame);
   }, [section.id]);
+
+  useEffect(() => {
+    function handleStartKey(event: KeyboardEvent) {
+      if (event.key !== "Enter" || !isComplete) {
+        return;
+      }
+
+      event.preventDefault();
+      startMode();
+    }
+
+    window.addEventListener("keydown", handleStartKey);
+    return () => window.removeEventListener("keydown", handleStartKey);
+  }, [isComplete, startMode]);
 
   return (
     <motion.section
@@ -287,15 +314,95 @@ export function ModeLoadingScreen({
 
               <motion.p
                 className="mt-5 font-mono text-[0.62rem] font-bold uppercase tracking-[0.24em] text-white/52"
-                animate={{ opacity: progress >= 100 ? 1 : 0.58 }}
+                animate={{ opacity: isComplete ? 1 : 0.58 }}
                 transition={{ duration: 0.28 }}
               >
-                {progress >= 100 ? "Complete" : "Loading selected mode"}
+                {isComplete ? "Complete" : "Loading selected mode"}
               </motion.p>
             </motion.div>
           </div>
         </div>
       </div>
+
+      {isComplete && (
+        <motion.nav
+          aria-label="Start loaded section"
+          className="absolute bottom-4 right-4 z-40 sm:bottom-6 sm:right-6"
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 12, scale: 0.98 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={shouldReduceMotion ? undefined : { opacity: 0, y: 8, scale: 0.98 }}
+          transition={lobbyTitleTransition}
+        >
+          <div className="relative flex items-center gap-3 overflow-hidden rounded-[0.6rem] border border-white/10 bg-black/24 p-1.5 pl-4 shadow-xl backdrop-blur-md">
+            <div
+              aria-hidden="true"
+              className="absolute inset-x-2 top-0 h-px opacity-70"
+              style={{
+                background:
+                  "linear-gradient(90deg, transparent, color-mix(in srgb, var(--mode-secondary), white 8%), transparent)",
+              }}
+            />
+            <motion.span
+              className="font-mono text-[0.62rem] font-black uppercase tracking-[0.2em] text-white/82 [text-shadow:0_0_14px_color-mix(in_srgb,var(--mode-accent),transparent_48%),0_2px_10px_rgba(0,0,0,0.58)] sm:text-xs"
+              animate={
+                shouldReduceMotion
+                  ? undefined
+                  : {
+                      opacity: [0.36, 1, 0.36],
+                      x: [4, 0, 4],
+                    }
+              }
+              transition={{
+                duration: 1.08,
+                ease: "easeInOut",
+                repeat: shouldReduceMotion ? 0 : Infinity,
+              }}
+            >
+              Press Enter
+            </motion.span>
+            <motion.div
+              aria-label="Press Enter to start"
+              title="Press Enter to start"
+              className="group relative grid size-11 place-items-center overflow-hidden rounded-[0.42rem] border border-white/14 bg-black/30 text-white/88 outline-none backdrop-blur-md sm:size-11"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(255,255,255,0.11), rgba(255,255,255,0.02)), rgba(5, 7, 14, 0.72)",
+                borderColor:
+                  "color-mix(in srgb, var(--mode-secondary), transparent 76%)",
+                boxShadow:
+                  "0 8px 14px rgba(0,0,0,0.24), inset 0 1px 0 rgba(255,255,255,0.14), inset 0 -2px 0 rgba(0,0,0,0.34)",
+              }}
+              animate={
+                shouldReduceMotion
+                  ? undefined
+                  : {
+                      opacity: [0.72, 1, 0.72],
+                      scale: [1, 1.04, 1],
+                    }
+              }
+              transition={{
+                duration: 1.05,
+                ease: "easeInOut",
+                repeat: shouldReduceMotion ? 0 : Infinity,
+              }}
+            >
+              <span
+                aria-hidden="true"
+                className="absolute inset-x-1.5 top-1 h-px opacity-55"
+                style={{
+                  background:
+                    "linear-gradient(90deg, transparent, color-mix(in srgb, var(--mode-secondary), white 8%), transparent)",
+                }}
+              />
+              <CornerDownLeft
+                aria-hidden="true"
+                className="relative size-5"
+                strokeWidth={2.6}
+              />
+            </motion.div>
+          </div>
+        </motion.nav>
+      )}
     </motion.section>
   );
 }
