@@ -14,7 +14,6 @@ type Direction = 1 | -1;
 
 type ModeSceneProps = {
   direction: Direction;
-  isEntered: boolean;
   section: PortfolioSection;
   onEnterMode: () => boolean;
   onNextMode: () => boolean;
@@ -82,7 +81,6 @@ function TitleArrowButton({
 
 export function ModeScene({
   direction,
-  isEntered,
   section,
   onEnterMode,
   onNextMode,
@@ -117,7 +115,7 @@ export function ModeScene({
 
         <div className="flex min-h-dvh items-center px-4 pb-36 pt-32 sm:px-8 sm:pt-36 lg:px-14 lg:pb-32 lg:pt-32">
           <motion.div
-            className="relative isolate z-20 max-w-[min(56rem,100%)] -rotate-1 lg:max-w-[min(58rem,72vw)]"
+            className="relative isolate z-20 max-w-[min(56rem,100%)] -rotate-1 cursor-pointer lg:max-w-[min(58rem,72vw)]"
             initial={
               shouldReduceMotion
                 ? false
@@ -130,6 +128,7 @@ export function ModeScene({
                 : { opacity: 0, y: direction > 0 ? -28 : 28, scale: 1.03, rotate: direction > 0 ? 0.8 : -0.8 }
             }
             transition={lobbyTitleTransition}
+            onClick={() => onEnterMode()}
           >
             <span
               aria-hidden="true"
@@ -169,16 +168,9 @@ export function ModeScene({
               />
             </motion.div>
             <motion.h1
-              className="relative m-0 grid max-w-full origin-left skew-x-[-2deg] cursor-pointer text-[clamp(3.2rem,15vw,5rem)] font-extrabold uppercase leading-[0.86] tracking-[-0.052em] text-[#fff8e2] [font-family:var(--font-display),Georgia,serif] sm:text-[clamp(4.6rem,10vw,var(--title-size))] lg:max-w-[9.8ch] lg:text-[var(--title-size)]"
-              onClick={() => onEnterMode()}
-              animate={
-                shouldReduceMotion
-                  ? undefined
-                  : isEntered
-                    ? { scale: 1.034 }
-                    : { scale: 1 }
-              }
-              whileHover={shouldReduceMotion ? undefined : { scale: isEntered ? 1.038 : 1.018 }}
+              className="relative m-0 grid max-w-full origin-left skew-x-[-2deg] text-[clamp(3.2rem,15vw,5rem)] font-extrabold uppercase leading-[0.86] tracking-[-0.052em] text-[#fff8e2] [font-family:var(--font-display),Georgia,serif] sm:text-[clamp(4.6rem,10vw,var(--title-size))] lg:max-w-[9.8ch] lg:text-[var(--title-size)]"
+              animate={shouldReduceMotion ? undefined : { scale: 1 }}
+              whileHover={shouldReduceMotion ? undefined : { scale: 1.018 }}
               transition={lobbyTitleTransition}
             >
               {titleWords.map((word, index) => (

@@ -3,6 +3,7 @@
 import { AnimatePresence } from "motion/react";
 import type { CSSProperties } from "react";
 import { AudioToggleButton } from "@/components/AudioToggleButton";
+import { ModeLoadingScreen } from "@/components/ModeLoadingScreen";
 import { ModeProgressMarkers } from "@/components/ModeProgressMarkers";
 import { ModeScene } from "@/components/ModeScene";
 import { portfolioSections } from "@/lib/portfolio-content";
@@ -47,27 +48,38 @@ export function LobbySceneShell({
       }
     >
       <AnimatePresence custom={direction} initial={false} mode="sync">
-        <ModeScene
-          key={activeSection.id}
-          direction={direction}
-          isEntered={isEntered}
-          section={activeSection}
-          onEnterMode={onEnterMode}
-          onNextMode={onNextMode}
-          onPreviousMode={onPreviousMode}
-        />
+        {isEntered ? (
+          <ModeLoadingScreen
+            key={`${activeSection.id}-loading`}
+            direction={direction}
+            section={activeSection}
+          />
+        ) : (
+          <ModeScene
+            key={activeSection.id}
+            direction={direction}
+            section={activeSection}
+            onEnterMode={onEnterMode}
+            onNextMode={onNextMode}
+            onPreviousMode={onPreviousMode}
+          />
+        )}
       </AnimatePresence>
 
-      <AudioToggleButton
-        isEnabled={isMusicEnabled}
-        onToggle={onToggleMusic}
-      />
+      {!isEntered && (
+        <>
+          <AudioToggleButton
+            isEnabled={isMusicEnabled}
+            onToggle={onToggleMusic}
+          />
 
-      <ModeProgressMarkers
-        onEnterMode={onEnterMode}
-        onNextMode={onNextMode}
-        onPreviousMode={onPreviousMode}
-      />
+          <ModeProgressMarkers
+            onEnterMode={onEnterMode}
+            onNextMode={onNextMode}
+            onPreviousMode={onPreviousMode}
+          />
+        </>
+      )}
     </main>
   );
 }

@@ -39,6 +39,7 @@ export function useModeSwitch({ onModeChange, onEnterMode }: UseModeSwitchOption
   const [isSwitching, setIsSwitching] = useState(false);
   const [enteredIndex, setEnteredIndex] = useState<number | null>(null);
   const activeIndexRef = useRef(activeIndex);
+  const enteredIndexRef = useRef(enteredIndex);
   const lockedUntilRef = useRef(0);
   const releaseTimerRef = useRef<number | null>(null);
   const touchStartYRef = useRef<number | null>(null);
@@ -46,6 +47,10 @@ export function useModeSwitch({ onModeChange, onEnterMode }: UseModeSwitchOption
   useEffect(() => {
     activeIndexRef.current = activeIndex;
   }, [activeIndex]);
+
+  useEffect(() => {
+    enteredIndexRef.current = enteredIndex;
+  }, [enteredIndex]);
 
   useEffect(() => {
     return () => {
@@ -110,6 +115,16 @@ export function useModeSwitch({ onModeChange, onEnterMode }: UseModeSwitchOption
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape" || event.key === "Backspace") {
+        event.preventDefault();
+        setEnteredIndex(null);
+        return;
+      }
+
+      if (enteredIndexRef.current !== null) {
+        return;
+      }
+
       if (
         event.key === "ArrowDown" ||
         event.key === "ArrowRight" ||
@@ -150,10 +165,6 @@ export function useModeSwitch({ onModeChange, onEnterMode }: UseModeSwitchOption
         event.preventDefault();
         enterMode();
       }
-
-      if (event.key === "Escape" || event.key === "Backspace") {
-        setEnteredIndex(null);
-      }
     }
 
     window.addEventListener("keydown", handleKeyDown);
@@ -167,6 +178,10 @@ export function useModeSwitch({ onModeChange, onEnterMode }: UseModeSwitchOption
     const wheelQuietMs = 220;
 
     function handleWheel(event: WheelEvent) {
+      if (enteredIndexRef.current !== null) {
+        return;
+      }
+
       const primaryDelta =
         Math.abs(event.deltaY) >= Math.abs(event.deltaX)
           ? event.deltaY
@@ -220,10 +235,19 @@ export function useModeSwitch({ onModeChange, onEnterMode }: UseModeSwitchOption
 
   useEffect(() => {
     function handleTouchStart(event: TouchEvent) {
+      if (enteredIndexRef.current !== null) {
+        return;
+      }
+
       touchStartYRef.current = event.touches[0]?.clientY ?? null;
     }
 
     function handleTouchEnd(event: TouchEvent) {
+      if (enteredIndexRef.current !== null) {
+        touchStartYRef.current = null;
+        return;
+      }
+
       const startY = touchStartYRef.current;
       const endY = event.changedTouches[0]?.clientY ?? null;
       touchStartYRef.current = null;
