@@ -1,18 +1,29 @@
+"use client";
+
+import type { ModePagePanel } from "@/lib/mode-page-panels";
 import type { PortfolioSection } from "@/lib/portfolio-content";
 
 type ModePageIntroProps = {
+  activePanelIndex?: number;
   body: string;
   detail: string;
+  onSelectPanel?: (index: number) => boolean;
+  panels?: readonly ModePagePanel[];
   section: PortfolioSection;
   status: string;
 };
 
 export function ModePageIntro({
+  activePanelIndex = 0,
   body,
   detail,
+  onSelectPanel,
+  panels = [],
   section,
   status,
 }: ModePageIntroProps) {
+  const hasPanels = panels.length > 0;
+
   return (
     <div className="relative isolate max-w-[min(46rem,100%)]">
       <span
@@ -49,6 +60,48 @@ export function ModePageIntro({
           {detail}
         </p>
       </div>
+
+      {hasPanels ? (
+        <div className="mt-7 grid max-w-3xl gap-3 sm:grid-cols-3">
+          {panels.map((panel, index) => {
+            const isActive = index === activePanelIndex;
+
+            return (
+              <button
+                type="button"
+                aria-pressed={isActive}
+                className={`group relative min-h-36 overflow-hidden border p-4 text-left outline-none transition duration-200 focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent ${
+                  isActive
+                    ? "border-white/36 bg-white/14 shadow-[0_0_28px_color-mix(in_srgb,var(--mode-accent),transparent_62%)]"
+                    : "border-white/10 bg-black/24 hover:border-white/22 hover:bg-white/10"
+                }`}
+                key={panel.title}
+                onClick={() => onSelectPanel?.(index)}
+              >
+                <span
+                  aria-hidden="true"
+                  className={`absolute inset-x-0 top-0 h-0.5 transition-opacity ${
+                    isActive ? "opacity-100" : "opacity-0 group-hover:opacity-70"
+                  }`}
+                  style={{
+                    background:
+                      "linear-gradient(90deg, var(--mode-accent), var(--mode-secondary))",
+                  }}
+                />
+                <span className="font-mono text-[0.56rem] font-black uppercase leading-none tracking-0 text-white/46 sm:text-[0.62rem]">
+                  {panel.kicker}
+                </span>
+                <span className="mt-3 block text-lg font-black leading-tight text-white sm:text-xl">
+                  {panel.title}
+                </span>
+                <span className="mt-3 block text-sm leading-6 text-white/64">
+                  {panel.description}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      ) : null}
 
       <div className="mt-7 inline-flex items-center gap-3 border border-white/10 bg-black/24 px-3 py-2 backdrop-blur-md">
         <span className="font-mono text-[0.56rem] font-black uppercase leading-none tracking-0 text-white/52 sm:text-[0.62rem]">

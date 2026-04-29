@@ -5,34 +5,41 @@ import { GameControlHud } from "@/components/GameControlHud";
 
 type ModePageControlsProps = {
   onBack: () => boolean;
-  onNextMode: () => boolean;
-  onPreviousMode: () => boolean;
+  onNextPanel?: () => boolean;
+  onPreviousPanel?: () => boolean;
 };
 
 export function ModePageControls({
   onBack,
-  onNextMode,
-  onPreviousMode,
+  onNextPanel,
+  onPreviousPanel,
 }: ModePageControlsProps) {
+  const panelActions =
+    onPreviousPanel && onNextPanel
+      ? [
+          {
+            actionLabel: "Previous",
+            hint: "Previous page panel",
+            icon: ArrowUp,
+            keyLabel: "UP",
+            onClick: onPreviousPanel,
+          },
+          {
+            actionLabel: "Next",
+            hint: "Next page panel",
+            icon: ArrowDown,
+            keyLabel: "DN",
+            onClick: onNextPanel,
+          },
+        ]
+      : [];
+
   return (
     <GameControlHud
       ariaLabel="Portfolio page controls"
       label="Page keys"
       actions={[
-        {
-          actionLabel: "Prev",
-          hint: "Previous portfolio page",
-          icon: ArrowUp,
-          keyLabel: "UP",
-          onClick: onPreviousMode,
-        },
-        {
-          actionLabel: "Next",
-          hint: "Next portfolio page",
-          icon: ArrowDown,
-          keyLabel: "DN",
-          onClick: onNextMode,
-        },
+        ...panelActions,
         {
           actionLabel: "Back",
           hint: "Backspace to previous page",

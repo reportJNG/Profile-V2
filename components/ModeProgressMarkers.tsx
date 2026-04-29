@@ -20,7 +20,7 @@ export function ModeProgressMarkers({
       label="Mode keys"
       actions={[
         {
-          actionLabel: "Prev",
+          actionLabel: "Previous",
           hint: "Previous section",
           icon: ArrowUp,
           keyLabel: "UP",

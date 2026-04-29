@@ -1,3 +1,5 @@
+"use client";
+
 import { AboutModePage } from "@/components/mode-pages/AboutModePage";
 import { CertificatesModePage } from "@/components/mode-pages/CertificatesModePage";
 import { ContactModePage } from "@/components/mode-pages/ContactModePage";
@@ -6,17 +8,35 @@ import { SkillsModePage } from "@/components/mode-pages/SkillsModePage";
 import type { PortfolioSection } from "@/lib/portfolio-content";
 
 type ModePageContentProps = {
+  activePanelIndex?: number;
+  onSelectPanel?: (index: number) => boolean;
   section: PortfolioSection;
 };
 
-export function ModePageContent({ section }: ModePageContentProps) {
+export function ModePageContent({
+  activePanelIndex = 0,
+  onSelectPanel,
+  section,
+}: ModePageContentProps) {
   switch (section.id) {
     case "about":
       return <AboutModePage section={section} />;
     case "projects":
-      return <ProjectsModePage section={section} />;
+      return (
+        <ProjectsModePage
+          activePanelIndex={activePanelIndex}
+          onSelectPanel={onSelectPanel}
+          section={section}
+        />
+      );
     case "skills":
-      return <SkillsModePage section={section} />;
+      return (
+        <SkillsModePage
+          activePanelIndex={activePanelIndex}
+          onSelectPanel={onSelectPanel}
+          section={section}
+        />
+      );
     case "certificates":
       return <CertificatesModePage section={section} />;
     case "contact":

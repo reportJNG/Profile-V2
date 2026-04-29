@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { CSSProperties } from "react";
 import { AudioToggleButton } from "@/components/AudioToggleButton";
@@ -8,7 +8,7 @@ import { BackgroundLayer } from "@/components/BackgroundLayer";
 import { ModePageControls } from "@/components/ModePageControls";
 import { OverlayLayer } from "@/components/OverlayLayer";
 import { ModePageContent } from "@/components/mode-pages/ModePageContent";
-import { portfolioSections } from "@/lib/portfolio-content";
+import { getModePagePanelCount } from "@/lib/mode-page-panels";
 import type { PortfolioSection } from "@/lib/portfolio-content";
 import { useLobbyAudio } from "@/lib/use-lobby-audio";
 
@@ -16,40 +16,57 @@ type ModePageShellProps = {
   section: PortfolioSection;
 };
 
-const navigationSoundDelayMs = 120;
 const enterSoundDelayMs = 170;
-
-function getWrappedSectionIndex(index: number) {
-  return ((index % portfolioSections.length) + portfolioSections.length) % portfolioSections.length;
-}
 
 export function ModePageShell({ section }: ModePageShellProps) {
   const router = useRouter();
   const lobbyAudio = useLobbyAudio();
-  const sectionIndex = useMemo(
-    () =>
-      Math.max(
-        0,
-        portfolioSections.findIndex(
-          (portfolioSection) => portfolioSection.id === section.id,
-        ),
-      ),
-    [section.id],
+  const [panelState, setPanelState] = useState({
+    index: 0,
+    sectionId: section.id,
+  });
+  const panelCount = getModePagePanelCount(section.id);
+  const activePanelIndex =
+    panelState.sectionId === section.id ? panelState.index : 0;
+
+  const selectPanel = useCallback(
+    (index: number) => {
+      if (panelCount === 0) {
+        return false;
+      }
+
+      const nextIndex = ((index % panelCount) + panelCount) % panelCount;
+      setPanelState({
+        index: nextIndex,
+        sectionId: section.id,
+      });
+      return true;
+    },
+    [panelCount, section.id],
   );
 
-  const navigateToSection = useCallback(
+  const movePanel = useCallback(
     (direction: 1 | -1) => {
-      const nextSection =
-        portfolioSections[getWrappedSectionIndex(sectionIndex + direction)];
+      if (panelCount === 0) {
+        return false;
+      }
 
       lobbyAudio.playMoveSound(direction, "keyboard");
-      window.setTimeout(() => {
-        router.push(`/${nextSection.id}`);
-      }, navigationSoundDelayMs);
+      setPanelState((currentState) => {
+        const currentIndex =
+          currentState.sectionId === section.id ? currentState.index : 0;
+
+        return {
+          index:
+            ((currentIndex + direction) % panelCount + panelCount) %
+            panelCount,
+          sectionId: section.id,
+        };
+      });
 
       return true;
     },
-    [lobbyAudio, router, sectionIndex],
+    [lobbyAudio, panelCount, section.id],
   );
 
   const returnToPreviousPage = useCallback(() => {
@@ -69,13 +86,21 @@ export function ModePageShell({ section }: ModePageShellProps) {
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "ArrowDown") {
+        if (panelCount === 0) {
+          return;
+        }
+
         event.preventDefault();
-        navigateToSection(1);
+        movePanel(1);
       }
 
       if (event.key === "ArrowUp") {
+        if (panelCount === 0) {
+          return;
+        }
+
         event.preventDefault();
-        navigateToSection(-1);
+        movePanel(-1);
       }
 
       if (event.key === "Backspace") {
@@ -86,7 +111,7 @@ export function ModePageShell({ section }: ModePageShellProps) {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [navigateToSection, returnToPreviousPage]);
+  }, [movePanel, panelCount, returnToPreviousPage]);
 
   return (
     <main
@@ -101,9 +126,13 @@ export function ModePageShell({ section }: ModePageShellProps) {
       <BackgroundLayer direction={1} mode={section} />
       <OverlayLayer direction={1} mode={section} />
 
-      <section className="relative z-10 flex min-h-dvh items-center px-5 pb-28 pt-24 sm:px-10 sm:pb-24 sm:pt-24 lg:px-14">
+      <section className="mode-page-content-frame relative z-10 flex max-h-dvh min-h-dvh items-start overflow-y-auto overflow-x-hidden px-5 pb-28 pt-24 sm:px-10 sm:pb-24 sm:pt-24 lg:items-center lg:px-14">
         <div className="mx-auto w-full max-w-6xl">
-          <ModePageContent section={section} />
+          <ModePageContent
+            activePanelIndex={activePanelIndex}
+            onSelectPanel={selectPanel}
+            section={section}
+          />
         </div>
       </section>
 
@@ -114,8 +143,8 @@ export function ModePageShell({ section }: ModePageShellProps) {
 
       <ModePageControls
         onBack={returnToPreviousPage}
-        onNextMode={() => navigateToSection(1)}
-        onPreviousMode={() => navigateToSection(-1)}
+        onNextPanel={panelCount > 0 ? () => movePanel(1) : undefined}
+        onPreviousPanel={panelCount > 0 ? () => movePanel(-1) : undefined}
       />
     </main>
   );
