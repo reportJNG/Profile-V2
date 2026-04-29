@@ -60,7 +60,7 @@ export function AboutArcadeProfile({ section }: AboutArcadeProfileProps) {
           </div>
         </section>
 
-        <section className="about-profile-card-stage relative grid min-w-0 place-items-center overflow-hidden border border-white/12 bg-black/28 p-4 shadow-2xl backdrop-blur-md sm:p-5">
+        
           <ProfileCard
             name=""
             title=""
@@ -73,11 +73,12 @@ export function AboutArcadeProfile({ section }: AboutArcadeProfileProps) {
             enableTilt={true}
             enableMobileTilt={true}
             onContactClick={() => console.log("Contact clicked")}
-            behindGlowColor="rgba(125, 190, 255, 0.18)"
-            behindGlowSize="42%"
+            behindGlowColor="rgba(31, 118, 206, 0.95)"
+            behindGlowSize="100%"
+            behindGlowEnabled={true}
             innerGradient="linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.08))"
           />
-        </section>
+     
       </div>
    
   );
