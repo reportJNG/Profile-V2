@@ -33,7 +33,7 @@ export const portfolioSections = [
   {
     id: "about",
     title: "About Me",
-    kicker: "Who I Am",
+    kicker: "Remali Hamza",
     accent: "#74380f",
     secondaryAccent: "#746321",
     scene: "story",

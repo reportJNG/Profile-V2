@@ -1647,6 +1647,53 @@ button {
   }
 }
 
+@keyframes about-profile-pulse-border {
+  0%,
+  100% {
+    opacity: 0.42;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.95;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes about-profile-blink {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.35;
+    transform: scale(0.76);
+  }
+}
+
+@keyframes about-profile-meter-in {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: var(--xp-progress);
+  }
+}
+
+@keyframes about-profile-shimmer {
+  0%,
+  100% {
+    opacity: 0.28;
+  }
+
+  50% {
+    opacity: 0.82;
+  }
+}
+
 @media (min-width: 1024px) {
   .about-profile-shell,
   .about-sketch-layout {
