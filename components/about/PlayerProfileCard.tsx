@@ -37,10 +37,17 @@ type PlayerProfileCardProps = {
 };
 
 const buildNotes = [
-  { icon: Globe2, label: "Modern Web" },
-  { icon: Code2, label: "APIs" },
-  { icon: Database, label: "Databases" },
-  { icon: Terminal, label: "Linux Tools" },
+  { icon: Globe2, label: "Product UI" },
+  { icon: Code2, label: "API Design" },
+  { icon: Database, label: "Data Layer" },
+  { icon: Terminal, label: "Linux Ops" },
+] as const;
+
+const profileSignals = [
+  "Full-stack web",
+  "Python/PHP",
+  "API/Data",
+  "Linux tools",
 ] as const;
 
 export function PlayerProfileCard({
@@ -93,6 +100,16 @@ export function PlayerProfileCard({
             <h1 className="text-[clamp(1.22rem,2.35vw,1.72rem)] font-black uppercase leading-none tracking-widest text-white [text-shadow:0_0_18px_color-mix(in_srgb,var(--mode-accent),transparent_48%),0_3px_18px_rgba(0,0,0,0.62)]">
               {section.kicker}
             </h1>
+            <div className="mt-2 flex flex-wrap gap-1">
+              {profileSignals.map((signal) => (
+                <span
+                  className="rounded-[6px] border border-white/[0.08] bg-white/[0.04] px-1.5 py-1 text-[8px] font-black uppercase leading-none tracking-widest text-white/64"
+                  key={signal}
+                >
+                  {signal}
+                </span>
+              ))}
+            </div>
           </div>
 
           <span className="flex flex-shrink-0 items-center gap-1.5 rounded-full border border-[color:color-mix(in_srgb,var(--mode-secondary),transparent_60%)] bg-[color:color-mix(in_srgb,var(--mode-secondary),transparent_88%)] px-2.5 py-1.5 text-[8px] font-black uppercase leading-none tracking-widest text-[color:color-mix(in_srgb,var(--mode-secondary),white_28%)]">

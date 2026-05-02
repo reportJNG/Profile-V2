@@ -466,7 +466,7 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
             height: 'var(--profile-card-height, 80svh)',
             maxHeight: 'var(--profile-card-max-height, 540px)',
             minHeight: 'var(--profile-card-min-height, auto)',
-            aspectRatio: '0.718',
+            aspectRatio: 'var(--profile-card-aspect-ratio, 0.718)',
             borderRadius: cardRadius,
             backgroundBlendMode: 'normal',
             boxShadow:

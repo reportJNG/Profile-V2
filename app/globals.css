@@ -1148,7 +1148,7 @@ button {
 }
 
 .about-profile-card-wrap {
-  align-items: center;
+  align-items: stretch;
   display: grid;
   justify-items: center;
   min-width: 0;
@@ -1156,10 +1156,17 @@ button {
 }
 
 .about-profile-card {
-  --profile-card-height: clamp(19.5rem, 44dvh, 23rem);
-  --profile-card-max-height: 23rem;
+  --profile-card-aspect-ratio: 0.58;
+  --profile-card-height: 100%;
+  --profile-card-max-height: none;
   --profile-card-min-height: 19.5rem;
-  width: min(100%, 16.5rem);
+  align-self: stretch;
+  height: 100%;
+  width: auto;
+}
+
+.about-profile-card > .group {
+  height: 100%;
 }
 
 .about-quest-card {
@@ -1779,10 +1786,16 @@ button {
   }
 
   .about-profile-card {
-    --profile-card-height: clamp(18.5rem, 58dvh, 22rem);
-    --profile-card-max-height: 22rem;
+    --profile-card-aspect-ratio: 0.62;
+    --profile-card-height: 100%;
+    --profile-card-max-height: none;
     --profile-card-min-height: 18.5rem;
-    width: min(100%, 16rem);
+    height: 100%;
+    width: auto;
+  }
+
+  .about-profile-card > .group {
+    height: 100%;
   }
 
   .about-info-strip {
