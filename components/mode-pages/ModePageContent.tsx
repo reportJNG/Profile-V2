@@ -36,7 +36,13 @@ export function ModePageContent({
     case "certificates":
       return <CertificatesModePage section={section} />;
     case "contact":
-      return <ContactModePage section={section} />;
+      return (
+        <ContactModePage
+          activePanelIndex={activePanelIndex}
+          panelDirection={panelDirection}
+          section={section}
+        />
+      );
     default:
       return null;
   }

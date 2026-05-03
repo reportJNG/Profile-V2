@@ -1833,6 +1833,892 @@ button {
   z-index: 2;
 }
 
+.contact-mode-page {
+  display: grid;
+  height: min(35rem, 100%);
+  isolation: isolate;
+  max-height: calc(100dvh - 9.4rem);
+  min-height: 0;
+  overflow: hidden;
+  place-items: center;
+  position: relative;
+  width: 100%;
+}
+
+.contact-mode-page::before,
+.contact-mode-page::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+}
+
+.contact-mode-page::before {
+  animation: contact-reactor-spin 11s linear infinite;
+  background:
+    conic-gradient(from 40deg, transparent, color-mix(in srgb, var(--mode-secondary), transparent 58%), transparent 18%, color-mix(in srgb, var(--mode-accent), transparent 48%), transparent 42%),
+    repeating-radial-gradient(circle, transparent 0 2.25rem, rgba(255, 255, 255, 0.06) 2.3rem 2.36rem);
+  border-radius: 50%;
+  filter: blur(0.4px);
+  height: clamp(23rem, 61vw, 50rem);
+  inset: 50% auto auto 50%;
+  mask-image: radial-gradient(circle, transparent 0 22%, #000 32%, #000 54%, transparent 72%);
+  opacity: 0.44;
+  transform: translate(-50%, -50%);
+  width: clamp(23rem, 61vw, 50rem);
+  z-index: -2;
+}
+
+.contact-mode-page::after {
+  animation: contact-reactor-pulse 1.8s ease-in-out infinite;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.18), transparent 22%),
+    radial-gradient(circle, color-mix(in srgb, var(--mode-secondary), transparent 48%), transparent 58%);
+  border-radius: 50%;
+  filter: blur(13px);
+  height: clamp(14rem, 33vw, 28rem);
+  inset: 50% auto auto 50%;
+  opacity: 0.42;
+  transform: translate(-50%, -50%);
+  width: clamp(14rem, 33vw, 28rem);
+  z-index: -1;
+}
+
+.contact-carousel__stage {
+  display: grid;
+  height: 100%;
+  max-height: 100%;
+  min-height: 0;
+  perspective: 1400px;
+  place-items: center;
+  position: relative;
+  width: min(100%, 75rem);
+}
+
+.contact-carousel__stage::before {
+  background:
+    linear-gradient(90deg, transparent, color-mix(in srgb, var(--mode-secondary), transparent 20%) 18%, color-mix(in srgb, var(--mode-accent), transparent 18%) 50%, color-mix(in srgb, var(--mode-secondary), transparent 20%) 82%, transparent),
+    linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+  box-shadow:
+    0 0 18px color-mix(in srgb, var(--mode-secondary), transparent 58%),
+    0 0 34px color-mix(in srgb, var(--mode-accent), transparent 72%);
+  content: "";
+  height: 2px;
+  left: clamp(4.25rem, 8vw, 8rem);
+  pointer-events: none;
+  position: absolute;
+  right: clamp(4.25rem, 8vw, 8rem);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 0;
+}
+
+.contact-carousel__arrows {
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 5;
+}
+
+.contact-carousel__arrow {
+  align-items: center;
+  animation: contact-arrow-thrum 1.45s ease-in-out infinite;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.035)),
+    color-mix(in srgb, var(--mode-accent), transparent 74%);
+  border: 1px solid color-mix(in srgb, var(--mode-secondary), transparent 44%);
+  box-shadow:
+    0 0 22px color-mix(in srgb, var(--mode-secondary), transparent 64%),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -5px 14px rgba(0, 0, 0, 0.36);
+  clip-path: polygon(0.42rem 0, calc(100% - 0.42rem) 0, 100% 0.42rem, 100% calc(100% - 0.42rem), calc(100% - 0.42rem) 100%, 0.42rem 100%, 0 calc(100% - 0.42rem), 0 0.42rem);
+  color: color-mix(in srgb, var(--mode-secondary), white 60%);
+  display: inline-flex;
+  height: clamp(3rem, 7vw, 4.8rem);
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: clamp(3rem, 7vw, 4.8rem);
+}
+
+.contact-carousel__arrow svg {
+  filter: drop-shadow(0 0 10px color-mix(in srgb, var(--mode-secondary), transparent 44%));
+  height: 58%;
+  width: 58%;
+}
+
+.contact-carousel__arrow--left {
+  left: clamp(0.2rem, 2vw, 2.2rem);
+}
+
+.contact-carousel__arrow--right {
+  animation-delay: 130ms;
+  right: clamp(0.2rem, 2vw, 2.2rem);
+}
+
+.contact-ghost-card {
+  align-content: center;
+  background:
+    radial-gradient(circle at 50% 18%, var(--contact-glow), transparent 42%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.095), rgba(255, 255, 255, 0.018)),
+    rgba(18, 3, 10, 0.54);
+  border: 1px solid color-mix(in srgb, var(--contact-tone), transparent 42%);
+  box-shadow:
+    0 0 42px var(--contact-glow),
+    inset 0 0 30px color-mix(in srgb, var(--contact-tone), transparent 76%),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  clip-path: polygon(0.8rem 0, calc(100% - 0.8rem) 0, 100% 0.8rem, 100% calc(100% - 0.8rem), calc(100% - 0.8rem) 100%, 0.8rem 100%, 0 calc(100% - 0.8rem), 0 0.8rem);
+  display: grid;
+  filter: blur(0.3px) saturate(1.85);
+  gap: 0.55rem;
+  height: clamp(15rem, 34dvh, 22rem);
+  justify-items: center;
+  opacity: 0.42;
+  overflow: hidden;
+  padding: 1.1rem;
+  position: absolute;
+  top: 50%;
+  width: clamp(12rem, 23vw, 19rem);
+  z-index: 1;
+}
+
+.contact-ghost-card--left {
+  left: clamp(0rem, 3vw, 4rem);
+  transform: translateY(-50%) rotateY(28deg) scale(0.86);
+}
+
+.contact-ghost-card--right {
+  right: clamp(0rem, 3vw, 4rem);
+  transform: translateY(-50%) rotateY(-28deg) scale(0.86);
+}
+
+.contact-ghost-card__scan {
+  animation: contact-panel-scan 2s linear infinite;
+  background:
+    linear-gradient(110deg, transparent, rgba(255, 255, 255, 0.28), transparent),
+    repeating-linear-gradient(0deg, transparent 0 9px, rgba(255, 255, 255, 0.08) 10px 11px);
+  inset: 0;
+  mix-blend-mode: screen;
+  opacity: 0.45;
+  position: absolute;
+}
+
+.contact-ghost-card__icon {
+  color: var(--contact-tone);
+  filter: drop-shadow(0 0 24px var(--contact-glow));
+  height: clamp(4rem, 8vw, 6.2rem);
+  width: clamp(4rem, 8vw, 6.2rem);
+}
+
+.contact-ghost-card__title,
+.contact-ghost-card__status {
+  font-family: var(--font-geist-mono), monospace;
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1;
+  position: relative;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.contact-ghost-card__title {
+  color: rgba(255, 255, 255, 0.86);
+  font-size: clamp(0.78rem, 1.35vw, 1rem);
+}
+
+.contact-ghost-card__status {
+  color: color-mix(in srgb, var(--contact-tone), white 20%);
+  font-size: 0.64rem;
+}
+
+.contact-active-card {
+  align-content: stretch;
+  aspect-ratio: 1;
+  background:
+    radial-gradient(circle at 50% 10%, var(--contact-glow), transparent 30%),
+    radial-gradient(circle at 50% 92%, color-mix(in srgb, var(--mode-secondary), transparent 66%), transparent 36%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.145), rgba(255, 255, 255, 0.036) 42%, rgba(0, 0, 0, 0.24)),
+    rgba(18, 3, 10, 0.86);
+  border: 1px solid color-mix(in srgb, var(--contact-tone), transparent 28%);
+  box-shadow:
+    0 34px 90px rgba(0, 0, 0, 0.58),
+    0 0 62px var(--contact-glow),
+    0 0 0 2px color-mix(in srgb, var(--contact-tone), transparent 72%),
+    inset 0 0 46px color-mix(in srgb, var(--contact-tone), transparent 82%),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  clip-path: polygon(1.1rem 0, calc(100% - 1.1rem) 0, 100% 1.1rem, 100% calc(100% - 1.1rem), calc(100% - 1.1rem) 100%, 1.1rem 100%, 0 calc(100% - 1.1rem), 0 1.1rem);
+  display: grid;
+  grid-template-rows: auto minmax(0, 0.9fr) minmax(0, 1.25fr);
+  height: min(100%, 31rem);
+  justify-items: center;
+  min-height: 0;
+  overflow: hidden;
+  padding: clamp(1rem, 2.2vw, 1.65rem);
+  position: relative;
+  text-align: center;
+  transform-style: preserve-3d;
+  width: min(86vw, 31rem);
+  z-index: 4;
+}
+
+.contact-active-card--from-right {
+  animation: contact-card-enter-right 680ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.contact-active-card--from-left {
+  animation: contact-card-enter-left 680ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.contact-active-card::after {
+  border: 1px solid color-mix(in srgb, var(--contact-tone), white 8%);
+  clip-path: inherit;
+  content: "";
+  inset: 0.45rem;
+  opacity: 0.36;
+  pointer-events: none;
+  position: absolute;
+}
+
+.contact-active-card__scan,
+.contact-active-card__flare,
+.contact-active-card__pulse {
+  pointer-events: none;
+  position: absolute;
+}
+
+.contact-active-card__scan {
+  animation: contact-panel-scan 2.1s linear infinite;
+  background:
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.065) 0 1px, transparent 1px 6px),
+    linear-gradient(90deg, transparent, color-mix(in srgb, var(--contact-tone), transparent 72%), transparent);
+  inset: 0;
+  mix-blend-mode: screen;
+  opacity: 0.5;
+}
+
+.contact-active-card__flare {
+  animation: contact-flare-cut 1.35s ease-out 1;
+  background: linear-gradient(102deg, transparent 0%, rgba(255, 255, 255, 0.74) 42%, transparent 72%);
+  filter: blur(5px);
+  height: 190%;
+  left: -54%;
+  mix-blend-mode: plus-lighter;
+  opacity: 0;
+  top: -45%;
+  transform: rotate(14deg);
+  width: 38%;
+  z-index: 5;
+}
+
+.contact-active-card__pulse {
+  animation: contact-ring-burst 850ms ease-out 1;
+  border: 2px solid color-mix(in srgb, var(--contact-tone), white 18%);
+  border-radius: 50%;
+  box-shadow: 0 0 32px var(--contact-glow);
+  height: 7rem;
+  left: 50%;
+  opacity: 0;
+  top: 36%;
+  transform: translate(-50%, -50%);
+  width: 7rem;
+  z-index: 3;
+}
+
+.contact-active-card__header {
+  align-items: center;
+  display: flex;
+  gap: 0.65rem;
+  justify-content: space-between;
+  min-width: 0;
+  position: relative;
+  width: 100%;
+  z-index: 2;
+}
+
+.contact-active-card__kicker,
+.contact-active-card__status {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: clamp(0.55rem, 1.4vw, 0.68rem);
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.contact-active-card__kicker {
+  color: rgba(255, 255, 255, 0.56);
+}
+
+.contact-active-card__status {
+  color: color-mix(in srgb, var(--contact-tone), white 20%);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 0 0 12px var(--contact-glow);
+  white-space: nowrap;
+}
+
+.contact-active-card__icon-shell {
+  align-self: center;
+  background:
+    radial-gradient(circle at 50% 32%, rgba(255, 255, 255, 0.22), transparent 34%),
+    radial-gradient(circle at 50% 50%, var(--contact-glow), transparent 68%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.025)),
+    rgba(9, 2, 7, 0.74);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  box-shadow:
+    0 0 42px var(--contact-glow),
+    inset 0 2px 0 rgba(255, 255, 255, 0.36),
+    inset 0 -10px 24px rgba(0, 0, 0, 0.34);
+  clip-path: polygon(18% 0, 82% 0, 100% 18%, 100% 82%, 82% 100%, 18% 100%, 0 82%, 0 18%);
+  display: grid;
+  height: clamp(6.2rem, 14vw, 8.7rem);
+  isolation: isolate;
+  place-items: center;
+  position: relative;
+  width: clamp(6.2rem, 14vw, 8.7rem);
+  z-index: 2;
+}
+
+.contact-active-card__orbit {
+  animation: contact-icon-orbit 2.8s linear infinite;
+  border: 1px dashed rgba(255, 255, 255, 0.44);
+  border-radius: 50%;
+  inset: -0.78rem;
+  opacity: 0.78;
+  position: absolute;
+}
+
+.contact-active-card__icon {
+  color: var(--contact-tone);
+  filter:
+    drop-shadow(0 2px 0 rgba(0, 0, 0, 0.34))
+    drop-shadow(0 0 18px var(--contact-glow));
+  height: 58%;
+  position: relative;
+  width: 58%;
+  z-index: 2;
+}
+
+.contact-active-card__copy {
+  align-content: start;
+  display: grid;
+  gap: clamp(0.75rem, 1.8dvh, 1rem);
+  min-width: 0;
+  position: relative;
+  width: 100%;
+  z-index: 2;
+}
+
+.contact-active-card__title {
+  color: rgba(255, 255, 255, 0.96);
+  font-family: var(--font-display), var(--font-geist-sans), sans-serif;
+  font-size: clamp(2.35rem, 6.4vw, 4.45rem);
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 0.82;
+  margin: 0;
+  overflow-wrap: anywhere;
+  text-shadow:
+    0 0 24px var(--contact-glow),
+    0 5px 24px rgba(0, 0, 0, 0.66);
+  text-transform: uppercase;
+}
+
+.contact-active-card__channels {
+  display: grid;
+  gap: 0.55rem;
+  min-width: 0;
+  width: 100%;
+}
+
+.contact-channel {
+  align-items: center;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.022)),
+    rgba(0, 0, 0, 0.28);
+  border: 1px solid color-mix(in srgb, var(--contact-tone), transparent 66%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 0 16px color-mix(in srgb, var(--contact-tone), transparent 82%);
+  clip-path: polygon(0.42rem 0, calc(100% - 0.42rem) 0, 100% 0.42rem, 100% calc(100% - 0.42rem), calc(100% - 0.42rem) 100%, 0.42rem 100%, 0 calc(100% - 0.42rem), 0 0.42rem);
+  display: grid;
+  gap: 0.65rem;
+  grid-template-columns: auto minmax(0, 1fr);
+  min-height: 3.55rem;
+  padding: 0.72rem 0.82rem;
+  text-align: left;
+}
+
+.contact-channel__icon {
+  color: color-mix(in srgb, var(--contact-tone), white 12%);
+  filter: drop-shadow(0 0 12px var(--contact-glow));
+  height: 1.25rem;
+  width: 1.25rem;
+}
+
+.contact-channel__copy {
+  display: grid;
+  gap: 0.32rem;
+  min-width: 0;
+}
+
+.contact-channel__label,
+.contact-channel__value {
+  font-family: var(--font-geist-mono), monospace;
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+.contact-channel__label {
+  color: rgba(255, 255, 255, 0.48);
+  font-size: 0.58rem;
+  text-transform: uppercase;
+}
+
+.contact-channel__value {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: clamp(0.68rem, 1.65vw, 0.84rem);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.contact-grid-page {
+  height: min(42rem, 100%);
+  max-height: calc(100dvh - 9.4rem);
+  pointer-events: none;
+}
+
+.contact-command-board {
+  aspect-ratio: 1;
+  background:
+    radial-gradient(circle at 26% 18%, color-mix(in srgb, var(--mode-secondary), transparent 62%), transparent 34%),
+    radial-gradient(circle at 76% 78%, color-mix(in srgb, var(--mode-accent), transparent 68%), transparent 38%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.105), rgba(255, 255, 255, 0.026) 44%, rgba(0, 0, 0, 0.18)),
+    rgba(34, 6, 17, 0.72);
+  border: 1px solid color-mix(in srgb, var(--mode-secondary), transparent 62%);
+  box-shadow:
+    0 34px 90px rgba(0, 0, 0, 0.54),
+    0 0 58px color-mix(in srgb, var(--mode-accent), transparent 72%),
+    inset 0 0 54px color-mix(in srgb, var(--mode-secondary), transparent 88%),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  clip-path: polygon(1.3rem 0, calc(100% - 1.3rem) 0, 100% 1.3rem, 100% calc(100% - 1.3rem), calc(100% - 1.3rem) 100%, 1.3rem 100%, 0 calc(100% - 1.3rem), 0 1.3rem);
+  display: grid;
+  grid-template-rows: minmax(0, 1fr);
+  height: min(100%, 40rem);
+  isolation: isolate;
+  min-height: 0;
+  overflow: hidden;
+  padding: clamp(1.15rem, 2.6vw, 1.8rem);
+  position: relative;
+  width: min(92vw, 40rem);
+  z-index: 4;
+}
+
+.contact-command-board--forward {
+  animation: contact-board-forward 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.contact-command-board--back {
+  animation: contact-board-back 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.contact-command-board::after {
+  border: 1px solid color-mix(in srgb, var(--mode-secondary), white 5%);
+  clip-path: inherit;
+  content: "";
+  inset: 0.5rem;
+  opacity: 0.22;
+  pointer-events: none;
+  position: absolute;
+}
+
+.contact-command-board__scan,
+.contact-command-board__flare {
+  pointer-events: none;
+  position: absolute;
+}
+
+.contact-command-board__scan {
+  animation: contact-panel-scan 3.2s linear infinite;
+  background:
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 9px),
+    linear-gradient(90deg, transparent, color-mix(in srgb, var(--mode-secondary), transparent 76%), transparent);
+  inset: 0;
+  mix-blend-mode: screen;
+  opacity: 0.34;
+}
+
+.contact-command-board__flare {
+  animation: contact-flare-cut 1.35s ease-out 1;
+  background: linear-gradient(102deg, transparent 0%, rgba(255, 255, 255, 0.7) 42%, transparent 72%);
+  filter: blur(5px);
+  height: 180%;
+  left: -54%;
+  mix-blend-mode: plus-lighter;
+  opacity: 0;
+  top: -42%;
+  transform: rotate(14deg);
+  width: 34%;
+  z-index: 5;
+}
+
+.contact-grid {
+  display: grid;
+  gap: clamp(0.64rem, 1.55vw, 0.96rem);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  min-height: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.contact-grid-tile {
+  align-content: center;
+  background:
+    radial-gradient(circle at 50% 28%, var(--contact-glow), transparent 46%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.105), rgba(255, 255, 255, 0.02)),
+    rgba(24, 2, 10, 0.34);
+  border: 1px solid color-mix(in srgb, var(--contact-tone), transparent 76%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.11),
+    inset 0 -10px 22px rgba(0, 0, 0, 0.16),
+    0 0 16px color-mix(in srgb, var(--contact-tone), transparent 90%);
+  clip-path: polygon(0.72rem 0, calc(100% - 0.72rem) 0, 100% 0.72rem, 100% calc(100% - 0.72rem), calc(100% - 0.72rem) 100%, 0.72rem 100%, 0 calc(100% - 0.72rem), 0 0.72rem);
+  display: grid;
+  gap: clamp(0.42rem, 1vw, 0.68rem);
+  justify-items: center;
+  min-height: 0;
+  overflow: hidden;
+  padding: clamp(0.78rem, 1.7vw, 1.05rem);
+  position: relative;
+  text-align: center;
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    filter 180ms ease,
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.contact-grid-tile--icon {
+  grid-template-rows: minmax(0, 1fr) auto;
+}
+
+.contact-grid-tile--info {
+  background:
+    radial-gradient(circle at 16% 20%, var(--contact-glow), transparent 52%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.008)),
+    rgba(0, 0, 0, 0.08);
+  border-color: color-mix(in srgb, var(--contact-tone), transparent 92%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 0 14px color-mix(in srgb, var(--contact-tone), transparent 92%);
+  justify-items: start;
+  text-align: left;
+}
+
+.contact-grid-tile--active {
+  animation: contact-tile-breathe 1.65s ease-in-out infinite;
+  border-color: color-mix(in srgb, var(--contact-tone), white 6%);
+  box-shadow:
+    0 0 34px var(--contact-glow),
+    0 0 0 1px color-mix(in srgb, var(--contact-tone), transparent 70%),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -14px 26px color-mix(in srgb, var(--contact-tone), transparent 88%);
+  filter: brightness(1.14) saturate(1.18);
+  transform: translateY(-2px) scale(1.018);
+  z-index: 3;
+}
+
+.contact-grid-tile__scan {
+  animation: contact-panel-scan 2.6s linear infinite;
+  background:
+    linear-gradient(110deg, transparent, rgba(255, 255, 255, 0.2), transparent),
+    repeating-linear-gradient(0deg, transparent 0 11px, rgba(255, 255, 255, 0.045) 12px 13px);
+  inset: 0;
+  mix-blend-mode: screen;
+  opacity: 0;
+  position: absolute;
+  transition: opacity 180ms ease;
+}
+
+.contact-grid-tile--active .contact-grid-tile__scan {
+  opacity: 0.42;
+}
+
+.contact-grid-tile__icon-shell {
+  align-self: end;
+  background:
+    radial-gradient(circle at 50% 34%, rgba(255, 255, 255, 0.16), transparent 34%),
+    radial-gradient(circle at 50% 50%, var(--contact-glow), transparent 72%),
+    rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow:
+    0 0 18px var(--contact-glow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  clip-path: polygon(18% 0, 82% 0, 100% 18%, 100% 82%, 82% 100%, 18% 100%, 0 82%, 0 18%);
+  display: grid;
+  height: clamp(3.25rem, 7.5vw, 4.9rem);
+  place-items: center;
+  position: relative;
+  transition:
+    filter 180ms ease,
+    transform 180ms ease;
+  width: clamp(3.25rem, 7.5vw, 4.9rem);
+  z-index: 2;
+}
+
+.contact-grid-tile--info .contact-grid-tile__icon-shell {
+  align-self: start;
+  height: clamp(2.7rem, 5.8vw, 3.4rem);
+  width: clamp(2.7rem, 5.8vw, 3.4rem);
+}
+
+.contact-grid-tile--active .contact-grid-tile__icon-shell {
+  filter: brightness(1.18);
+  transform: translateY(-0.25rem) scale(1.06);
+}
+
+.contact-grid-tile__icon {
+  color: color-mix(in srgb, var(--contact-tone), white 10%);
+  filter: drop-shadow(0 0 14px var(--contact-glow));
+  height: 54%;
+  width: 54%;
+}
+
+.contact-grid-tile__copy {
+  align-content: start;
+  display: grid;
+  gap: 0.28rem;
+  justify-items: center;
+  min-width: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.contact-grid-tile--info .contact-grid-tile__copy {
+  justify-items: start;
+}
+
+.contact-grid-tile__group {
+  font-family: var(--font-geist-mono), monospace;
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.contact-grid-tile__group {
+  color: rgba(255, 255, 255, 0.44);
+  font-size: clamp(0.5rem, 1.25vw, 0.58rem);
+}
+
+.contact-grid-tile--icon .contact-grid-tile__group {
+  clip: rect(0 0 0 0);
+  border: 0;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.contact-grid-tile__label {
+  color: rgba(255, 255, 255, 0.94);
+  font-family: var(--font-heading), var(--font-geist-sans), sans-serif;
+  font-size: clamp(0.82rem, 1.9vw, 1.08rem);
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1;
+  margin: 0;
+  overflow-wrap: anywhere;
+  text-transform: uppercase;
+}
+
+.contact-grid-tile--icon .contact-grid-tile__label {
+  color: rgba(255, 255, 255, 0.78);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: clamp(0.56rem, 1.35vw, 0.68rem);
+}
+
+.contact-grid-tile--info .contact-grid-tile__label {
+  font-size: clamp(0.86rem, 1.8vw, 1.04rem);
+}
+
+.contact-grid-tile__value {
+  color: color-mix(in srgb, var(--contact-tone), white 24%);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: clamp(0.68rem, 1.55vw, 0.86rem);
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1.15;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@keyframes contact-board-forward {
+  from {
+    transform: translate3d(1.2rem, 0, 0) scale(0.985);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes contact-board-back {
+  from {
+    transform: translate3d(-1.2rem, 0, 0) scale(0.985);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes contact-tile-breathe {
+  0%,
+  100% {
+    box-shadow:
+      0 0 26px var(--contact-glow),
+      0 0 0 1px color-mix(in srgb, var(--contact-tone), transparent 72%),
+      inset 0 1px 0 rgba(255, 255, 255, 0.18),
+      inset 0 -14px 26px color-mix(in srgb, var(--contact-tone), transparent 90%);
+  }
+
+  50% {
+    box-shadow:
+      0 0 40px var(--contact-glow),
+      0 0 0 1px color-mix(in srgb, var(--contact-tone), transparent 58%),
+      inset 0 1px 0 rgba(255, 255, 255, 0.22),
+      inset 0 -14px 30px color-mix(in srgb, var(--contact-tone), transparent 84%);
+  }
+}
+
+@keyframes contact-reactor-spin {
+  from {
+    rotate: 0deg;
+  }
+
+  to {
+    rotate: 360deg;
+  }
+}
+
+@keyframes contact-reactor-pulse {
+  0%,
+  100% {
+    opacity: 0.28;
+    transform: translate(-50%, -50%) scale(0.94);
+  }
+
+  50% {
+    opacity: 0.56;
+    transform: translate(-50%, -50%) scale(1.04);
+  }
+}
+
+@keyframes contact-arrow-thrum {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+
+  50% {
+    filter: brightness(1.28);
+  }
+}
+
+@keyframes contact-panel-scan {
+  from {
+    background-position: -120% 0, 0 0;
+  }
+
+  to {
+    background-position: 220% 0, 0 11px;
+  }
+}
+
+@keyframes contact-card-enter-right {
+  from {
+    opacity: 0.18;
+    transform: translate3d(7rem, 0, 0) rotateY(-18deg) scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) rotateY(0deg) scale(1);
+  }
+}
+
+@keyframes contact-card-enter-left {
+  from {
+    opacity: 0.18;
+    transform: translate3d(-7rem, 0, 0) rotateY(18deg) scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) rotateY(0deg) scale(1);
+  }
+}
+
+@keyframes contact-card-enter-mobile {
+  from {
+    opacity: 0.2;
+    transform: rotateY(0deg) scale(0.92);
+  }
+
+  to {
+    opacity: 1;
+    transform: rotateY(0deg) scale(1);
+  }
+}
+
+@keyframes contact-flare-cut {
+  0% {
+    opacity: 0;
+    transform: translateX(-120%) rotate(14deg);
+  }
+
+  28% {
+    opacity: 0.85;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(430%) rotate(14deg);
+  }
+}
+
+@keyframes contact-ring-burst {
+  0% {
+    opacity: 0.82;
+    transform: translate(-50%, -50%) scale(0.28);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(3.4);
+  }
+}
+
+@keyframes contact-icon-orbit {
+  from {
+    rotate: 0deg;
+  }
+
+  to {
+    rotate: -360deg;
+  }
+}
+
 @keyframes skills-reactor-spin {
   from {
     rotate: 0deg;
@@ -2015,7 +2901,18 @@ button {
     min-height: 0;
   }
 
+  .contact-carousel__stage {
+    height: 100%;
+    min-height: 0;
+  }
+
   .skills-ghost-card {
+    filter: blur(3px) saturate(1.18);
+    opacity: 0.38;
+    width: clamp(10rem, 30vw, 14rem);
+  }
+
+  .contact-ghost-card {
     filter: blur(3px) saturate(1.18);
     opacity: 0.38;
     width: clamp(10rem, 30vw, 14rem);
@@ -2025,7 +2922,15 @@ button {
     left: -1.8rem;
   }
 
+  .contact-ghost-card--left {
+    left: -1.8rem;
+  }
+
   .skills-ghost-card--right {
+    right: -1.8rem;
+  }
+
+  .contact-ghost-card--right {
     right: -1.8rem;
   }
 }
@@ -2037,11 +2942,26 @@ button {
     min-height: 0;
   }
 
+  .contact-mode-page {
+    height: 100%;
+    max-height: calc(100dvh - 9.6rem);
+    min-height: 0;
+  }
+
   .skills-carousel {
     min-height: 0;
   }
 
+  .contact-carousel {
+    min-height: 0;
+  }
+
   .skills-carousel__stage {
+    min-height: 0;
+    width: 100%;
+  }
+
+  .contact-carousel__stage {
     min-height: 0;
     width: 100%;
   }
@@ -2052,11 +2972,25 @@ button {
     width: 2.65rem;
   }
 
+  .contact-carousel__arrow {
+    height: 2.65rem;
+    top: 50%;
+    width: 2.65rem;
+  }
+
   .skills-carousel__arrow--left {
     left: 0;
   }
 
+  .contact-carousel__arrow--left {
+    left: 0;
+  }
+
   .skills-carousel__arrow--right {
+    right: 0;
+  }
+
+  .contact-carousel__arrow--right {
     right: 0;
   }
 
@@ -2067,11 +3001,26 @@ button {
     width: 10.4rem;
   }
 
+  .contact-ghost-card {
+    filter: blur(5px) saturate(1.25);
+    height: 15.4rem;
+    opacity: 0.3;
+    width: 10.4rem;
+  }
+
   .skills-ghost-card--left {
     left: -4.3rem;
   }
 
+  .contact-ghost-card--left {
+    left: -4.3rem;
+  }
+
   .skills-ghost-card--right {
+    right: -4.3rem;
+  }
+
+  .contact-ghost-card--right {
     right: -4.3rem;
   }
 
@@ -2083,9 +3032,21 @@ button {
     width: min(76vw, 17.5rem);
   }
 
+  .contact-active-card {
+    height: min(100%, 24rem);
+    max-width: calc(100vw - 2.7rem);
+    padding: 1rem 0.86rem;
+    width: min(82vw, 20rem);
+  }
+
   .skills-active-card--from-right,
   .skills-active-card--from-left {
     animation-name: skills-card-enter-mobile;
+  }
+
+  .contact-active-card--from-right,
+  .contact-active-card--from-left {
+    animation-name: contact-card-enter-mobile;
   }
 
   .skills-active-card__icon-shell {
@@ -2093,9 +3054,70 @@ button {
     width: clamp(5.6rem, 25vw, 7.1rem);
   }
 
+  .contact-active-card__icon-shell {
+    height: clamp(5.3rem, 22vw, 6.7rem);
+    width: clamp(5.3rem, 22vw, 6.7rem);
+  }
+
   .skills-active-card__title {
     font-size: clamp(1.95rem, 9.4vw, 2.85rem);
     max-width: min(11ch, 100%);
+  }
+
+  .contact-active-card__title {
+    font-size: clamp(2rem, 9.8vw, 3.05rem);
+  }
+
+  .contact-active-card__header {
+    gap: 0.45rem;
+  }
+
+  .contact-channel {
+    min-height: 3.15rem;
+    padding: 0.62rem 0.66rem;
+  }
+
+  .contact-channel__value {
+    font-size: 0.64rem;
+  }
+
+  .contact-grid-page {
+    height: 100%;
+    max-height: calc(100dvh - 9.6rem);
+  }
+
+  .contact-command-board {
+    gap: 0.55rem;
+    height: min(100%, calc(100vw - 1.8rem));
+    padding: 0.78rem;
+    width: min(calc(100vw - 1.8rem), 26rem);
+  }
+
+  .contact-grid {
+    gap: 0.42rem;
+  }
+
+  .contact-grid-tile {
+    gap: 0.42rem;
+    min-height: 0;
+    padding: 0.52rem;
+  }
+
+  .contact-grid-tile__icon-shell {
+    height: 2.35rem;
+    width: 2.35rem;
+  }
+
+  .contact-grid-tile__group {
+    font-size: 0.46rem;
+  }
+
+  .contact-grid-tile__label {
+    font-size: clamp(0.78rem, 3.8vw, 0.96rem);
+  }
+
+  .contact-grid-tile__value {
+    font-size: 0.52rem;
   }
 
   .skills-water-meter {
@@ -2153,10 +3175,19 @@ button {
     max-height: calc(100dvh - 8.4rem);
   }
 
+  .contact-mode-page {
+    max-height: calc(100dvh - 8.4rem);
+  }
+
   .skills-active-card {
     gap: 0.65rem;
     height: min(100%, 25.25rem);
     padding-block: 0.9rem;
+  }
+
+  .contact-active-card {
+    height: min(100%, 25.25rem);
+    padding-block: 0.85rem;
   }
 
   .skills-active-card__icon-shell {
@@ -2164,8 +3195,35 @@ button {
     width: clamp(4.85rem, 13dvh, 6.5rem);
   }
 
+  .contact-active-card__icon-shell {
+    height: clamp(4.6rem, 12dvh, 6.2rem);
+    width: clamp(4.6rem, 12dvh, 6.2rem);
+  }
+
   .skills-active-card__title {
     font-size: clamp(1.95rem, 7.2dvh, 4rem);
+  }
+
+  .contact-active-card__title {
+    font-size: clamp(1.9rem, 6.8dvh, 3.6rem);
+  }
+
+  .contact-channel {
+    min-height: 3rem;
+    padding-block: 0.58rem;
+  }
+
+  .contact-grid-page {
+    max-height: calc(100dvh - 8.4rem);
+  }
+
+  .contact-command-board {
+    gap: 0.52rem;
+    padding-block: 0.72rem;
+  }
+
+  .contact-grid-tile {
+    padding-block: 0.48rem;
   }
 
   .skills-active-card__level {
