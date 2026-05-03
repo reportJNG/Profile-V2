@@ -1,16 +1,33 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import type { Dispatch, SetStateAction } from "react";
 
-function wrap(value, max) {
+type InventoryMoveDirection = 1 | -1;
+type InventoryMoveHandler = (direction: InventoryMoveDirection) => void;
+type InventoryEnterHandler = () => boolean;
+
+type InventoryNavigationState = {
+  moveHorizontal: (direction: InventoryMoveDirection) => void;
+  moveVertical: (direction: InventoryMoveDirection) => void;
+  selectedIndex: number;
+  setSelectedIndex: Dispatch<SetStateAction<number>>;
+};
+
+function wrap(value: number, max: number) {
   return ((value % max) + max) % max;
 }
 
-export function useInventoryNavigation(itemCount, cols, onEnter, onMove) {
+export function useInventoryNavigation(
+  itemCount: number,
+  cols: number,
+  onEnter: InventoryEnterHandler,
+  onMove?: InventoryMoveHandler,
+): InventoryNavigationState {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const moveHorizontal = useCallback(
-    (direction) => {
+    (direction: InventoryMoveDirection) => {
       setSelectedIndex((currentIndex) => {
         const rowStart = Math.floor(currentIndex / cols) * cols;
         const currentCol = currentIndex % cols;
@@ -22,7 +39,7 @@ export function useInventoryNavigation(itemCount, cols, onEnter, onMove) {
   );
 
   const moveVertical = useCallback(
-    (direction) => {
+    (direction: InventoryMoveDirection) => {
       setSelectedIndex((currentIndex) => {
         const rows = Math.ceil(itemCount / cols);
         const currentRow = Math.floor(currentIndex / cols);
@@ -35,7 +52,7 @@ export function useInventoryNavigation(itemCount, cols, onEnter, onMove) {
   );
 
   useEffect(() => {
-    function handleKeyDown(event) {
+    function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "ArrowRight") {
         event.preventDefault();
         moveHorizontal(1);

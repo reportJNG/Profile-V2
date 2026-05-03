@@ -38,7 +38,7 @@ export function LobbySceneShell({
   return (
     <main
       aria-label="Cinematic portfolio menu"
-      className="lobby-scene-shell"
+      className="lobby-scene-shell relative isolate min-h-dvh w-full select-none overflow-hidden bg-[#071018] text-white"
       data-switching={isSwitching}
       style={
         {

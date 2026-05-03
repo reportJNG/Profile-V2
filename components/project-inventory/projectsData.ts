@@ -1,3 +1,32 @@
+import type { LucideIcon } from "lucide-react";
+import {
+  BadgeCheck,
+  Gamepad2,
+  Gauge,
+  Globe,
+  Terminal,
+  UserRound,
+} from "lucide-react";
+
+export const projectIconMap = {
+  BadgeCheck,
+  Gamepad2,
+  Gauge,
+  Globe,
+  Terminal,
+  UserRound,
+} satisfies Record<string, LucideIcon>;
+
+export type ProjectIconName = keyof typeof projectIconMap;
+
+export type ProjectItem = {
+  id: number;
+  icon: ProjectIconName;
+  title: string;
+  description: string;
+  link: string;
+};
+
 export const projectsData = [
   {
     id: 1,
@@ -47,4 +76,4 @@ export const projectsData = [
       "A direct handoff screen for collaboration signals, contact paths, and next-step messaging inside the portfolio shell.",
     link: "#",
   },
-];
+] as const satisfies readonly ProjectItem[];

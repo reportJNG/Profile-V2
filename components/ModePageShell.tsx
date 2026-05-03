@@ -17,6 +17,10 @@ type ModePageShellProps = {
 };
 
 const enterSoundDelayMs = 170;
+const modePageFrameBaseClass =
+  "relative z-10 flex max-h-dvh min-h-dvh items-start overflow-y-auto overflow-x-hidden px-5 pb-28 pt-24 sm:px-10 sm:pb-24 sm:pt-24 lg:items-center lg:px-14 [@media(max-height:680px)]:items-center [@media(max-height:680px)]:pb-[4.8rem] [@media(max-height:680px)]:pt-4";
+const projectsModePageFrameClass =
+  "items-start pb-32 pt-[5.8rem] lg:items-end lg:pb-[clamp(5.8rem,11dvh,7.2rem)] lg:pt-[clamp(4.5rem,8dvh,6.2rem)]";
 
 export function ModePageShell({ section }: ModePageShellProps) {
   const router = useRouter();
@@ -127,8 +131,8 @@ export function ModePageShell({ section }: ModePageShellProps) {
       <OverlayLayer direction={1} mode={section} />
 
       <section
-        className={`mode-page-content-frame relative z-10 flex max-h-dvh min-h-dvh items-start overflow-y-auto overflow-x-hidden px-5 pb-28 pt-24 sm:px-10 sm:pb-24 sm:pt-24 lg:items-center lg:px-14 ${
-          section.id === "projects" ? "mode-page-content-frame--projects" : ""
+        className={`${modePageFrameBaseClass} ${
+          section.id === "projects" ? projectsModePageFrameClass : ""
         }`}
       >
         <div

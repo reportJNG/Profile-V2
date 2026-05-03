@@ -17,20 +17,6 @@ const round = (v: number, precision = 3): number => parseFloat(v.toFixed(precisi
 const adjust = (v: number, fMin: number, fMax: number, tMin: number, tMax: number): number =>
   round(tMin + ((tMax - tMin) * (v - fMin)) / (fMax - fMin));
 
-// Inject keyframes once
-const KEYFRAMES_ID = 'pc-keyframes';
-if (typeof document !== 'undefined' && !document.getElementById(KEYFRAMES_ID)) {
-  const style = document.createElement('style');
-  style.id = KEYFRAMES_ID;
-  style.textContent = `
-    @keyframes pc-holo-bg {
-      0% { background-position: 0 var(--background-y), 0 0, center; }
-      100% { background-position: 0 var(--background-y), 90% 90%, center; }
-    }
-  `;
-  document.head.appendChild(style);
-}
-
 interface ProfileCardProps {
   avatarUrl?: string;
   iconUrl?: string;

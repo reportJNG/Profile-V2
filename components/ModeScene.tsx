@@ -93,7 +93,7 @@ export function ModeScene({
   return (
     <motion.section
       aria-label={section.kicker}
-      className={`mode-scene mode-scene--${section.scene}`}
+      className={`mode-scene mode-scene--${section.scene} absolute inset-0 min-h-dvh overflow-hidden [perspective:1100px] [transform-origin:center] will-change-[transform,opacity,filter]`}
       custom={direction}
       initial="enter"
       animate="center"
