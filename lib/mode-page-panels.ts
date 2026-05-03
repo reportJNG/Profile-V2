@@ -49,10 +49,6 @@ export const skillModePanels = [
 ] as const satisfies readonly ModePagePanel[];
 
 export function getModePagePanels(sectionId: PortfolioSectionId) {
-  if (sectionId === "projects") {
-    return projectModePanels;
-  }
-
   if (sectionId === "skills") {
     return skillModePanels;
   }

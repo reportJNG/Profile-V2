@@ -9,12 +9,14 @@ import type { PortfolioSection } from "@/lib/portfolio-content";
 
 type ModePageContentProps = {
   activePanelIndex?: number;
+  onBack: () => boolean;
   onSelectPanel?: (index: number) => boolean;
   section: PortfolioSection;
 };
 
 export function ModePageContent({
   activePanelIndex = 0,
+  onBack,
   onSelectPanel,
   section,
 }: ModePageContentProps) {
@@ -22,13 +24,7 @@ export function ModePageContent({
     case "about":
       return <AboutModePage section={section} />;
     case "projects":
-      return (
-        <ProjectsModePage
-          activePanelIndex={activePanelIndex}
-          onSelectPanel={onSelectPanel}
-          section={section}
-        />
-      );
+      return <ProjectsModePage onBack={onBack} />;
     case "skills":
       return (
         <SkillsModePage

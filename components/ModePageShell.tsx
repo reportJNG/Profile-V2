@@ -126,10 +126,19 @@ export function ModePageShell({ section }: ModePageShellProps) {
       <BackgroundLayer direction={1} mode={section} />
       <OverlayLayer direction={1} mode={section} />
 
-      <section className="mode-page-content-frame relative z-10 flex max-h-dvh min-h-dvh items-start overflow-y-auto overflow-x-hidden px-5 pb-28 pt-24 sm:px-10 sm:pb-24 sm:pt-24 lg:items-center lg:px-14">
-        <div className="mx-auto w-full max-w-6xl">
+      <section
+        className={`mode-page-content-frame relative z-10 flex max-h-dvh min-h-dvh items-start overflow-y-auto overflow-x-hidden px-5 pb-28 pt-24 sm:px-10 sm:pb-24 sm:pt-24 lg:items-center lg:px-14 ${
+          section.id === "projects" ? "mode-page-content-frame--projects" : ""
+        }`}
+      >
+        <div
+          className={`mx-auto w-full ${
+            section.id === "projects" ? "max-w-[86rem]" : "max-w-6xl"
+          }`}
+        >
           <ModePageContent
             activePanelIndex={activePanelIndex}
+            onBack={returnToPreviousPage}
             onSelectPanel={selectPanel}
             section={section}
           />
@@ -141,11 +150,13 @@ export function ModePageShell({ section }: ModePageShellProps) {
         onToggle={lobbyAudio.toggleMusic}
       />
 
-      <ModePageControls
-        onBack={returnToPreviousPage}
-        onNextPanel={panelCount > 0 ? () => movePanel(1) : undefined}
-        onPreviousPanel={panelCount > 0 ? () => movePanel(-1) : undefined}
-      />
+      {section.id !== "projects" ? (
+        <ModePageControls
+          onBack={returnToPreviousPage}
+          onNextPanel={panelCount > 0 ? () => movePanel(1) : undefined}
+          onPreviousPanel={panelCount > 0 ? () => movePanel(-1) : undefined}
+        />
+      ) : null}
     </main>
   );
 }

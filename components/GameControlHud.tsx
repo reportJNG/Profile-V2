@@ -19,6 +19,7 @@ type GameControlHudProps = {
   actions: GameControlHudAction[];
   ariaLabel: string;
   label: string;
+  placement?: "absolute" | "fixed";
 };
 
 type GameControlTone = {
@@ -112,13 +113,18 @@ export function GameControlHud({
   actions,
   ariaLabel,
   label,
+  placement = "absolute",
 }: GameControlHudProps) {
   const shouldReduceMotion = useHydratedReducedMotion();
+  const placementClass =
+    placement === "fixed"
+      ? "fixed bottom-3 right-3 z-40 max-w-[calc(100vw-1.5rem)] sm:bottom-5 sm:right-5 sm:max-w-[calc(100vw-2.5rem)]"
+      : "absolute bottom-3 right-3 z-40 max-w-[calc(100vw-1.5rem)] sm:bottom-5 sm:right-5 sm:max-w-[calc(100vw-2.5rem)]";
 
   return (
     <motion.nav
       aria-label={ariaLabel}
-      className="absolute bottom-3 right-3 z-40 max-w-[calc(100vw-1.5rem)] sm:bottom-5 sm:right-5 sm:max-w-[calc(100vw-2.5rem)]"
+      className={placementClass}
       initial={shouldReduceMotion ? false : { opacity: 0, y: 8, scale: 0.98 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={lobbyTitleTransition}
