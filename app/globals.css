@@ -1444,14 +1444,14 @@ button {
     inset 0 1px 0 rgba(255, 255, 255, 0.2),
     inset 0 -5px 14px rgba(0, 0, 0, 0.36);
   clip-path: polygon(0.42rem 0, calc(100% - 0.42rem) 0, 100% 0.42rem, 100% calc(100% - 0.42rem), calc(100% - 0.42rem) 100%, 0.42rem 100%, 0 calc(100% - 0.42rem), 0 0.42rem);
-  color: color-mix(in srgb, var(--mode-secondary), white 28%);
+  color: color-mix(in srgb, var(--mode-secondary), white 60%);
   display: inline-flex;
   height: clamp(3rem, 7vw, 4.8rem);
   justify-content: center;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: clamp(3rem, 7vw, 4.8rem);
+  width: clamp(3rem, 7vw, 1.8rem);
 }
 
 .skills-carousel__arrow svg {
