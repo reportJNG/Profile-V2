@@ -16,7 +16,7 @@ type InventoryGridProps = {
 export function InventoryGrid({ projects, selectedIndex }: InventoryGridProps) {
   return (
     <div
-      className="mt-auto grid w-full grid-cols-3 gap-2 lg:w-[min(100%,20.5rem)] lg:gap-[clamp(0.32rem,0.48vw,0.48rem)]"
+      className="mt-auto grid w-full grid-cols-3 gap-2.5 sm:gap-3 lg:w-[min(100%,31rem)] lg:gap-[clamp(0.55rem,0.72vw,0.78rem)]"
       role="grid"
       aria-label="Project inventory slots"
     >
