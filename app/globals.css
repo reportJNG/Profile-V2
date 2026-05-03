@@ -1306,6 +1306,37 @@ button {
   }
 }
 
+@keyframes inventory-action-sheen {
+  0%,
+  18% {
+    transform: translateX(0) skewX(-18deg);
+    opacity: 0;
+  }
+
+  42% {
+    opacity: 0.75;
+  }
+
+  72%,
+  100% {
+    transform: translateX(430%) skewX(-18deg);
+    opacity: 0;
+  }
+}
+
+@keyframes inventory-action-line {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scaleX(0.72);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
 @media (max-width: 980px) {
   .scene-grid {
     opacity: 0.22;

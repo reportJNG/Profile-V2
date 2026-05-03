@@ -30,38 +30,18 @@ type ProjectInventoryProps = {
 };
 
 const inventoryShellClass =
-  "project-inventory-shell relative mx-auto grid h-auto min-h-0 w-full max-w-[58rem] overflow-hidden border border-[color-mix(in_srgb,var(--mode-secondary),transparent_48%)] bg-[radial-gradient(circle_at_78%_14%,color-mix(in_srgb,var(--mode-secondary),transparent_78%),transparent_34%),radial-gradient(circle_at_16%_88%,color-mix(in_srgb,var(--mode-accent),transparent_72%),transparent_38%),linear-gradient(135deg,rgba(1,8,5,0.7),rgba(5,15,9,0.9)_58%,rgba(0,0,0,0.78))] [clip-path:polygon(0.9rem_0,calc(100%_-_0.9rem)_0,100%_0.9rem,100%_calc(100%_-_0.9rem),calc(100%_-_0.9rem)_100%,0.9rem_100%,0_calc(100%_-_0.9rem),0_0.9rem)] [font-family:var(--font-geist-mono),monospace] text-[rgba(247,255,232,0.94)] shadow-[0_28px_70px_rgba(0,0,0,0.42),0_0_42px_color-mix(in_srgb,var(--mode-accent),transparent_76%),inset_0_1px_0_rgba(255,255,255,0.12)] outline-none focus-visible:ring-2 focus-visible:ring-[color-mix(in_srgb,var(--mode-secondary),white_18%)] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent lg:ml-[clamp(0rem,2vw,1.2rem)] lg:mr-auto lg:h-[clamp(29rem,64dvh,37rem)] lg:max-w-[min(100%,66rem)] lg:grid-cols-[minmax(24rem,0.62fr)_1px_minmax(18rem,0.38fr)]";
+  "project-inventory-shell relative mx-auto grid h-auto min-h-0 w-full max-w-[62rem] overflow-hidden border border-[color-mix(in_srgb,var(--mode-secondary),transparent_52%)] bg-[radial-gradient(circle_at_78%_14%,color-mix(in_srgb,var(--mode-secondary),transparent_86%),transparent_34%),radial-gradient(circle_at_16%_88%,color-mix(in_srgb,var(--mode-accent),transparent_82%),transparent_38%),linear-gradient(135deg,rgba(1,8,5,0.72),rgba(4,12,8,0.9)_58%,rgba(0,0,0,0.78))] [clip-path:polygon(0.9rem_0,calc(100%_-_0.9rem)_0,100%_0.9rem,100%_calc(100%_-_0.9rem),calc(100%_-_0.9rem)_100%,0.9rem_100%,0_calc(100%_-_0.9rem),0_0.9rem)] [font-family:var(--font-geist-mono),monospace] text-[rgba(247,255,232,0.94)] shadow-[0_28px_70px_rgba(0,0,0,0.42),0_0_30px_color-mix(in_srgb,var(--mode-accent),transparent_82%),inset_0_1px_0_rgba(255,255,255,0.1)] outline-none focus-visible:ring-2 focus-visible:ring-[color-mix(in_srgb,var(--mode-secondary),white_18%)] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent lg:h-[clamp(32rem,70dvh,41rem)] lg:max-w-[min(100%,74rem)] lg:grid-cols-[minmax(28rem,0.58fr)_1px_minmax(23rem,0.42fr)]";
 const panelBaseClass =
-  "relative min-w-0 border border-[color-mix(in_srgb,var(--mode-secondary),transparent_66%)] bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.018)),repeating-linear-gradient(0deg,rgba(255,255,255,0.028)_0_1px,transparent_1px_7px),rgba(2,9,7,0.76)] p-4 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.035)] lg:p-[clamp(1rem,1.35vw,1.35rem)]";
+  "relative min-w-0 border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.048),rgba(255,255,255,0.012)),rgba(2,9,7,0.68)] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] lg:p-[clamp(1.25rem,1.6vw,1.65rem)]";
 const gridPanelClass =
-  "flex flex-col items-start gap-4 lg:gap-5 lg:justify-between";
+  "flex flex-col items-start justify-center gap-4 lg:gap-5";
 const detailPanelClass =
-  "flex items-stretch justify-center bg-[radial-gradient(circle_at_20%_16%,color-mix(in_srgb,var(--mode-secondary),transparent_78%),transparent_34%),linear-gradient(180deg,rgba(255,255,255,0.065),rgba(255,255,255,0.016)),rgba(3,10,9,0.88)] lg:items-stretch lg:justify-start lg:p-[clamp(1rem,1.2vw,1.2rem)]";
-const headerClass = "grid w-full min-w-0 gap-3 sm:grid-cols-[minmax(0,1fr)_auto]";
+  "flex items-stretch justify-center bg-[radial-gradient(circle_at_20%_16%,color-mix(in_srgb,var(--mode-secondary),transparent_86%),transparent_34%),linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.012)),rgba(3,10,9,0.84)] lg:items-stretch lg:justify-start lg:p-[clamp(1.25rem,1.45vw,1.55rem)]";
 const dividerClass =
-  "relative flex h-px w-full items-center justify-center bg-[rgba(0,0,0,0.26)] lg:h-auto lg:w-px before:absolute before:inset-x-0 before:h-px before:bg-[color-mix(in_srgb,var(--mode-secondary),transparent_62%)] lg:before:inset-x-auto lg:before:inset-y-0 lg:before:h-auto lg:before:w-px";
+  "relative h-px w-full bg-[color-mix(in_srgb,var(--mode-secondary),transparent_62%)] lg:h-auto lg:w-px";
 
 function hasOpenableLink(project?: ProjectItem) {
   return Boolean(project?.link && project.link !== "#");
-}
-
-function InventoryPanelCorners() {
-  return (
-    <>
-      <span
-        aria-hidden="true"
-        className="pointer-events-none absolute left-1.5 top-1 [font-family:var(--font-inventory-cinzel),serif] text-2xl font-bold leading-none text-[#d6a94b] opacity-85 [text-shadow:0_0_12px_rgba(245,186,68,0.46)]"
-      >
-        [
-      </span>
-      <span
-        aria-hidden="true"
-        className="pointer-events-none absolute bottom-1 right-1.5 [font-family:var(--font-inventory-cinzel),serif] text-2xl font-bold leading-none text-[#d6a94b] opacity-85 [text-shadow:0_0_12px_rgba(245,186,68,0.46)]"
-      >
-        ]
-      </span>
-    </>
-  );
 }
 
 function InventoryFocusButton({ onClick }: { onClick: () => void }) {
@@ -93,8 +73,6 @@ export default function ProjectInventory({ onBack }: ProjectInventoryProps) {
   const [isDetailVisible, setIsDetailVisible] = useState(true);
   const [isFocusPulseActive, setIsFocusPulseActive] = useState(false);
 
-  const filledSlotCount = projectsData.length;
-
   const openSelectedProject = useCallback(() => {
     const project = projectsData[selectedIndexRef.current];
 
@@ -120,7 +98,6 @@ export default function ProjectInventory({ onBack }: ProjectInventoryProps) {
     openSelectedProject,
     playInventoryMoveSound,
   );
-  const selectedProject = projectsData[selectedIndex];
 
   const moveLeft = useCallback(() => {
     moveHorizontal(-1);
@@ -204,58 +181,15 @@ export default function ProjectInventory({ onBack }: ProjectInventoryProps) {
       >
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(90deg,transparent,color-mix(in_srgb,var(--mode-secondary),transparent_88%),transparent),repeating-linear-gradient(90deg,transparent_0_46px,rgba(255,255,255,0.03)_47px_48px)] opacity-45 mix-blend-screen"
+          className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(90deg,transparent,color-mix(in_srgb,var(--mode-secondary),transparent_92%),transparent)] opacity-35 mix-blend-screen"
         />
         <div className={`${panelBaseClass} ${gridPanelClass}`}>
-          <InventoryPanelCorners />
-          <div className={headerClass}>
-            <div className="min-w-0">
-              <p className="mb-2 inline-flex items-center gap-2 border border-[color-mix(in_srgb,var(--mode-secondary),transparent_68%)] bg-black/24 px-2.5 py-1.5 text-[0.58rem] font-black uppercase leading-none text-white/58">
-                <span className="block size-1.5 bg-[color-mix(in_srgb,var(--mode-secondary),white_18%)] shadow-[0_0_10px_color-mix(in_srgb,var(--mode-secondary),transparent_28%)]" />
-                Selected Work Loadout
-              </p>
-              <h1 className="[font-family:var(--font-heading),var(--font-geist-sans),sans-serif] text-[clamp(1.55rem,3vw,2.55rem)] font-black uppercase leading-[0.92] tracking-0 text-[#f7ffe8] [text-shadow:0_2px_18px_rgba(0,0,0,0.58),0_0_22px_color-mix(in_srgb,var(--mode-accent),transparent_70%)]">
-                Project Inventory
-              </h1>
-            </div>
-            <div className="grid shrink-0 grid-cols-3 gap-1.5 self-start text-center">
-              <span className="border border-white/10 bg-black/24 px-2 py-1.5">
-                <span className="block text-[0.52rem] font-black uppercase leading-none text-white/42">
-                  Filled
-                </span>
-                <span className="mt-1 block text-[0.78rem] font-black leading-none text-[color-mix(in_srgb,var(--mode-secondary),white_22%)]">
-                  {filledSlotCount}/{slotCount}
-                </span>
-              </span>
-              <span className="border border-white/10 bg-black/24 px-2 py-1.5">
-                <span className="block text-[0.52rem] font-black uppercase leading-none text-white/42">
-                  Slot
-                </span>
-                <span className="mt-1 block text-[0.78rem] font-black leading-none text-[color-mix(in_srgb,var(--mode-secondary),white_22%)]">
-                  {selectedIndex + 1}
-                </span>
-              </span>
-              <span className="border border-white/10 bg-black/24 px-2 py-1.5">
-                <span className="block text-[0.52rem] font-black uppercase leading-none text-white/42">
-                  State
-                </span>
-                <span className="mt-1 block text-[0.78rem] font-black uppercase leading-none text-[color-mix(in_srgb,var(--mode-secondary),white_22%)]">
-                  {selectedProject ? "Ready" : "Lock"}
-                </span>
-              </span>
-            </div>
-          </div>
           <InventoryGrid projects={projectsData} selectedIndex={selectedIndex} />
         </div>
 
-        <div className={dividerClass} aria-hidden="true">
-          <span className="relative bg-[#07110b] px-1.5 py-0 [font-family:var(--font-heading),serif] text-[1.15rem] font-black leading-none text-[color-mix(in_srgb,var(--mode-secondary),white_18%)] [text-shadow:0_0_14px_color-mix(in_srgb,var(--mode-secondary),transparent_36%)] lg:px-0 lg:py-1.5">
-            +
-          </span>
-        </div>
+        <div className={dividerClass} aria-hidden="true" />
 
         <div className={`${panelBaseClass} ${detailPanelClass}`}>
-          <InventoryPanelCorners />
           <ProjectDetail
             isVisible={isDetailVisible}
             project={projectsData[displayedIndex]}
