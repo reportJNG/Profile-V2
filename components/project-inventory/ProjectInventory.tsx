@@ -30,13 +30,13 @@ type ProjectInventoryProps = {
 };
 
 const inventoryShellClass =
-  "project-inventory-shell relative mx-auto grid h-auto min-h-0 w-full max-w-[62rem] overflow-hidden border border-[color-mix(in_srgb,var(--mode-secondary),transparent_52%)] bg-[radial-gradient(circle_at_78%_14%,color-mix(in_srgb,var(--mode-secondary),transparent_86%),transparent_34%),radial-gradient(circle_at_16%_88%,color-mix(in_srgb,var(--mode-accent),transparent_82%),transparent_38%),linear-gradient(135deg,rgba(1,8,5,0.72),rgba(4,12,8,0.9)_58%,rgba(0,0,0,0.78))] [clip-path:polygon(0.9rem_0,calc(100%_-_0.9rem)_0,100%_0.9rem,100%_calc(100%_-_0.9rem),calc(100%_-_0.9rem)_100%,0.9rem_100%,0_calc(100%_-_0.9rem),0_0.9rem)] [font-family:var(--font-geist-mono),monospace] text-[rgba(247,255,232,0.94)] shadow-[0_28px_70px_rgba(0,0,0,0.42),0_0_30px_color-mix(in_srgb,var(--mode-accent),transparent_82%),inset_0_1px_0_rgba(255,255,255,0.1)] outline-none focus-visible:ring-2 focus-visible:ring-[color-mix(in_srgb,var(--mode-secondary),white_18%)] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent lg:h-[clamp(32rem,70dvh,41rem)] lg:max-w-[min(100%,74rem)] lg:grid-cols-[minmax(28rem,0.58fr)_1px_minmax(23rem,0.42fr)]";
+  "project-inventory-shell relative mx-auto grid h-auto min-h-0 w-full max-w-[58rem] overflow-hidden border border-[color-mix(in_srgb,var(--mode-secondary),transparent_52%)] bg-[radial-gradient(circle_at_78%_14%,color-mix(in_srgb,var(--mode-secondary),transparent_86%),transparent_34%),radial-gradient(circle_at_16%_88%,color-mix(in_srgb,var(--mode-accent),transparent_82%),transparent_38%),linear-gradient(135deg,rgba(1,8,5,0.72),rgba(4,12,8,0.9)_58%,rgba(0,0,0,0.78))] [clip-path:polygon(0.9rem_0,calc(100%_-_0.9rem)_0,100%_0.9rem,100%_calc(100%_-_0.9rem),calc(100%_-_0.9rem)_100%,0.9rem_100%,0_calc(100%_-_0.9rem),0_0.9rem)] [font-family:var(--font-geist-mono),monospace] text-[rgba(247,255,232,0.94)] shadow-[0_28px_70px_rgba(0,0,0,0.42),0_0_30px_color-mix(in_srgb,var(--mode-accent),transparent_82%),inset_0_1px_0_rgba(255,255,255,0.1)] outline-none focus-visible:ring-2 focus-visible:ring-[color-mix(in_srgb,var(--mode-secondary),white_18%)] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent lg:h-[clamp(29rem,64dvh,37rem)] lg:max-w-[min(100%,66rem)] lg:grid-cols-[minmax(24rem,0.56fr)_1px_minmax(21.5rem,0.44fr)]";
 const panelBaseClass =
-  "relative min-w-0 border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.048),rgba(255,255,255,0.012)),rgba(2,9,7,0.68)] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] lg:p-[clamp(1.25rem,1.6vw,1.65rem)]";
+  "relative min-w-0 border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.048),rgba(255,255,255,0.012)),rgba(2,9,7,0.68)] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] lg:p-[clamp(1rem,1.35vw,1.35rem)]";
 const gridPanelClass =
   "flex flex-col items-start justify-center gap-4 lg:gap-5";
 const detailPanelClass =
-  "flex items-stretch justify-center bg-[radial-gradient(circle_at_20%_16%,color-mix(in_srgb,var(--mode-secondary),transparent_86%),transparent_34%),linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.012)),rgba(3,10,9,0.84)] lg:items-stretch lg:justify-start lg:p-[clamp(1.25rem,1.45vw,1.55rem)]";
+  "flex items-stretch justify-center bg-[radial-gradient(circle_at_20%_16%,color-mix(in_srgb,var(--mode-secondary),transparent_86%),transparent_34%),linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.012)),rgba(3,10,9,0.84)] lg:items-stretch lg:justify-start lg:p-[clamp(1rem,1.2vw,1.2rem)]";
 const dividerClass =
   "relative h-px w-full bg-[color-mix(in_srgb,var(--mode-secondary),transparent_62%)] lg:h-auto lg:w-px";
 
@@ -50,17 +50,20 @@ function InventoryFocusButton({ onClick }: { onClick: () => void }) {
       type="button"
       aria-label="Focus project inventory"
       title="Focus project inventory"
-      className="group fixed bottom-3 left-3 z-40 grid size-14 place-items-center overflow-hidden rounded-full border border-[color-mix(in_srgb,var(--mode-secondary),transparent_54%)] bg-[radial-gradient(circle_at_50%_28%,color-mix(in_srgb,var(--mode-secondary),white_12%),color-mix(in_srgb,var(--mode-accent),transparent_28%)_54%,rgba(2,10,7,0.9)_76%)] text-white shadow-[0_0_24px_color-mix(in_srgb,var(--mode-accent),transparent_54%),inset_0_1px_0_rgba(255,255,255,0.34),inset_0_-5px_12px_rgba(0,0,0,0.34)] outline-none transition hover:scale-105 focus-visible:ring-2 focus-visible:ring-white/80 sm:bottom-5 sm:left-5 sm:size-16"
+      className="group fixed bottom-3 left-3 z-50 inline-flex min-h-14 items-center gap-2 overflow-hidden rounded-full border border-[color-mix(in_srgb,var(--mode-secondary),transparent_48%)] bg-[linear-gradient(90deg,color-mix(in_srgb,var(--mode-accent),transparent_62%),color-mix(in_srgb,var(--mode-secondary),transparent_78%),rgba(2,10,7,0.92))] px-2.5 py-2 pr-4 text-white shadow-[0_0_26px_color-mix(in_srgb,var(--mode-accent),transparent_52%),inset_0_1px_0_rgba(255,255,255,0.28),inset_0_-5px_12px_rgba(0,0,0,0.34)] outline-none transition hover:scale-105 focus-visible:ring-2 focus-visible:ring-white/80 sm:bottom-5 sm:left-5 sm:min-h-16 sm:px-3 sm:pr-5"
       onClick={onClick}
     >
-      <span className="absolute inset-1 rounded-full border border-white/14" />
-      <span className="absolute inset-x-3 top-1.5 h-3 rounded-full bg-white/24 blur-[2px]" />
-      <Backpack
-        aria-hidden="true"
-        className="relative size-7 drop-shadow-[0_2px_8px_rgba(0,0,0,0.48)] transition group-hover:scale-110 sm:size-8"
-        strokeWidth={2.15}
-      />
-      <span className="sr-only">Inventory</span>
+      <span className="absolute inset-x-3 top-1.5 h-3 rounded-full bg-white/18 blur-[2px]" />
+      <span className="relative grid size-10 place-items-center rounded-full border border-white/14 bg-black/22 sm:size-11">
+        <Backpack
+          aria-hidden="true"
+          className="size-6 drop-shadow-[0_2px_8px_rgba(0,0,0,0.48)] transition group-hover:scale-110 sm:size-7"
+          strokeWidth={2.15}
+        />
+      </span>
+      <span className="relative font-mono text-[0.66rem] font-black uppercase leading-none text-[color-mix(in_srgb,var(--mode-secondary),white_28%)] [text-shadow:0_2px_8px_rgba(0,0,0,0.55)] sm:text-[0.74rem]">
+        Inventory
+      </span>
     </button>
   );
 }

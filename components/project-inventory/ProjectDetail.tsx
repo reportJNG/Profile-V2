@@ -11,9 +11,9 @@ type ProjectDetailProps = {
 };
 
 const detailClass =
-  "grid w-full max-w-none content-center gap-5 p-4 opacity-0 transition-opacity duration-150 lg:h-full lg:p-2";
+  "grid w-full max-w-none content-start gap-4 p-3 opacity-0 transition-opacity duration-150 lg:h-full lg:p-1";
 const iconWrapClass =
-  "inline-flex size-[5.4rem] items-center justify-center border border-[color-mix(in_srgb,var(--mode-secondary),transparent_48%)] bg-[radial-gradient(circle_at_50%_26%,color-mix(in_srgb,var(--mode-secondary),transparent_58%),transparent_62%),linear-gradient(180deg,rgba(255,255,255,0.09),rgba(255,255,255,0.018)),rgba(0,0,0,0.3)] text-[color-mix(in_srgb,var(--mode-secondary),white_18%)] shadow-[0_0_26px_color-mix(in_srgb,var(--mode-secondary),transparent_70%),inset_0_0_18px_color-mix(in_srgb,var(--mode-accent),transparent_78%)] lg:size-[6.2rem]";
+  "inline-flex size-[4.35rem] shrink-0 items-center justify-center border border-[color-mix(in_srgb,var(--mode-secondary),transparent_48%)] bg-[radial-gradient(circle_at_50%_26%,color-mix(in_srgb,var(--mode-secondary),transparent_58%),transparent_62%),linear-gradient(180deg,rgba(255,255,255,0.09),rgba(255,255,255,0.018)),rgba(0,0,0,0.3)] text-[color-mix(in_srgb,var(--mode-secondary),white_18%)] shadow-[0_0_22px_color-mix(in_srgb,var(--mode-secondary),transparent_72%),inset_0_0_18px_color-mix(in_srgb,var(--mode-accent),transparent_78%)] lg:size-[4.8rem]";
 const statBoxClass =
   "border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.052),rgba(255,255,255,0.016)),rgba(0,0,0,0.24)] px-4 py-3.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.045)]";
 const actionClass =
@@ -26,34 +26,26 @@ export function ProjectDetail({ isVisible, project }: ProjectDetailProps) {
 
   return (
     <div className={`${detailClass} ${isVisible ? "opacity-100" : ""}`}>
-      <div>
+      <div className="flex min-w-0 items-center gap-4">
         <div className={iconWrapClass} aria-hidden="true">
-          <Icon className="size-11 lg:size-14" strokeWidth={1.55} />
+          <Icon className="size-9 lg:size-10" strokeWidth={1.55} />
+        </div>
+        <div className="grid min-w-0 gap-0">
+          <h2 className="[font-family:var(--font-heading),var(--font-geist-sans),sans-serif] text-[clamp(1.45rem,2.2vw,2.05rem)] font-black uppercase leading-[0.98] tracking-0 text-[#f7ffe8] [text-shadow:0_2px_16px_rgba(0,0,0,0.58)]">
+            {project?.title ?? "Locked Slot"}
+          </h2>
         </div>
       </div>
 
-      <div>
-        <p className="mb-2 font-mono text-[0.68rem] font-black uppercase leading-none text-white/46">
-          Selected Item
-        </p>
-        <h2 className="[font-family:var(--font-heading),var(--font-geist-sans),sans-serif] text-[clamp(1.75rem,2.7vw,2.55rem)] font-black uppercase leading-[0.96] tracking-0 text-[#f7ffe8] [text-shadow:0_2px_16px_rgba(0,0,0,0.58)]">
-          {project?.title ?? "Locked Slot"}
-        </h2>
-      </div>
-
-      <p className="max-w-[36rem] font-mono text-[0.95rem] leading-[1.72] text-white/66 lg:text-[0.95rem]">
+      <p className="max-w-[34rem] font-mono text-[0.88rem] leading-[1.58] text-white/66 lg:text-[0.88rem]">
         {project?.description ??
           "This slot is waiting for the next project entry. Once added, its description and stats will appear here."}
       </p>
 
       <div className={statBoxClass}>
         <div className="mb-2 flex items-center justify-between gap-3">
-          <p className="font-mono text-[0.58rem] font-black uppercase leading-none text-white/42">
-            EXP
-          </p>
-          <span className="font-mono text-[0.58rem] font-black uppercase leading-none text-white/34">
-            1-100
-          </span>
+
+
         </div>
         <div className="mb-2 flex items-end gap-1.5">
           <span className="font-mono text-2xl font-black leading-none text-[color-mix(in_srgb,var(--mode-secondary),white_24%)]">

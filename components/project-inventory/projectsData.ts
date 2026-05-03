@@ -33,7 +33,7 @@ export const projectsData = [
     icon: "Globe",
     title: "Portfolio Site",
     description:
-      "A personal portfolio built with Next.js and Tailwind CSS, tuned for responsive presentation, dark game UI mood, and clean section navigation.",
+      "Main portfolio hub with responsive pages, animated mode routing, and a polished dark interface built to present work clearly.",
     link: "#",
   },
   {
@@ -41,7 +41,7 @@ export const projectsData = [
     icon: "UserRound",
     title: "Arcade Profile",
     description:
-      "A character-card profile screen that turns skills, stats, and personal details into a polished arcade RPG identity panel.",
+      "Profile card system that turns personal info, skills, and status into a game-style character panel with clean visual hierarchy.",
     link: "#",
   },
   {
@@ -49,7 +49,7 @@ export const projectsData = [
     icon: "Gamepad2",
     title: "Mode Select Lobby",
     description:
-      "A cinematic portfolio lobby with keyboard navigation, animated scene transitions, audio controls, and mode-based content routes.",
+      "Interactive lobby screen with keyboard movement, scene transitions, audio controls, and route handoff for each portfolio mode.",
     link: "#",
   },
   {
@@ -57,7 +57,7 @@ export const projectsData = [
     icon: "Gauge",
     title: "Skills Console",
     description:
-      "A readable skills interface for frontend, backend, data, workflow, and systems strengths, shaped for fast scanning.",
+      "Skill overview console for frontend, backend, data, workflow, and system strengths, organized for quick scanning.",
     link: "#",
   },
   {
@@ -65,7 +65,7 @@ export const projectsData = [
     icon: "BadgeCheck",
     title: "Certificate Vault",
     description:
-      "A credentials display concept for verified milestones, learning history, and proof-of-growth details in a game-like archive.",
+      "Credential archive for certificates and learning milestones, designed like a compact vault for proof of progress.",
     link: "#",
   },
   {
@@ -73,7 +73,7 @@ export const projectsData = [
     icon: "Terminal",
     title: "Contact Terminal",
     description:
-      "A direct handoff screen for collaboration signals, contact paths, and next-step messaging inside the portfolio shell.",
+      "Contact screen with direct collaboration signals, simple next steps, and a terminal-style handoff for reaching out.",
     link: "#",
   },
 ] as const satisfies readonly ProjectItem[];
