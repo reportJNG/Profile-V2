@@ -1337,14 +1337,775 @@ button {
   }
 }
 
+.skills-mode-page {
+  display: grid;
+  isolation: isolate;
+  height: min(35rem, 100%);
+  max-height: calc(100dvh - 9.4rem);
+  min-height: 0;
+  overflow: hidden;
+  place-items: center;
+  width: 100%;
+}
+
+.skills-carousel {
+  display: grid;
+  height: 100%;
+  isolation: isolate;
+  min-height: 0;
+  overflow: hidden;
+  place-items: center;
+  pointer-events: none;
+  position: relative;
+  width: 100%;
+}
+
+.skills-carousel::before,
+.skills-carousel::after {
+  content: "";
+  inset: 50% auto auto 50%;
+  pointer-events: none;
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+.skills-carousel::before {
+  animation: skills-reactor-spin 10s linear infinite;
+  background:
+    conic-gradient(from 0deg, transparent, color-mix(in srgb, var(--mode-secondary), transparent 58%), transparent 18%, color-mix(in srgb, var(--mode-accent), transparent 54%), transparent 36%),
+    repeating-radial-gradient(circle, transparent 0 2.6rem, rgba(255, 255, 255, 0.055) 2.66rem 2.72rem);
+  border-radius: 50%;
+  filter: blur(0.4px);
+  height: clamp(24rem, 62vw, 52rem);
+  mask-image: radial-gradient(circle, transparent 0 24%, #000 31%, #000 54%, transparent 72%);
+  opacity: 0.42;
+  width: clamp(24rem, 62vw, 52rem);
+  z-index: -2;
+}
+
+.skills-carousel::after {
+  animation: skills-reactor-pulse 1.9s ease-in-out infinite;
+  background:
+    radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent 24%),
+    radial-gradient(circle, color-mix(in srgb, var(--mode-secondary), transparent 50%), transparent 54%);
+  border-radius: 50%;
+  filter: blur(12px);
+  height: clamp(15rem, 34vw, 29rem);
+  opacity: 0.42;
+  width: clamp(15rem, 34vw, 29rem);
+  z-index: -1;
+}
+
+.skills-carousel__stage {
+  display: grid;
+  height: 100%;
+  max-height: 100%;
+  min-height: 0;
+  perspective: 1400px;
+  place-items: center;
+  position: relative;
+  width: min(100%, 75rem);
+}
+
+.skills-carousel__stage::before {
+  background:
+    linear-gradient(90deg, transparent, color-mix(in srgb, var(--mode-secondary), transparent 22%) 18%, color-mix(in srgb, var(--mode-accent), transparent 18%) 50%, color-mix(in srgb, var(--mode-secondary), transparent 22%) 82%, transparent),
+    linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+  box-shadow:
+    0 0 18px color-mix(in srgb, var(--mode-secondary), transparent 58%),
+    0 0 34px color-mix(in srgb, var(--mode-accent), transparent 72%);
+  content: "";
+  height: 2px;
+  left: clamp(4.25rem, 8vw, 8rem);
+  pointer-events: none;
+  position: absolute;
+  right: clamp(4.25rem, 8vw, 8rem);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 0;
+}
+
+.skills-carousel__arrows {
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 5;
+}
+
+.skills-carousel__arrow {
+  align-items: center;
+  animation: skills-arrow-thrum 1.45s ease-in-out infinite;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.035)),
+    color-mix(in srgb, var(--mode-accent), transparent 74%);
+  border: 1px solid color-mix(in srgb, var(--mode-secondary), transparent 44%);
+  box-shadow:
+    0 0 22px color-mix(in srgb, var(--mode-secondary), transparent 64%),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -5px 14px rgba(0, 0, 0, 0.36);
+  clip-path: polygon(0.42rem 0, calc(100% - 0.42rem) 0, 100% 0.42rem, 100% calc(100% - 0.42rem), calc(100% - 0.42rem) 100%, 0.42rem 100%, 0 calc(100% - 0.42rem), 0 0.42rem);
+  color: color-mix(in srgb, var(--mode-secondary), white 28%);
+  display: inline-flex;
+  height: clamp(3rem, 7vw, 4.8rem);
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: clamp(3rem, 7vw, 4.8rem);
+}
+
+.skills-carousel__arrow svg {
+  filter: drop-shadow(0 0 10px color-mix(in srgb, var(--mode-secondary), transparent 44%));
+  height: 58%;
+  width: 58%;
+}
+
+.skills-carousel__arrow--left {
+  left: clamp(0.2rem, 2vw, 2.2rem);
+}
+
+.skills-carousel__arrow--right {
+  animation-delay: 130ms;
+  right: clamp(0.2rem, 2vw, 2.2rem);
+}
+
+.skills-ghost-card {
+  align-content: center;
+  background:
+    radial-gradient(circle at 50% 20%, var(--skill-glow), transparent 42%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.018)),
+    rgba(2, 11, 24, 0.52);
+  border: 1px solid color-mix(in srgb, var(--skill-color), transparent 42%);
+  box-shadow:
+    0 0 42px var(--skill-glow),
+    inset 0 0 30px color-mix(in srgb, var(--skill-color), transparent 76%),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  clip-path: polygon(0.8rem 0, calc(100% - 0.8rem) 0, 100% 0.8rem, 100% calc(100% - 0.8rem), calc(100% - 0.8rem) 100%, 0.8rem 100%, 0 calc(100% - 0.8rem), 0 0.8rem);
+  display: grid;
+  filter: blur(0.3px) saturate(2);
+  gap: 0.55rem;
+  height: clamp(16rem, 36dvh, 24rem);
+  justify-items: center;
+  opacity: 0.43;
+  overflow: hidden;
+  padding: 1.1rem;
+  position: absolute;
+  top: 50%;
+  width: clamp(12rem, 23vw, 20rem);
+  z-index: 1;
+}
+
+.skills-ghost-card--left {
+  left: clamp(0rem, 3vw, 4rem);
+  transform: translateY(-50%) rotateY(28deg) scale(0.86);
+}
+
+.skills-ghost-card--right {
+  right: clamp(0rem, 3vw, 4rem);
+  transform: translateY(-50%) rotateY(-28deg) scale(0.86);
+}
+
+.skills-ghost-card__aura {
+  animation: skills-ghost-scan 1.9s linear infinite;
+  background:
+    linear-gradient(110deg, transparent, rgba(255, 255, 255, 0.34), transparent),
+    repeating-linear-gradient(0deg, transparent 0 9px, rgba(255, 255, 255, 0.08) 10px 11px);
+  inset: 0;
+  mix-blend-mode: screen;
+  opacity: 0.5;
+  position: absolute;
+}
+
+.skills-ghost-card__icon {
+  color: var(--skill-color);
+  filter: drop-shadow(0 0 24px var(--skill-glow));
+  height: clamp(4.3rem, 8vw, 6.6rem);
+  width: clamp(4.3rem, 8vw, 6.6rem);
+}
+
+.skills-ghost-card__title,
+.skills-ghost-card__level {
+  font-family: var(--font-geist-mono), monospace;
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.skills-ghost-card__title {
+  color: rgba(255, 255, 255, 0.86);
+  font-size: clamp(0.78rem, 1.35vw, 1rem);
+  max-width: 100%;
+  overflow-wrap: normal;
+  text-align: center;
+}
+
+.skills-ghost-card__level {
+  color: color-mix(in srgb, var(--skill-color), white 20%);
+  font-size: 0.64rem;
+}
+
+.skills-active-card {
+  align-content: center;
+  background:
+    radial-gradient(circle at 50% 10%, var(--skill-glow), transparent 28%),
+    radial-gradient(circle at 50% 92%, color-mix(in srgb, var(--mode-secondary), transparent 64%), transparent 36%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.145), rgba(255, 255, 255, 0.036) 42%, rgba(0, 0, 0, 0.22)),
+    rgba(2, 9, 21, 0.82);
+  border: 1px solid color-mix(in srgb, var(--skill-color), transparent 28%);
+  box-shadow:
+    0 34px 90px rgba(0, 0, 0, 0.58),
+    0 0 62px var(--skill-glow),
+    0 0 0 2px color-mix(in srgb, var(--skill-color), transparent 72%),
+    inset 0 0 46px color-mix(in srgb, var(--skill-color), transparent 82%),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  clip-path: polygon(1.1rem 0, calc(100% - 1.1rem) 0, 100% 1.1rem, 100% calc(100% - 1.1rem), calc(100% - 1.1rem) 100%, 1.1rem 100%, 0 calc(100% - 1.1rem), 0 1.1rem);
+  display: grid;
+  gap: clamp(0.75rem, 2dvh, 1.35rem);
+  justify-items: center;
+  min-height: 0;
+  height: min(100%, 29rem);
+  overflow: hidden;
+  padding: clamp(1rem, 2.2vw, 1.85rem);
+  position: relative;
+  text-align: center;
+  transform-style: preserve-3d;
+  width: min(92vw, 39rem);
+  z-index: 4;
+}
+
+.skills-active-card--from-right {
+  animation: skills-card-enter-right 680ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.skills-active-card--from-left {
+  animation: skills-card-enter-left 680ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.skills-active-card::before,
+.skills-active-card::after {
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+.skills-active-card::before {
+  animation: skills-panel-scan 2.1s linear infinite;
+  background:
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.065) 0 1px, transparent 1px 6px),
+    linear-gradient(90deg, transparent, color-mix(in srgb, var(--skill-color), transparent 72%), transparent);
+  mix-blend-mode: screen;
+  opacity: 0.5;
+}
+
+.skills-active-card::after {
+  border: 1px solid color-mix(in srgb, var(--skill-color), white 8%);
+  clip-path: inherit;
+  inset: 0.45rem;
+  opacity: 0.36;
+}
+
+.skills-active-card__heat,
+.skills-active-card__flare,
+.skills-active-card__ring {
+  pointer-events: none;
+  position: absolute;
+}
+
+.skills-active-card__heat {
+  animation: skills-heat-rise 1.05s ease-in-out infinite alternate;
+  background:
+    radial-gradient(ellipse at 18% 100%, rgba(255, 246, 176, 0.7) 0 8%, transparent 28%),
+    radial-gradient(ellipse at 45% 96%, var(--skill-glow) 0 18%, transparent 44%),
+    radial-gradient(ellipse at 72% 92%, color-mix(in srgb, var(--skill-color), #ff4a22 48%) 0 15%, transparent 42%);
+  bottom: -2rem;
+  filter: blur(2px);
+  height: 38%;
+  left: -8%;
+  mix-blend-mode: plus-lighter;
+  opacity: 0.72;
+  right: -8%;
+  z-index: 0;
+}
+
+.skills-active-card__flare {
+  animation: skills-flare-cut 1.35s ease-out 1;
+  background: linear-gradient(102deg, transparent 0%, rgba(255, 255, 255, 0.78) 42%, transparent 72%);
+  filter: blur(5px);
+  height: 190%;
+  left: -54%;
+  mix-blend-mode: plus-lighter;
+  opacity: 0;
+  top: -45%;
+  transform: rotate(14deg);
+  width: 38%;
+  z-index: 5;
+}
+
+.skills-active-card__ring {
+  animation: skills-ring-burst 850ms ease-out 1;
+  border: 2px solid color-mix(in srgb, var(--skill-color), white 18%);
+  border-radius: 50%;
+  box-shadow: 0 0 32px var(--skill-glow);
+  height: 7rem;
+  left: 50%;
+  opacity: 0;
+  top: 31%;
+  transform: translate(-50%, -50%);
+  width: 7rem;
+  z-index: 3;
+}
+
+.skills-active-card__ring--late {
+  animation-delay: 110ms;
+  border-color: color-mix(in srgb, var(--mode-secondary), white 10%);
+}
+
+.skills-active-card__icon-shell {
+  align-items: center;
+  background:
+    radial-gradient(circle at 50% 32%, rgba(255, 255, 255, 0.22), transparent 34%),
+    radial-gradient(circle at 50% 50%, var(--skill-glow), transparent 68%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.025)),
+    rgba(0, 5, 14, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  box-shadow:
+    0 0 42px var(--skill-glow),
+    inset 0 2px 0 rgba(255, 255, 255, 0.36),
+    inset 0 -10px 24px rgba(0, 0, 0, 0.34);
+  clip-path: polygon(18% 0, 82% 0, 100% 18%, 100% 82%, 82% 100%, 18% 100%, 0 82%, 0 18%);
+  display: grid;
+  height: clamp(6.8rem, 15vw, 9.2rem);
+  isolation: isolate;
+  justify-items: center;
+  place-items: center;
+  position: relative;
+  width: clamp(6.8rem, 15vw, 9.2rem);
+  z-index: 2;
+}
+
+.skills-active-card__icon-orbit {
+  animation: skills-icon-orbit 2.8s linear infinite;
+  border: 1px dashed rgba(255, 255, 255, 0.46);
+  border-radius: 50%;
+  inset: -0.78rem;
+  opacity: 0.78;
+  position: absolute;
+}
+
+.skills-active-card__icon {
+  color: var(--skill-color);
+  filter:
+    drop-shadow(0 2px 0 rgba(0, 0, 0, 0.34))
+    drop-shadow(0 0 18px var(--skill-glow));
+  height: 58%;
+  position: relative;
+  width: 58%;
+  z-index: 2;
+}
+
+.skills-active-card__copy {
+  display: grid;
+  justify-items: center;
+  min-width: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.skills-active-card__title {
+  color: rgba(255, 255, 255, 0.96);
+  font-family: var(--font-display), var(--font-geist-sans), sans-serif;
+  font-size: clamp(2.5rem, 7.2vw, 5.3rem);
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 0.82;
+  margin: 0;
+  max-width: min(11ch, 100%);
+  overflow-wrap: anywhere;
+  text-shadow:
+    0 0 24px var(--skill-glow),
+    0 5px 24px rgba(0, 0, 0, 0.66);
+  text-transform: uppercase;
+  white-space: nowrap;
+  word-break: keep-all;
+}
+
+.skills-active-card__level {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.045)),
+    color-mix(in srgb, var(--skill-color), transparent 70%);
+  border: 1px solid color-mix(in srgb, var(--skill-color), white 8%);
+  box-shadow:
+    0 0 18px var(--skill-glow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  clip-path: polygon(0.42rem 0, calc(100% - 0.42rem) 0, 100% 0.42rem, 100% calc(100% - 0.42rem), calc(100% - 0.42rem) 100%, 0.42rem 100%, 0 calc(100% - 0.42rem), 0 0.42rem);
+  color: color-mix(in srgb, var(--skill-color), white 28%);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: clamp(0.86rem, 2vw, 1.1rem);
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1;
+  margin-top: 0.72rem;
+  padding: 0.52rem 0.78rem;
+  text-shadow: 0 0 14px var(--skill-glow);
+}
+
+.skills-water-meter {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent),
+    rgba(0, 5, 14, 0.76);
+  border: 1px solid color-mix(in srgb, var(--mode-secondary), transparent 44%);
+  box-shadow:
+    inset 0 2px 14px rgba(0, 0, 0, 0.7),
+    0 0 24px color-mix(in srgb, var(--mode-secondary), transparent 70%);
+  clip-path: polygon(0.54rem 0, calc(100% - 0.54rem) 0, 100% 0.54rem, 100% calc(100% - 0.54rem), calc(100% - 0.54rem) 100%, 0.54rem 100%, 0 calc(100% - 0.54rem), 0 0.54rem);
+  height: clamp(3rem, 7dvh, 3.7rem);
+  max-width: 30rem;
+  overflow: hidden;
+  padding: 0.28rem;
+  position: relative;
+  width: min(100%, 30rem);
+  z-index: 2;
+}
+
+.skills-water-meter__track {
+  background:
+    repeating-linear-gradient(90deg, transparent 0 calc(10% - 1px), rgba(255, 255, 255, 0.12) calc(10% - 1px) 10%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(0, 0, 0, 0.2));
+  inset: 0.28rem;
+  position: absolute;
+}
+
+.skills-water-meter__fill {
+  animation: skills-water-fill-in 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  background:
+    linear-gradient(180deg, rgba(208, 255, 255, 0.95), rgba(76, 209, 255, 0.84) 38%, color-mix(in srgb, var(--skill-color), #057dff 42%) 100%);
+  box-shadow:
+    0 0 26px color-mix(in srgb, var(--skill-color), transparent 42%),
+    inset 0 1px 0 rgba(255, 255, 255, 0.52);
+  display: block;
+  height: calc(100% - 0.56rem);
+  left: 0.28rem;
+  overflow: hidden;
+  position: absolute;
+  top: 0.28rem;
+  transform-origin: left center;
+  width: var(--skill-exp);
+}
+
+.skills-water-meter__wave {
+  animation: skills-water-wave 2.1s linear infinite;
+  background:
+    radial-gradient(ellipse at 18% 52%, rgba(255, 255, 255, 0.72) 0 9%, transparent 24%),
+    radial-gradient(ellipse at 52% 44%, rgba(255, 255, 255, 0.48) 0 12%, transparent 30%),
+    radial-gradient(ellipse at 82% 56%, rgba(255, 255, 255, 0.6) 0 10%, transparent 26%);
+  inset: -70% -18%;
+  opacity: 0.76;
+  position: absolute;
+}
+
+.skills-water-meter__shine {
+  animation: skills-water-shine 1.25s ease-in-out infinite;
+  background: linear-gradient(100deg, transparent 0%, rgba(255, 255, 255, 0.66) 42%, transparent 72%);
+  filter: blur(2px);
+  inset: 0;
+  opacity: 0.45;
+  position: absolute;
+}
+
+.skills-water-meter__value {
+  align-items: center;
+  color: rgba(255, 255, 255, 0.95);
+  display: flex;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: clamp(0.75rem, 1.6vw, 0.98rem);
+  font-weight: 900;
+  inset: 0;
+  justify-content: center;
+  letter-spacing: 0;
+  line-height: 1;
+  position: absolute;
+  text-shadow:
+    0 0 8px rgba(0, 0, 0, 0.88),
+    0 0 18px var(--skill-glow);
+  text-transform: uppercase;
+  z-index: 2;
+}
+
+@keyframes skills-reactor-spin {
+  from {
+    rotate: 0deg;
+  }
+
+  to {
+    rotate: 360deg;
+  }
+}
+
+@keyframes skills-reactor-pulse {
+  0%,
+  100% {
+    opacity: 0.26;
+    transform: translate(-50%, -50%) scale(0.94);
+  }
+
+  50% {
+    opacity: 0.56;
+    transform: translate(-50%, -50%) scale(1.04);
+  }
+}
+
+@keyframes skills-arrow-thrum {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+
+  50% {
+    filter: brightness(1.28);
+  }
+}
+
+@keyframes skills-ghost-scan {
+  from {
+    background-position: -120% 0, 0 0;
+  }
+
+  to {
+    background-position: 220% 0, 0 11px;
+  }
+}
+
+@keyframes skills-panel-scan {
+  from {
+    background-position: 0 -24px, -160% 0;
+  }
+
+  to {
+    background-position: 0 24px, 180% 0;
+  }
+}
+
+@keyframes skills-card-enter-right {
+  from {
+    opacity: 0.18;
+    transform: translate3d(7rem, 0, 0) rotateY(-18deg) scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) rotateY(0deg) scale(1);
+  }
+}
+
+@keyframes skills-card-enter-left {
+  from {
+    opacity: 0.18;
+    transform: translate3d(-7rem, 0, 0) rotateY(18deg) scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) rotateY(0deg) scale(1);
+  }
+}
+
+@keyframes skills-card-enter-mobile {
+  from {
+    opacity: 0.2;
+    transform: rotateY(0deg) scale(0.92);
+  }
+
+  to {
+    opacity: 1;
+    transform: rotateY(0deg) scale(1);
+  }
+}
+
+@keyframes skills-heat-rise {
+  from {
+    opacity: 0.58;
+    transform: translate3d(0, 8%, 0) scaleY(0.9) skewX(-4deg);
+  }
+
+  to {
+    opacity: 0.9;
+    transform: translate3d(-2%, -6%, 0) scaleY(1.08) skewX(4deg);
+  }
+}
+
+@keyframes skills-flare-cut {
+  0% {
+    opacity: 0;
+    transform: translateX(-120%) rotate(14deg);
+  }
+
+  28% {
+    opacity: 0.9;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(430%) rotate(14deg);
+  }
+}
+
+@keyframes skills-ring-burst {
+  0% {
+    opacity: 0.82;
+    transform: translate(-50%, -50%) scale(0.28);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(3.4);
+  }
+}
+
+@keyframes skills-icon-orbit {
+  from {
+    rotate: 0deg;
+  }
+
+  to {
+    rotate: -360deg;
+  }
+}
+
+@keyframes skills-water-fill-in {
+  from {
+    transform: scaleX(0.02);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes skills-water-wave {
+  from {
+    transform: translate3d(-8%, 0, 0);
+  }
+
+  to {
+    transform: translate3d(8%, -6%, 0);
+  }
+}
+
+@keyframes skills-water-shine {
+  0%,
+  100% {
+    transform: translateX(-115%) skewX(-18deg);
+  }
+
+  52% {
+    transform: translateX(130%) skewX(-18deg);
+  }
+}
+
 @media (max-width: 980px) {
   .scene-grid {
     opacity: 0.22;
     transform: perspective(760px) rotateX(60deg) translateY(11%);
   }
+
+  .skills-carousel__stage {
+    height: 100%;
+    min-height: 0;
+  }
+
+  .skills-ghost-card {
+    filter: blur(3px) saturate(1.18);
+    opacity: 0.38;
+    width: clamp(10rem, 30vw, 14rem);
+  }
+
+  .skills-ghost-card--left {
+    left: -1.8rem;
+  }
+
+  .skills-ghost-card--right {
+    right: -1.8rem;
+  }
 }
 
 @media (max-width: 640px) {
+  .skills-mode-page {
+    height: 100%;
+    max-height: calc(100dvh - 9.6rem);
+    min-height: 0;
+  }
+
+  .skills-carousel {
+    min-height: 0;
+  }
+
+  .skills-carousel__stage {
+    min-height: 0;
+    width: 100%;
+  }
+
+  .skills-carousel__arrow {
+    height: 2.65rem;
+    top: 50%;
+    width: 2.65rem;
+  }
+
+  .skills-carousel__arrow--left {
+    left: 0;
+  }
+
+  .skills-carousel__arrow--right {
+    right: 0;
+  }
+
+  .skills-ghost-card {
+    filter: blur(5px) saturate(1.25);
+    height: 15.4rem;
+    opacity: 0.3;
+    width: 10.4rem;
+  }
+
+  .skills-ghost-card--left {
+    left: -4.3rem;
+  }
+
+  .skills-ghost-card--right {
+    right: -4.3rem;
+  }
+
+  .skills-active-card {
+    height: min(100%, 24rem);
+    max-width: calc(100vw - 2.7rem);
+    min-height: 0;
+    padding: 1.2rem 1rem;
+    width: min(76vw, 17.5rem);
+  }
+
+  .skills-active-card--from-right,
+  .skills-active-card--from-left {
+    animation-name: skills-card-enter-mobile;
+  }
+
+  .skills-active-card__icon-shell {
+    height: clamp(5.6rem, 25vw, 7.1rem);
+    width: clamp(5.6rem, 25vw, 7.1rem);
+  }
+
+  .skills-active-card__title {
+    font-size: clamp(1.95rem, 9.4vw, 2.85rem);
+    max-width: min(11ch, 100%);
+  }
+
+  .skills-water-meter {
+    height: 3rem;
+  }
+
+  .skills-active-card__level {
+    margin-top: 0.55rem;
+  }
+
   .about-sketch-layout {
     width: calc(100vw - 2.5rem);
   }
@@ -1384,6 +2145,37 @@ button {
     background:
       linear-gradient(90deg, rgba(3, 6, 10, 0.86) 0%, rgba(5, 9, 15, 0.18) 46%, rgba(3, 6, 10, 0.6) 100%),
       linear-gradient(180deg, rgba(2, 4, 7, 0.78), transparent 28%, rgba(2, 4, 7, 0.9) 100%);
+  }
+}
+
+@media (max-height: 720px) {
+  .skills-mode-page {
+    max-height: calc(100dvh - 8.4rem);
+  }
+
+  .skills-active-card {
+    gap: 0.65rem;
+    height: min(100%, 25.25rem);
+    padding-block: 0.9rem;
+  }
+
+  .skills-active-card__icon-shell {
+    height: clamp(4.85rem, 13dvh, 6.5rem);
+    width: clamp(4.85rem, 13dvh, 6.5rem);
+  }
+
+  .skills-active-card__title {
+    font-size: clamp(1.95rem, 7.2dvh, 4rem);
+  }
+
+  .skills-active-card__level {
+    font-size: 0.82rem;
+    margin-top: 0.45rem;
+    padding: 0.42rem 0.66rem;
+  }
+
+  .skills-water-meter {
+    height: 2.65rem;
   }
 }
 

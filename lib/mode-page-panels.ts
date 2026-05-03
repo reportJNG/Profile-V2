@@ -1,4 +1,5 @@
 import type { PortfolioSectionId } from "@/lib/portfolio-content";
+import { skillsData } from "@/lib/skills-data";
 
 export type ModePagePanel = {
   title: string;
@@ -57,5 +58,9 @@ export function getModePagePanels(sectionId: PortfolioSectionId) {
 }
 
 export function getModePagePanelCount(sectionId: PortfolioSectionId) {
+  if (sectionId === "skills") {
+    return skillsData.length;
+  }
+
   return getModePagePanels(sectionId).length;
 }

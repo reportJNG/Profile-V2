@@ -1,29 +1,25 @@
 "use client";
 
 import type { PortfolioSection } from "@/lib/portfolio-content";
-import { skillModePanels } from "@/lib/mode-page-panels";
-import { ModePageIntro } from "@/components/mode-pages/ModePageIntro";
+import { SkillCarousel } from "@/components/mode-pages/SkillCarousel";
 
 type SkillsModePageProps = {
   activePanelIndex: number;
-  onSelectPanel?: (index: number) => boolean;
+  panelDirection: 1 | -1;
   section: PortfolioSection;
 };
 
 export function SkillsModePage({
   activePanelIndex,
-  onSelectPanel,
+  panelDirection,
   section,
 }: SkillsModePageProps) {
   return (
-    <ModePageIntro
-      section={section}
-      activePanelIndex={activePanelIndex}
-      body="A clear readout of the stack, strengths, and tools that shape the work behind each mode."
-      detail="Use this route for grouped technologies, confidence levels, and practical habits."
-      onSelectPanel={onSelectPanel}
-      panels={skillModePanels}
-      status="Stack scan ready"
-    />
+    <div className="skills-mode-page" style={{ color: section.secondaryAccent }}>
+      <SkillCarousel
+        activeSkillIndex={activePanelIndex}
+        direction={panelDirection}
+      />
+    </div>
   );
 }

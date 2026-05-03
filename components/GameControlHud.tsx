@@ -8,6 +8,7 @@ import { useHydratedReducedMotion } from "@/lib/use-hydrated-reduced-motion";
 
 export type GameControlHudAction = {
   actionLabel: string;
+  badgeLabel?: string;
   hint: string;
   icon: LucideIcon;
   keyLabel: string;
@@ -63,6 +64,7 @@ function getActionTone(actionLabel: string, keyLabel: string): GameControlTone {
 
 function GameControlKey({
   actionLabel,
+  badgeLabel,
   hint,
   icon: Icon,
   keyLabel,
@@ -100,7 +102,13 @@ function GameControlKey({
         }
       >
         <span className="absolute inset-x-1 top-0.5 h-2 rounded-full bg-white/34 blur-[1px]" />
-        <Icon className="size-4 drop-shadow-[0_1px_3px_rgba(0,0,0,0.42)] sm:size-[1.05rem]" strokeWidth={2.7} />
+        {badgeLabel ? (
+          <span className="relative z-[1] font-mono text-[0.86rem] font-black leading-none tracking-0 text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.42)] sm:text-[0.95rem]">
+            {badgeLabel}
+          </span>
+        ) : (
+          <Icon className="size-4 drop-shadow-[0_1px_3px_rgba(0,0,0,0.42)] sm:size-[1.05rem]" strokeWidth={2.7} />
+        )}
       </span>
       <span className="max-w-24 truncate text-left text-[0.72rem] font-semibold leading-none tracking-0 text-white/82 [text-shadow:0_2px_10px_rgba(0,0,0,0.72)] transition duration-200 group-hover:text-white sm:max-w-28 sm:text-[0.82rem]">
         {actionLabel}

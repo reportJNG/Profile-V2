@@ -9,15 +9,15 @@ import type { PortfolioSection } from "@/lib/portfolio-content";
 
 type ModePageContentProps = {
   activePanelIndex?: number;
+  panelDirection?: 1 | -1;
   onBack: () => boolean;
-  onSelectPanel?: (index: number) => boolean;
   section: PortfolioSection;
 };
 
 export function ModePageContent({
   activePanelIndex = 0,
+  panelDirection = 1,
   onBack,
-  onSelectPanel,
   section,
 }: ModePageContentProps) {
   switch (section.id) {
@@ -29,7 +29,7 @@ export function ModePageContent({
       return (
         <SkillsModePage
           activePanelIndex={activePanelIndex}
-          onSelectPanel={onSelectPanel}
+          panelDirection={panelDirection}
           section={section}
         />
       );
