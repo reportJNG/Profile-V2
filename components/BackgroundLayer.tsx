@@ -70,17 +70,6 @@ export function BackgroundLayer({ direction, mode }: BackgroundLayerProps) {
           />
         </motion.div>
 
-        <div className="scene-paint absolute inset-0 opacity-[0.94]" />
-        <div className="scene-sky absolute inset-0 opacity-[0.96]" />
-        <div className="scene-glow absolute inset-0 opacity-[0.32] mix-blend-screen" />
-        <div className="scene-flare absolute inset-0 opacity-[0.24] mix-blend-screen" />
-        <div className="scene-horizon scene-horizon--back absolute inset-x-0 bottom-[22%] top-auto h-1/4 origin-bottom skew-x-[-9deg] opacity-[0.88]" />
-        <div className="scene-horizon scene-horizon--mid absolute inset-x-0 bottom-[14%] top-auto h-[18%] origin-bottom skew-x-[-9deg] opacity-[0.88]" />
-        <div className="scene-horizon scene-horizon--front absolute inset-x-0 bottom-[7%] top-auto h-[17%] origin-bottom skew-x-[-9deg] opacity-[0.88]" />
-        <div className="scene-grid absolute inset-0 opacity-[0.16]" />
-        <div className="scene-ground absolute inset-x-0 bottom-0 top-auto" />
-        <div className="scene-energy scene-energy--one absolute inset-0 animate-[energy-slide-one_9s_ease-in-out_infinite_alternate] opacity-[0.44] mix-blend-screen" />
-        <div className="scene-energy scene-energy--two absolute inset-0 animate-[energy-slide-two_8.5s_ease-in-out_infinite_alternate] opacity-[0.44] mix-blend-screen" />
       </motion.div>
     </div>
   );

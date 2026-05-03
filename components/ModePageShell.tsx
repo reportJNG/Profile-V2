@@ -6,7 +6,6 @@ import type { CSSProperties } from "react";
 import { AudioToggleButton } from "@/components/AudioToggleButton";
 import { BackgroundLayer } from "@/components/BackgroundLayer";
 import { ModePageControls } from "@/components/ModePageControls";
-import { OverlayLayer } from "@/components/OverlayLayer";
 import { ModePageContent } from "@/components/mode-pages/ModePageContent";
 import { getModePagePanelCount } from "@/lib/mode-page-panels";
 import type { PortfolioSection } from "@/lib/portfolio-content";
@@ -128,7 +127,6 @@ export function ModePageShell({ section }: ModePageShellProps) {
       }
     >
       <BackgroundLayer direction={1} mode={section} />
-      <OverlayLayer direction={1} mode={section} />
 
       <section
         className={`${modePageFrameBaseClass} ${

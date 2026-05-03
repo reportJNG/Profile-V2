@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { InventorySlot } from "@/components/project-inventory/InventorySlot";
 import {
   projectIconMap,
@@ -14,6 +15,18 @@ type InventoryGridProps = {
 };
 
 export function InventoryGrid({ projects, selectedIndex }: InventoryGridProps) {
+  const slotRefs = useRef<Array<HTMLDivElement | null>>([]);
+
+  useEffect(() => {
+    const selectedSlot = slotRefs.current[selectedIndex];
+
+    selectedSlot?.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+      inline: "nearest",
+    });
+  }, [selectedIndex]);
+
   return (
     <div
       className="mx-auto grid w-full grid-cols-3 gap-2.5 sm:gap-3 lg:w-[min(100%,31.5rem)] lg:gap-[clamp(0.58rem,0.72vw,0.8rem)]"
@@ -27,6 +40,9 @@ export function InventoryGrid({ projects, selectedIndex }: InventoryGridProps) {
         return (
           <InventorySlot
             key={project?.id ?? `locked-${index}`}
+            ref={(node) => {
+              slotRefs.current[index] = node;
+            }}
             icon={Icon}
             isSelected={selectedIndex === index}
             project={project}
