@@ -7,23 +7,18 @@ import { useHydratedReducedMotion } from "@/lib/use-hydrated-reduced-motion";
 
 type AudioToggleButtonProps = {
   isEnabled: boolean;
-  onToggle: () => void;
 };
 
-export function AudioToggleButton({
-  isEnabled,
-  onToggle,
-}: AudioToggleButtonProps) {
+export function AudioToggleButton({ isEnabled }: AudioToggleButtonProps) {
   const shouldReduceMotion = useHydratedReducedMotion();
   const Icon = isEnabled ? Volume2 : VolumeX;
 
   return (
-    <motion.button
-      type="button"
-      aria-label={isEnabled ? "Mute music" : "Unmute music"}
-      title={isEnabled ? "Mute music" : "Unmute music"}
-      aria-pressed={isEnabled}
-      className="group absolute right-3 top-3 z-50 grid h-11 w-[5.05rem] grid-cols-[1.75rem_1fr] items-center gap-1 overflow-hidden border border-white/12 bg-black/36 px-1.5 text-white outline-none backdrop-blur-md transition hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-white/80 sm:right-5 sm:top-5 sm:h-12 sm:w-[5.45rem] lg:right-7 lg:top-7"
+    <motion.div
+      role="status"
+      aria-label={isEnabled ? "Music on" : "Music off"}
+      title={isEnabled ? "Music on" : "Music off"}
+      className="group absolute right-3 top-3 z-50 grid h-11 w-[5.05rem] cursor-default select-none grid-cols-[1.75rem_1fr] items-center gap-1 overflow-hidden border border-white/12 bg-black/36 px-1.5 text-white backdrop-blur-md sm:right-5 sm:top-5 sm:h-12 sm:w-[5.45rem] lg:right-7 lg:top-7"
       style={{
         background:
           "linear-gradient(180deg, rgba(255,255,255,0.11), rgba(255,255,255,0.02) 46%, rgba(0,0,0,0.32)), rgba(5, 7, 14, 0.78)",
@@ -44,12 +39,6 @@ export function AudioToggleButton({
           : "drop-shadow(0 0 0 rgba(0,0,0,0))",
       }}
       transition={lobbyTitleTransition}
-      whileHover={shouldReduceMotion ? undefined : { scale: 1.025, y: -1 }}
-      whileTap={{ scale: 0.95 }}
-      onClick={(event) => {
-        event.stopPropagation();
-        onToggle();
-      }}
     >
       <span
         aria-hidden="true"
@@ -97,6 +86,6 @@ export function AudioToggleButton({
           </span>
         </span>
       </span>
-    </motion.button>
+    </motion.div>
   );
 }

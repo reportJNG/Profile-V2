@@ -12,6 +12,7 @@ export type GameControlHudAction = {
   hint: string;
   icon: LucideIcon;
   keyLabel: string;
+  mouseClickable?: boolean;
   onClick: () => boolean;
   wide?: boolean;
 };
@@ -68,20 +69,12 @@ function GameControlKey({
   hint,
   icon: Icon,
   keyLabel,
+  mouseClickable = true,
   onClick,
 }: GameControlHudAction) {
   const actionTone = getActionTone(actionLabel, keyLabel);
-
-  return (
-    <motion.button
-      type="button"
-      aria-label={hint}
-      title={hint}
-      className="group relative inline-flex min-h-9 items-center gap-2 rounded-full px-1.5 py-1 text-white outline-none transition hover:text-white focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent sm:min-h-10 sm:gap-2.5 sm:px-2"
-      whileHover={{ scale: 1.035 }}
-      whileTap={{ scale: 0.94 }}
-      onClick={onClick}
-    >
+  const content = (
+    <>
       <span
         aria-hidden="true"
         className="absolute inset-0 -z-10 rounded-full opacity-0 blur-md transition-opacity duration-200 group-hover:opacity-70 group-focus-visible:opacity-70"
@@ -113,6 +106,32 @@ function GameControlKey({
       <span className="max-w-24 truncate text-left text-[0.72rem] font-semibold leading-none tracking-0 text-white/82 [text-shadow:0_2px_10px_rgba(0,0,0,0.72)] transition duration-200 group-hover:text-white sm:max-w-28 sm:text-[0.82rem]">
         {actionLabel}
       </span>
+    </>
+  );
+
+  if (!mouseClickable) {
+    return (
+      <motion.div
+        aria-label={hint}
+        className="group relative inline-flex min-h-9 cursor-default select-none items-center gap-2 rounded-full px-1.5 py-1 text-white sm:min-h-10 sm:gap-2.5 sm:px-2"
+        title={hint}
+      >
+        {content}
+      </motion.div>
+    );
+  }
+
+  return (
+    <motion.button
+      type="button"
+      aria-label={hint}
+      title={hint}
+      className="group relative inline-flex min-h-9 items-center gap-2 rounded-full px-1.5 py-1 text-white outline-none transition hover:text-white focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent sm:min-h-10 sm:gap-2.5 sm:px-2"
+      whileHover={{ scale: 1.035 }}
+      whileTap={{ scale: 0.94 }}
+      onClick={onClick}
+    >
+      {content}
     </motion.button>
   );
 }

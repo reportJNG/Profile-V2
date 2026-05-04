@@ -1,16 +1,18 @@
 "use client";
 
-import { ArrowDown, ArrowUp, CornerDownLeft } from "lucide-react";
+import { ArrowDown, ArrowUp, CornerDownLeft, Space } from "lucide-react";
 import { GameControlHud } from "@/components/GameControlHud";
 
 type ModeProgressMarkersProps = {
   onEnterMode: () => boolean;
+  onMusicToggle: () => boolean;
   onNextMode: () => boolean;
   onPreviousMode: () => boolean;
 };
 
 export function ModeProgressMarkers({
   onEnterMode,
+  onMusicToggle,
   onNextMode,
   onPreviousMode,
 }: ModeProgressMarkersProps) {
@@ -40,6 +42,14 @@ export function ModeProgressMarkers({
           keyLabel: "ENT",
           onClick: onEnterMode,
           wide: true,
+        },
+        {
+          actionLabel: "Music",
+          hint: "Space bar to toggle music",
+          icon: Space,
+          keyLabel: "SPACE",
+          mouseClickable: false,
+          onClick: onMusicToggle,
         },
       ]}
     />

@@ -20,6 +20,7 @@ type ModePageControlsProps = {
   onMoveLeftPanel?: () => boolean;
   onMoveRightPanel?: () => boolean;
   onMoveUpPanel?: () => boolean;
+  isMusicMouseClickable?: boolean;
   onMusicToggle?: () => boolean;
   onNextPanel?: () => boolean;
   onPreviousPanel?: () => boolean;
@@ -34,6 +35,7 @@ export function ModePageControls({
   onMoveLeftPanel,
   onMoveRightPanel,
   onMoveUpPanel,
+  isMusicMouseClickable = true,
   onMusicToggle,
   onNextPanel,
   onPreviousPanel,
@@ -108,6 +110,7 @@ export function ModePageControls({
           hint: "Space bar to toggle music",
           icon: Space,
           keyLabel: "SPACE",
+          mouseClickable: isMusicMouseClickable,
           onClick: onMusicToggle,
         },
       ]

@@ -34,6 +34,7 @@ export function ModePageShell({ section }: ModePageShellProps) {
     playMoveSound,
     toggleMusic,
   } = useLobbyAudio();
+  const isAboutPage = section.id === "about";
   const isSkillsPage = section.id === "skills";
   const isContactPage = section.id === "contact";
   const usesFixedPageControls = isSkillsPage || isContactPage;
@@ -220,6 +221,12 @@ export function ModePageShell({ section }: ModePageShellProps) {
       if (event.key === "Backspace") {
         event.preventDefault();
         returnToPreviousPage();
+        return;
+      }
+
+      if (isAboutPage && event.code === "Space") {
+        event.preventDefault();
+        toggleMusic();
       }
     }
 
@@ -227,6 +234,7 @@ export function ModePageShell({ section }: ModePageShellProps) {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [
     isContactPage,
+    isAboutPage,
     isSkillsPage,
     movePanel,
     movePanelByOffset,
@@ -284,11 +292,11 @@ export function ModePageShell({ section }: ModePageShellProps) {
 
       <AudioToggleButton
         isEnabled={isMusicEnabled}
-        onToggle={toggleMusic}
       />
 
       {usesFixedPageControls ? (
         <ModePageControls
+          isMusicMouseClickable={false}
           panelAxis={isContactPage ? "both" : "horizontal"}
           placement="fixed"
           onActivatePanel={isContactPage ? openActiveContactTile : undefined}
@@ -314,7 +322,16 @@ export function ModePageShell({ section }: ModePageShellProps) {
         />
       ) : section.id !== "projects" ? (
         <ModePageControls
+          isMusicMouseClickable={false}
           onBack={returnToPreviousPage}
+          onMusicToggle={
+            isAboutPage
+              ? () => {
+                  toggleMusic();
+                  return true;
+                }
+              : undefined
+          }
           onNextPanel={panelCount > 0 ? () => movePanel(1) : undefined}
           onPreviousPanel={panelCount > 0 ? () => movePanel(-1) : undefined}
         />

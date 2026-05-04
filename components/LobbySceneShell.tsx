@@ -17,9 +17,9 @@ type LobbySceneShellProps = {
   isMusicEnabled: boolean;
   isSwitching: boolean;
   onEnterMode: () => boolean;
+  onToggleMusic: () => boolean;
   onNextMode: () => boolean;
   onPreviousMode: () => boolean;
-  onToggleMusic: () => void;
 };
 
 export function LobbySceneShell({
@@ -29,9 +29,9 @@ export function LobbySceneShell({
   isMusicEnabled,
   isSwitching,
   onEnterMode,
+  onToggleMusic,
   onNextMode,
   onPreviousMode,
-  onToggleMusic,
 }: LobbySceneShellProps) {
   const activeSection = portfolioSections[activeIndex];
 
@@ -70,11 +70,11 @@ export function LobbySceneShell({
         <>
           <AudioToggleButton
             isEnabled={isMusicEnabled}
-            onToggle={onToggleMusic}
           />
 
           <ModeProgressMarkers
             onEnterMode={onEnterMode}
+            onMusicToggle={onToggleMusic}
             onNextMode={onNextMode}
             onPreviousMode={onPreviousMode}
           />
