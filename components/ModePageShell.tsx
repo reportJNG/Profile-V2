@@ -37,6 +37,7 @@ export function ModePageShell({ section }: ModePageShellProps) {
   const isAboutPage = section.id === "about";
   const isSkillsPage = section.id === "skills";
   const isContactPage = section.id === "contact";
+  const isProjectsPage = section.id === "projects";
   const usesFixedPageControls = isSkillsPage || isContactPage;
   const [panelState, setPanelState] = useState({
     direction: 1 as 1 | -1,
@@ -48,6 +49,11 @@ export function ModePageShell({ section }: ModePageShellProps) {
     panelState.sectionId === section.id ? panelState.index : 0;
   const activePanelDirection =
     panelState.sectionId === section.id ? panelState.direction : 1;
+
+  const handleMusicToggle = useCallback(() => {
+    toggleMusic();
+    return true;
+  }, [toggleMusic]);
 
   const movePanel = useCallback(
     (direction: 1 | -1) => {
@@ -140,40 +146,28 @@ export function ModePageShell({ section }: ModePageShellProps) {
     function handleKeyDown(event: KeyboardEvent) {
       if (usesFixedPageControls) {
         if (isSkillsPage && event.key === "ArrowRight") {
-          if (panelCount === 0) {
-            return;
-          }
-
+          if (panelCount === 0) return;
           event.preventDefault();
           movePanelByOffset(1);
           return;
         }
 
         if (isContactPage && event.key === "ArrowDown") {
-          if (panelCount === 0) {
-            return;
-          }
-
+          if (panelCount === 0) return;
           event.preventDefault();
           movePanelByOffset(1);
           return;
         }
 
         if (isSkillsPage && event.key === "ArrowLeft") {
-          if (panelCount === 0) {
-            return;
-          }
-
+          if (panelCount === 0) return;
           event.preventDefault();
           movePanelByOffset(-1);
           return;
         }
 
         if (isContactPage && event.key === "ArrowUp") {
-          if (panelCount === 0) {
-            return;
-          }
-
+          if (panelCount === 0) return;
           event.preventDefault();
           movePanelByOffset(-1);
           return;
@@ -201,19 +195,13 @@ export function ModePageShell({ section }: ModePageShellProps) {
       }
 
       if (event.key === "ArrowDown") {
-        if (panelCount === 0) {
-          return;
-        }
-
+        if (panelCount === 0) return;
         event.preventDefault();
         movePanel(1);
       }
 
       if (event.key === "ArrowUp") {
-        if (panelCount === 0) {
-          return;
-        }
-
+        if (panelCount === 0) return;
         event.preventDefault();
         movePanel(-1);
       }
@@ -224,7 +212,8 @@ export function ModePageShell({ section }: ModePageShellProps) {
         return;
       }
 
-      if (isAboutPage && event.code === "Space") {
+      // Space toggles music on about AND projects pages
+      if ((isAboutPage || isProjectsPage) && event.code === "Space") {
         event.preventDefault();
         toggleMusic();
       }
@@ -235,6 +224,7 @@ export function ModePageShell({ section }: ModePageShellProps) {
   }, [
     isContactPage,
     isAboutPage,
+    isProjectsPage,
     isSkillsPage,
     movePanel,
     movePanelByOffset,
@@ -265,7 +255,7 @@ export function ModePageShell({ section }: ModePageShellProps) {
               ? skillsModePageFrameClass
               : section.id === "contact"
                 ? contactModePageFrameClass
-              : ""
+                : ""
         }`}
       >
         <div
@@ -284,15 +274,14 @@ export function ModePageShell({ section }: ModePageShellProps) {
           <ModePageContent
             activePanelIndex={activePanelIndex}
             onBack={returnToPreviousPage}
+            onMusicToggle={handleMusicToggle}
             panelDirection={activePanelDirection}
             section={section}
           />
         </div>
       </section>
 
-      <AudioToggleButton
-        isEnabled={isMusicEnabled}
-      />
+      <AudioToggleButton isEnabled={isMusicEnabled} />
 
       {usesFixedPageControls ? (
         <ModePageControls
@@ -307,10 +296,7 @@ export function ModePageShell({ section }: ModePageShellProps) {
           onMoveUpPanel={
             isContactPage ? () => movePanelByOffset(-1) : undefined
           }
-          onMusicToggle={() => {
-            toggleMusic();
-            return true;
-          }}
+          onMusicToggle={handleMusicToggle}
           onNextPanel={panelCount > 0 ? () => movePanel(1) : undefined}
           onPreviousPanel={panelCount > 0 ? () => movePanel(-1) : undefined}
         />
@@ -318,14 +304,7 @@ export function ModePageShell({ section }: ModePageShellProps) {
         <ModePageControls
           isMusicMouseClickable={false}
           onBack={returnToPreviousPage}
-          onMusicToggle={
-            isAboutPage
-              ? () => {
-                  toggleMusic();
-                  return true;
-                }
-              : undefined
-          }
+          onMusicToggle={isAboutPage ? handleMusicToggle : undefined}
           onNextPanel={panelCount > 0 ? () => movePanel(1) : undefined}
           onPreviousPanel={panelCount > 0 ? () => movePanel(-1) : undefined}
         />

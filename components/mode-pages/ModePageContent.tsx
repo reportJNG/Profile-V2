@@ -11,6 +11,7 @@ type ModePageContentProps = {
   activePanelIndex?: number;
   panelDirection?: 1 | -1;
   onBack: () => boolean;
+  onMusicToggle?: () => boolean;
   section: PortfolioSection;
 };
 
@@ -18,13 +19,14 @@ export function ModePageContent({
   activePanelIndex = 0,
   panelDirection = 1,
   onBack,
+  onMusicToggle,
   section,
 }: ModePageContentProps) {
   switch (section.id) {
     case "about":
       return <AboutModePage section={section} />;
     case "projects":
-      return <ProjectsModePage onBack={onBack} />;
+      return <ProjectsModePage onBack={onBack} onMusicToggle={onMusicToggle} />;
     case "skills":
       return (
         <SkillsModePage
