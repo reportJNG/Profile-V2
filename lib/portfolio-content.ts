@@ -121,7 +121,7 @@ export const portfolioSections = [
   {
     id: "contact",
     title: "Contact",
-    kicker: "Settings & Reach Out",
+    kicker: "Reach Out",
     accent: "#711c34",
     secondaryAccent: "#715921",
     scene: "free",

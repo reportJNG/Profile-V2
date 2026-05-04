@@ -32,6 +32,16 @@ export const contactTiles = [
     glow: "rgba(255, 207, 79, 0.34)",
   },
   {
+    id: "phone",
+    label: "Phone",
+    value: "+213 000 000 000",
+    group: "Direct",
+    href: undefined,
+    icon: Phone,
+    tone: "#b4ff8e",
+    glow: "rgba(180, 255, 142, 0.3)",
+  },
+  {
     id: "email",
     label: "Email",
     value: "your.email@example.com",
@@ -70,16 +80,6 @@ export const contactTiles = [
     icon: Share2,
     tone: "#ff9a6a",
     glow: "rgba(255, 154, 106, 0.36)",
-  },
-  {
-    id: "phone",
-    label: "Phone",
-    value: "+213 000 000 000",
-    group: "Direct",
-    href: "tel:+213000000000",
-    icon: Phone,
-    tone: "#b4ff8e",
-    glow: "rgba(180, 255, 142, 0.3)",
   },
   {
     id: "old-portfolio",

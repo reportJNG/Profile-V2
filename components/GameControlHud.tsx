@@ -140,7 +140,10 @@ export function GameControlHud({
       <span className="sr-only">{label}</span>
       <div className="flex flex-wrap items-center justify-end gap-x-3 gap-y-2 rounded-full px-1 py-1 sm:gap-x-4">
         {actions.map((action) => (
-          <GameControlKey key={action.hint} {...action} />
+          <GameControlKey
+            key={`${action.keyLabel}-${action.actionLabel}-${action.hint}`}
+            {...action}
+          />
         ))}
       </div>
     </motion.nav>

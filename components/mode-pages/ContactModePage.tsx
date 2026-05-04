@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import type { CSSProperties } from "react";
 import { contactTiles, type ContactTile } from "@/lib/contact-data";
 import type { PortfolioSection } from "@/lib/portfolio-content";
@@ -22,49 +25,57 @@ function getContactStyle(tile: ContactTile) {
 }
 
 function ContactTileCard({
+  index,
   isActive,
   tile,
 }: {
+  index: number;
   isActive: boolean;
   tile: ContactTile;
 }) {
   const Icon = tile.icon;
-  const showsValue = tile.id === "country" || tile.id === "phone";
-  const tileKindClass = showsValue
-    ? "contact-grid-tile--info"
-    : "contact-grid-tile--icon";
+  const isStaticInfo = tile.id === "country" || tile.id === "phone";
+  const title = isStaticInfo ? tile.value : tile.label;
+  const tileKindClass = isStaticInfo
+    ? "contact-grid-tile--static"
+    : "contact-grid-tile--actionable";
 
   return (
     <article
       aria-current={isActive ? "true" : undefined}
-      aria-label={`${tile.label}${showsValue ? `: ${tile.value}` : ""}`}
+      aria-label={title}
       className={`contact-grid-tile ${tileKindClass} ${
         isActive ? "contact-grid-tile--active" : ""
       }`}
-      style={getContactStyle(tile)}
+      style={
+        {
+          ...getContactStyle(tile),
+          "--contact-tile-index": index,
+        } as CSSProperties
+      }
     >
-      <span aria-hidden="true" className="contact-grid-tile__scan" />
+      <span aria-hidden="true" className="contact-grid-tile__glow" />
       <div className="contact-grid-tile__icon-shell">
         <Icon aria-hidden="true" className="contact-grid-tile__icon" />
       </div>
-      <div className="contact-grid-tile__copy">
-        <span className="contact-grid-tile__group">{tile.group}</span>
-        <h2 className="contact-grid-tile__label">{tile.label}</h2>
-        {showsValue ? (
-          <p className="contact-grid-tile__value">{tile.value}</p>
-        ) : null}
-      </div>
+      <h2 className="contact-grid-tile__label">{title}</h2>
     </article>
   );
 }
 
 export function ContactModePage({
   activePanelIndex,
-  panelDirection,
   section,
 }: ContactModePageProps) {
+  const [hasSettledEntrance, setHasSettledEntrance] = useState(false);
   const activeIndex = wrapIndex(activePanelIndex);
   const activeTile = contactTiles[activeIndex];
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => setHasSettledEntrance(true), 900);
+
+    return () => window.clearTimeout(timer);
+  }, []);
 
   return (
     <section
@@ -74,18 +85,19 @@ export function ContactModePage({
     >
       <div
         className={`contact-command-board ${
-          panelDirection > 0
-            ? "contact-command-board--forward"
-            : "contact-command-board--back"
+          hasSettledEntrance ? "contact-command-board--settled" : ""
         }`}
         style={getContactStyle(activeTile)}
       >
-        <span aria-hidden="true" className="contact-command-board__scan" />
-        <span aria-hidden="true" className="contact-command-board__flare" />
-
-        <div className="contact-grid" aria-label="Contact options">
+        <div
+          className={`contact-grid ${
+            hasSettledEntrance ? "contact-grid--settled" : ""
+          }`}
+          aria-label="Contact options"
+        >
           {contactTiles.map((tile, index) => (
             <ContactTileCard
+              index={index}
               isActive={index === activeIndex}
               key={tile.id}
               tile={tile}

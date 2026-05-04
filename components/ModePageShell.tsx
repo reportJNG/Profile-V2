@@ -154,7 +154,7 @@ export function ModePageShell({ section }: ModePageShellProps) {
           }
 
           event.preventDefault();
-          movePanelByOffset(2);
+          movePanelByOffset(1);
           return;
         }
 
@@ -174,7 +174,7 @@ export function ModePageShell({ section }: ModePageShellProps) {
           }
 
           event.preventDefault();
-          movePanelByOffset(-2);
+          movePanelByOffset(-1);
           return;
         }
 
@@ -294,7 +294,7 @@ export function ModePageShell({ section }: ModePageShellProps) {
           onActivatePanel={isContactPage ? openActiveContactTile : undefined}
           onBack={returnToPreviousPage}
           onMoveDownPanel={
-            isContactPage ? () => movePanelByOffset(2) : undefined
+            isContactPage ? () => movePanelByOffset(1) : undefined
           }
           onMoveLeftPanel={
             isContactPage ? () => movePanelByOffset(-1) : undefined
@@ -303,7 +303,7 @@ export function ModePageShell({ section }: ModePageShellProps) {
             isContactPage ? () => movePanelByOffset(1) : undefined
           }
           onMoveUpPanel={
-            isContactPage ? () => movePanelByOffset(-2) : undefined
+            isContactPage ? () => movePanelByOffset(-1) : undefined
           }
           onMusicToggle={() => {
             toggleMusic();
