@@ -61,7 +61,7 @@ function InventoryFocusButton({ onClick }: { onClick: () => void }) {
           strokeWidth={2.15}
         />
       </span>
-      <span className="relative font-mono text-[0.66rem] font-black uppercase leading-none text-[color-mix(in_srgb,var(--mode-secondary),white_28%)] [text-shadow:0_2px_8px_rgba(0,0,0,0.55)] sm:text-[0.74rem]">
+      <span className="relative text-[0.72rem] font-semibold leading-none tracking-0 text-white/82 [text-shadow:0_2px_10px_rgba(0,0,0,0.72)] transition duration-200 group-hover:text-white sm:text-[0.82rem]">
         Inventory
       </span>
     </button>

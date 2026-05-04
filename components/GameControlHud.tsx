@@ -151,6 +151,7 @@ export function GameControlHud({
   return (
     <motion.nav
       aria-label={ariaLabel}
+      data-hud-control="true"
       className={placementClass}
       initial={shouldReduceMotion ? false : { opacity: 0, y: 8, scale: 0.98 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}

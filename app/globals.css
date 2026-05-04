@@ -91,10 +91,16 @@
   box-sizing: border-box;
 }
 
+body * {
+  pointer-events: none !important;
+}
+
 html {
   background: var(--background);
   height: 100%;
+  overflow: hidden;
   overscroll-behavior: none;
+  touch-action: none;
 }
 
 body {
@@ -108,6 +114,10 @@ body {
   min-width: 320px;
   overflow: hidden;
   overscroll-behavior: none;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
 }
 
 a {
@@ -117,6 +127,11 @@ a {
 
 button {
   font: inherit;
+}
+
+img,
+svg {
+  -webkit-user-drag: none;
 }
 
 @keyframes energy-slide-one {

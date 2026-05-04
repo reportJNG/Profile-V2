@@ -139,7 +139,7 @@ export function ModePageShell({ section }: ModePageShellProps) {
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
       if (usesFixedPageControls) {
-        if (event.key === "ArrowRight") {
+        if (isSkillsPage && event.key === "ArrowRight") {
           if (panelCount === 0) {
             return;
           }
@@ -159,7 +159,7 @@ export function ModePageShell({ section }: ModePageShellProps) {
           return;
         }
 
-        if (event.key === "ArrowLeft") {
+        if (isSkillsPage && event.key === "ArrowLeft") {
           if (panelCount === 0) {
             return;
           }
@@ -297,17 +297,11 @@ export function ModePageShell({ section }: ModePageShellProps) {
       {usesFixedPageControls ? (
         <ModePageControls
           isMusicMouseClickable={false}
-          panelAxis={isContactPage ? "both" : "horizontal"}
+          panelAxis={isContactPage ? "vertical" : "horizontal"}
           placement="fixed"
           onActivatePanel={isContactPage ? openActiveContactTile : undefined}
           onBack={returnToPreviousPage}
           onMoveDownPanel={
-            isContactPage ? () => movePanelByOffset(1) : undefined
-          }
-          onMoveLeftPanel={
-            isContactPage ? () => movePanelByOffset(-1) : undefined
-          }
-          onMoveRightPanel={
             isContactPage ? () => movePanelByOffset(1) : undefined
           }
           onMoveUpPanel={

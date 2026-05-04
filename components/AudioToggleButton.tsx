@@ -53,10 +53,10 @@ export function AudioToggleButton({ isEnabled }: AudioToggleButtonProps) {
         className="relative grid size-7 place-items-center border border-white/12 sm:size-8"
         style={{
           background: isEnabled
-            ? "linear-gradient(180deg, color-mix(in srgb, var(--mode-secondary), white 12%), color-mix(in srgb, var(--mode-accent), black 24%))"
+            ? "linear-gradient(180deg, rgba(255,244,181,0.98), color-mix(in srgb, var(--mode-secondary), white 34%) 48%, color-mix(in srgb, var(--mode-accent), black 8%))"
             : "linear-gradient(180deg, rgba(104,108,116,0.86), rgba(18,20,27,0.94))",
           boxShadow: isEnabled
-            ? "0 0 14px color-mix(in srgb, var(--mode-secondary), transparent 54%), inset 0 1px 0 rgba(255,255,255,0.28), inset 0 -2px 0 rgba(0,0,0,0.3)"
+            ? "0 0 16px color-mix(in srgb, var(--mode-accent), transparent 56%), inset 0 1px 0 rgba(255,255,255,0.58), inset 0 -2px 5px rgba(0,0,0,0.34)"
             : "inset 0 1px 0 rgba(255,255,255,0.18), inset 0 -2px 0 rgba(0,0,0,0.46)",
           clipPath:
             "polygon(18% 0, 82% 0, 100% 18%, 100% 82%, 82% 100%, 18% 100%, 0 82%, 0 18%)",
@@ -65,7 +65,7 @@ export function AudioToggleButton({ isEnabled }: AudioToggleButtonProps) {
         <Icon aria-hidden="true" className="size-4" strokeWidth={2.7} />
       </span>
       <span className="relative grid min-w-0 gap-1">
-        <span className="font-mono text-[0.52rem] font-black uppercase leading-none tracking-0 text-white/82 sm:text-[0.58rem]">
+        <span className="text-[0.72rem] font-semibold leading-none tracking-0 text-white/82 [text-shadow:0_2px_10px_rgba(0,0,0,0.72)] sm:text-[0.82rem]">
           Audio
         </span>
         <span className="flex items-center gap-1">
