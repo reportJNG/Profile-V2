@@ -6,16 +6,18 @@ import {
 } from "@/components/about/PlayerProfileCard";
 import type { PortfolioSection } from "@/lib/portfolio-content";
 import {
-  Braces,
-  Code2,
   Cpu,
-  Database,
   Gauge,
+  Atom,
+  Database,
+  FileType2,
   Globe2,
-  Layers3,
+  Plug2,
+  TableProperties,
+  Triangle,
+  Wind,
+  CalendarDays ,
   Network,
-  Palette,
-  Server,
   Settings2,
   Terminal,
   UserRound,
@@ -28,18 +30,18 @@ type AboutArcadeProfileProps = {
 
 const playerStats = [
   { icon: UserRound, label: "Role", value: "Full Stack" },
-  { icon: Globe2, label: "Web", value: "Next/React" },
-  { icon: Terminal, label: "Systems", value: "Linux Ops" },
-  { icon: Server, label: "Backend", value: "APIs/DB" },
+  { icon: CalendarDays  , label: "Age", value: "20" },
+  { icon: Terminal, label: "Experience", value: "5 Years" },
+  { icon: Globe2, label: "Country", value: "Algeria" },
 ] as const satisfies readonly PlayerStat[];
 
 const skillBars = [
-  { icon: Layers3, name: "Next.js", level: "LV 90", progress: "90%" },
-  { icon: Code2, name: "React", level: "LV 88", progress: "88%" },
-  { icon: Palette, name: "Tailwind", level: "LV 86", progress: "86%" },
-  { icon: Braces, name: "TypeScript", level: "LV 86", progress: "86%" },
-  { icon: Server, name: "API Logic", level: "LV 80", progress: "80%" },
-  { icon: Database, name: "Data Models", level: "LV 76", progress: "76%" },
+  { icon: Triangle,        name: "Next.js",     level: "LV 90", progress: "90%" },
+  { icon: Atom,            name: "React",        level: "LV 88", progress: "88%" },
+  { icon: Wind,            name: "Tailwind",     level: "LV 86", progress: "86%" },
+  { icon: FileType2,       name: "TypeScript",   level: "LV 86", progress: "86%" },
+  { icon: Plug2,           name: "API Logic",    level: "LV 80", progress: "80%" },
+  { icon: TableProperties, name: "Data Models",  level: "LV 76", progress: "76%" },
 ] as const satisfies readonly SkillBar[];
 
 const skillGroups = [
