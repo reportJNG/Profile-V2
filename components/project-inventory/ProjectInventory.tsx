@@ -20,8 +20,7 @@ import {
 import { useInventoryNavigation } from "@/components/project-inventory/useInventoryNavigation";
 import { useLobbyAudio } from "@/lib/use-lobby-audio";
 
-const slotCount = 12;
-const columnCount = 3;
+const columnCount = 4;
 const fadeDurationMs = 150;
 const inventoryFocusPulseMs = 620;
 
@@ -31,12 +30,19 @@ type ProjectInventoryProps = {
 
 const inventoryShellClass =
   "project-inventory-shell relative mx-auto grid h-auto min-h-0 w-full max-w-[58rem] overflow-hidden border border-[color-mix(in_srgb,var(--mode-secondary),transparent_52%)] bg-[radial-gradient(circle_at_78%_14%,color-mix(in_srgb,var(--mode-secondary),transparent_86%),transparent_34%),radial-gradient(circle_at_16%_88%,color-mix(in_srgb,var(--mode-accent),transparent_82%),transparent_38%),linear-gradient(135deg,rgba(1,8,5,0.72),rgba(4,12,8,0.9)_58%,rgba(0,0,0,0.78))] [clip-path:polygon(0.9rem_0,calc(100%_-_0.9rem)_0,100%_0.9rem,100%_calc(100%_-_0.9rem),calc(100%_-_0.9rem)_100%,0.9rem_100%,0_calc(100%_-_0.9rem),0_0.9rem)] [font-family:var(--font-geist-mono),monospace] text-[rgba(247,255,232,0.94)] shadow-[0_28px_70px_rgba(0,0,0,0.42),0_0_30px_color-mix(in_srgb,var(--mode-accent),transparent_82%),inset_0_1px_0_rgba(255,255,255,0.1)] outline-none focus-visible:ring-2 focus-visible:ring-[color-mix(in_srgb,var(--mode-secondary),white_18%)] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent lg:h-[clamp(29rem,64dvh,37rem)] lg:max-w-[min(100%,66rem)] lg:grid-cols-[minmax(24rem,0.56fr)_1px_minmax(21.5rem,0.44fr)]";
+
+// Base panel — no overflow-hidden here, each panel manages its own scroll
 const panelBaseClass =
-  "relative min-w-0 border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.048),rgba(255,255,255,0.012)),rgba(2,9,7,0.68)] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] lg:p-[clamp(1rem,1.35vw,1.35rem)]";
+  "relative min-w-0 border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.048),rgba(255,255,255,0.012)),rgba(2,9,7,0.68)] shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]";
+
+// Grid panel: scrolls its own content, never the page
 const gridPanelClass =
-  "flex flex-col items-start justify-center gap-4 lg:gap-5";
+  "flex flex-col items-start justify-center gap-4 overflow-y-auto p-4 lg:gap-5 lg:p-[clamp(1rem,1.35vw,1.35rem)]";
+
+// Detail panel: also scrolls internally
 const detailPanelClass =
-  "flex items-stretch justify-center bg-[radial-gradient(circle_at_20%_16%,color-mix(in_srgb,var(--mode-secondary),transparent_86%),transparent_34%),linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.012)),rgba(3,10,9,0.84)] lg:items-stretch lg:justify-start lg:p-[clamp(1rem,1.2vw,1.2rem)]";
+  "overflow-hidden flex items-stretch justify-center bg-[radial-gradient(circle_at_20%_16%,color-mix(in_srgb,var(--mode-secondary),transparent_86%),transparent_34%),linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.012)),rgba(3,10,9,0.84)] p-4 lg:items-stretch lg:justify-start lg:p-[clamp(1rem,1.2vw,1.2rem)]";
+
 const dividerClass =
   "relative h-px w-full bg-[color-mix(in_srgb,var(--mode-secondary),transparent_62%)] lg:h-auto lg:w-px";
 
@@ -69,6 +75,8 @@ function InventoryFocusButton({ onClick }: { onClick: () => void }) {
 }
 
 export default function ProjectInventory({ onBack }: ProjectInventoryProps) {
+  const slotCount = projectsData.length;
+
   const lobbyAudio = useLobbyAudio();
   const rootRef = useRef<HTMLElement>(null);
   const selectedIndexRef = useRef(0);
@@ -186,12 +194,19 @@ export default function ProjectInventory({ onBack }: ProjectInventoryProps) {
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(90deg,transparent,color-mix(in_srgb,var(--mode-secondary),transparent_92%),transparent)] opacity-35 mix-blend-screen"
         />
+
+        {/* Left panel — grid scrolls internally */}
         <div className={`${panelBaseClass} ${gridPanelClass}`}>
-          <InventoryGrid projects={projectsData} selectedIndex={selectedIndex} />
+          <InventoryGrid
+            projects={projectsData}
+            selectedIndex={selectedIndex}
+            columnCount={columnCount}
+          />
         </div>
 
         <div className={dividerClass} aria-hidden="true" />
 
+        {/* Right panel — detail scrolls internally */}
         <div className={`${panelBaseClass} ${detailPanelClass}`}>
           <ProjectDetail
             isVisible={isDetailVisible}
