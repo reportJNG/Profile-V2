@@ -125,6 +125,22 @@ export const projectsData = [
   },
   {
     id: 6,
+    icon: "ShoppingBag",
+    title: "E-Commerce Portfolio",
+    description:
+      "Clean and modern portfolio website for an e-commerce professional.",
+    link: "https://portfolio-for-e-commerce.vercel.app/en",
+  },
+  {
+    id: 7,
+    icon: "ShoppingBag",
+    title: "E-Commerce Portfolio V2",
+    description:
+      "Clean and modern portfolio website for an e-commerce professional.",
+    link: "https://portfolio-for-e-commerce-v2.vercel.app/",
+  },
+  {
+    id: 8,
     icon: "Lock",
     title: "Crypting Password",
     description:
@@ -134,7 +150,7 @@ export const projectsData = [
 
   // ─── B-Tier: Solid utility and learning projects ─────────────────────────
   {
-    id: 7,
+    id: 9,
     icon: "UserRound",
     title: "Simple CRUD App",
     description:
@@ -142,7 +158,7 @@ export const projectsData = [
     link: "https://crud-auth-gray.vercel.app/",
   },
   {
-    id: 8,
+    id: 10,
     icon: "Map",
     title: "World Explorer",
     description:
@@ -150,7 +166,7 @@ export const projectsData = [
     link: "https://world-info-omega.vercel.app/",
   },
   {
-    id: 9,
+    id: 11,
     icon: "CloudSun",
     title: "Weather Forecast",
     description:
@@ -158,7 +174,7 @@ export const projectsData = [
     link: "https://dev-weather-hamza.vercel.app/",
   },
   {
-    id: 10,
+    id: 12,
     icon: "KeyRound",
     title: "Password Generator Pro",
     description:
@@ -166,7 +182,7 @@ export const projectsData = [
     link: "https://password-generator-tan-iota.vercel.app/",
   },
   {
-    id: 11,
+    id: 13,
     icon: "ArrowRightLeft",
     title: "Money Transfer",
     description:
@@ -176,7 +192,7 @@ export const projectsData = [
 
   // ─── C-Tier: Fun games and interactive demos ──────────────────────────────
   {
-    id: 12,
+    id: 14,
     icon: "Calculator",
     title: "Equation Calc Game",
     description:
@@ -184,7 +200,7 @@ export const projectsData = [
     link: "https://equation-two.vercel.app/",
   },
   {
-    id: 13,
+    id: 15,
     icon: "Dices",
     title: "Dice vs Bot",
     description:
@@ -192,7 +208,7 @@ export const projectsData = [
     link: "https://dice-web-game.vercel.app/",
   },
   {
-    id: 14,
+    id: 16,
     icon: "Puzzle",
     title: "Mini Games Hub",
     description:
@@ -200,7 +216,7 @@ export const projectsData = [
     link: "https://mini-games-h.vercel.app/",
   },
   {
-    id: 15,
+    id: 17,
     icon: "Gauge",
     title: "Guess the Word",
     description:
@@ -208,7 +224,7 @@ export const projectsData = [
     link: "https://abrain.vercel.app/",
   },
   {
-    id: 16,
+    id: 18,
     icon: "Zap",
     title: "Pokémon Battle",
     description:
@@ -216,7 +232,7 @@ export const projectsData = [
     link: "https://pokemon-battel.vercel.app/",
   },
   {
-    id: 17,
+    id: 19,
     icon: "Eye",
     title: "Guess Who",
     description:
@@ -226,7 +242,7 @@ export const projectsData = [
 
   // ─── D-Tier: Handy micro-tools ────────────────────────────────────────────
   {
-    id: 18,
+    id: 20,
     icon: "StickyNote",
     title: "NotePad Pro",
     description:
@@ -234,7 +250,7 @@ export const projectsData = [
     link: "https://notepad-azure-xi.vercel.app/",
   },
   {
-    id: 19,
+    id: 21,
     icon: "CheckSquare",
     title: "To-Do Manager",
     description:
@@ -242,7 +258,7 @@ export const projectsData = [
     link: "https://to-do-app-puce-three.vercel.app/",
   },
   {
-    id: 20,
+    id: 22,
     icon: "Users",
     title: "Random User Generator",
     description:
@@ -250,7 +266,7 @@ export const projectsData = [
     link: "https://get-alot-random-users.vercel.app/",
   },
   {
-    id: 21,
+    id: 23,
     icon: "Mail",
     title: "Email Generator",
     description:
@@ -258,7 +274,7 @@ export const projectsData = [
     link: "https://random-free-email.vercel.app/",
   },
   {
-    id: 22,
+    id: 24,
     icon: "Hash",
     title: "Counter App",
     description:
@@ -268,7 +284,7 @@ export const projectsData = [
 
   // ─── E-Tier: Fun & showcase pages ─────────────────────────────────────────
   {
-    id: 23,
+    id: 25,
     icon: "Utensils",
     title: "Syrian Delights",
     description:
@@ -276,7 +292,7 @@ export const projectsData = [
     link: "https://syrien.vercel.app/",
   },
   {
-    id: 24,
+    id: 26,
     icon: "Beef",
     title: "Meet & Meat",
     description:
@@ -284,7 +300,7 @@ export const projectsData = [
     link: "https://meet-meat-alg.vercel.app/",
   },
   {
-    id: 25,
+    id: 27,
     icon: "MessageCircle",
     title: "Discord Community",
     description:
@@ -292,7 +308,7 @@ export const projectsData = [
     link: "https://algerian-discored.vercel.app/",
   },
   {
-    id: 26,
+    id: 28,
     icon: "Quote",
     title: "Daily Quotes",
     description:
@@ -300,7 +316,7 @@ export const projectsData = [
     link: "https://quote-day.vercel.app/",
   },
   {
-    id: 27,
+    id: 29,
     icon: "Laugh",
     title: "Joke Generator",
     description:
@@ -308,7 +324,7 @@ export const projectsData = [
     link: "https://joke-gen-ten.vercel.app/",
   },
   {
-    id: 28,
+    id: 30,
     icon: "Cat",
     title: "Cat Images",
     description:
