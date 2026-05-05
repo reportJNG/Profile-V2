@@ -36,7 +36,7 @@ export function ModePageContent({
         />
       );
     case "certificates":
-      return <CertificatesModePage section={section} />;
+      return <CertificatesModePage/>;
     case "contact":
       return (
         <ContactModePage

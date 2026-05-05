@@ -1,17 +1,238 @@
-import type { PortfolioSection } from "@/lib/portfolio-content";
-import { ModePageIntro } from "@/components/mode-pages/ModePageIntro";
+import { CertificatesDisplay } from "@/components/mode-pages/CertificatesDisplay";
 
-type CertificatesModePageProps = {
-  section: PortfolioSection;
-};
+import {
+  Code2,
+  Layout,
+  Braces,
+  Database,
+  Server,
+  Cpu,
+  Terminal,
+  GitBranch,
+  ShieldCheck,
+  Globe,
+  Layers,
+  Cloud,
+  FileCode2,
+  Brain,
+  Network,
+  BadgeCheck,
+  BookOpen,
+  Boxes,
+  Workflow,
+  Rocket,
+} from "lucide-react";
 
-export function CertificatesModePage({ section }: CertificatesModePageProps) {
+export const certificatess = [
+  {
+    title: "Responsive Web Design",
+    issuer: "freeCodeCamp",
+    category: "Frontend",
+    type: "Free Certificate",
+    icon: Layout,
+    skills: ["HTML5", "CSS3", "Flexbox", "CSS Grid", "Responsive UI"],
+    level: "Beginner",
+    link: "https://www.freecodecamp.org/learn/",
+  },
+  {
+    title: "JavaScript Algorithms and Data Structures",
+    issuer: "freeCodeCamp",
+    category: "Programming",
+    type: "Free Certificate",
+    icon: Braces,
+    skills: ["JavaScript", "ES6", "Algorithms", "Data Structures", "Problem Solving"],
+    level: "Intermediate",
+    link: "https://www.freecodecamp.org/learn/",
+  },
+  {
+    title: "Front End Development Libraries",
+    issuer: "freeCodeCamp",
+    category: "Frontend",
+    type: "Free Certificate",
+    icon: Code2,
+    skills: ["React", "Redux", "Bootstrap", "Sass", "jQuery"],
+    level: "Intermediate",
+    link: "https://www.freecodecamp.org/learn/",
+  },
+  {
+    title: "Back End Development and APIs",
+    issuer: "freeCodeCamp",
+    category: "Backend",
+    type: "Free Certificate",
+    icon: Server,
+    skills: ["Node.js", "Express.js", "MongoDB", "REST API", "Authentication"],
+    level: "Intermediate",
+    link: "https://www.freecodecamp.org/learn/",
+  },
+  {
+    title: "Relational Database",
+    issuer: "freeCodeCamp",
+    category: "Database",
+    type: "Free Certificate",
+    icon: Database,
+    skills: ["PostgreSQL", "SQL", "Bash", "Git", "Database Design"],
+    level: "Intermediate",
+    link: "https://www.freecodecamp.org/learn/",
+  },
+  {
+    title: "Data Visualization",
+    issuer: "freeCodeCamp",
+    category: "Frontend",
+    type: "Free Certificate",
+    icon: Brain,
+    skills: ["D3.js", "JSON", "APIs", "Charts", "Data UI"],
+    level: "Intermediate",
+    link: "https://www.freecodecamp.org/learn/",
+  },
+  {
+    title: "Scientific Computing with Python",
+    issuer: "freeCodeCamp",
+    category: "Computer Science",
+    type: "Free Certificate",
+    icon: Cpu,
+    skills: ["Python", "OOP", "Logic", "Algorithms", "Automation"],
+    level: "Intermediate",
+    link: "https://www.freecodecamp.org/learn/",
+  },
+  {
+    title: "CS50x Introduction to Computer Science",
+    issuer: "Harvard University",
+    category: "Computer Science",
+    type: "Free Certificate",
+    icon: BookOpen,
+    skills: ["C", "Python", "SQL", "Algorithms", "Computer Science"],
+    level: "Advanced",
+    link: "https://cs50.harvard.edu/x/",
+  },
+  {
+    title: "CS50 Web Programming with Python and JavaScript",
+    issuer: "Harvard University",
+    category: "Full Stack",
+    type: "Free Certificate",
+    icon: Globe,
+    skills: ["Python", "Django", "JavaScript", "SQL", "Web Apps"],
+    level: "Advanced",
+    link: "https://cs50.harvard.edu/web/",
+  },
+  {
+    title: "The Odin Project - Foundations",
+    issuer: "The Odin Project",
+    category: "Web Development",
+    type: "Free Curriculum",
+    icon: Terminal,
+    skills: ["HTML", "CSS", "JavaScript", "Git", "Problem Solving"],
+    level: "Beginner",
+    link: "https://www.theodinproject.com/",
+  },
+  {
+    title: "The Odin Project - Full Stack JavaScript",
+    issuer: "The Odin Project",
+    category: "Full Stack",
+    type: "Free Curriculum",
+    icon: Layers,
+    skills: ["React", "Node.js", "Express", "MongoDB", "Testing"],
+    level: "Advanced",
+    link: "https://www.theodinproject.com/",
+  },
+  {
+    title: "Git and GitHub Essentials",
+    issuer: "GitHub Skills",
+    category: "Version Control",
+    type: "Free Learning Path",
+    icon: GitBranch,
+    skills: ["Git", "GitHub", "Branches", "Pull Requests", "Collaboration"],
+    level: "Beginner",
+    link: "https://skills.github.com/",
+  },
+  {
+    title: "Introduction to Cybersecurity",
+    issuer: "Cisco Networking Academy",
+    category: "Security",
+    type: "Free Certificate",
+    icon: ShieldCheck,
+    skills: ["Cybersecurity", "Threats", "Network Security", "Best Practices"],
+    level: "Beginner",
+    link: "https://www.netacad.com/",
+  },
+  {
+    title: "Networking Basics",
+    issuer: "Cisco Networking Academy",
+    category: "Networking",
+    type: "Free Certificate",
+    icon: Network,
+    skills: ["Networking", "IP Addressing", "Routers", "Switches", "Protocols"],
+    level: "Beginner",
+    link: "https://www.netacad.com/",
+  },
+  {
+    title: "Cloud Computing Fundamentals",
+    issuer: "IBM SkillsBuild",
+    category: "Cloud",
+    type: "Free Certificate",
+    icon: Cloud,
+    skills: ["Cloud Basics", "IaaS", "PaaS", "SaaS", "Cloud Architecture"],
+    level: "Beginner",
+    link: "https://skillsbuild.org/",
+  },
+  {
+    title: "Web Development Fundamentals",
+    issuer: "IBM SkillsBuild",
+    category: "Web Development",
+    type: "Free Certificate",
+    icon: FileCode2,
+    skills: ["HTML", "CSS", "JavaScript", "Web Basics", "Frontend"],
+    level: "Beginner",
+    link: "https://skillsbuild.org/",
+  },
+  {
+    title: "Software Engineering Basics",
+    issuer: "IBM SkillsBuild",
+    category: "Software Engineering",
+    type: "Free Certificate",
+    icon: Workflow,
+    skills: ["SDLC", "Agile", "Testing", "Software Design", "Documentation"],
+    level: "Beginner",
+    link: "https://skillsbuild.org/",
+  },
+  {
+    title: "Full Stack Open",
+    issuer: "University of Helsinki",
+    category: "Full Stack",
+    type: "Free Course",
+    icon: Boxes,
+    skills: ["React", "Node.js", "Express", "MongoDB", "GraphQL", "TypeScript"],
+    level: "Advanced",
+    link: "https://fullstackopen.com/en/",
+  },
+  {
+    title: "Meta Front-End Developer",
+    issuer: "Meta / Coursera",
+    category: "Frontend",
+    type: "Audit Free / Paid Certificate",
+    icon: BadgeCheck,
+    skills: ["HTML", "CSS", "JavaScript", "React", "UI Development"],
+    level: "Professional",
+    link: "https://www.coursera.org/professional-certificates/meta-front-end-developer",
+  },
+  {
+    title: "Meta Full-Stack Developer",
+    issuer: "Meta / Coursera",
+    category: "Full Stack",
+    type: "Audit Free / Paid Certificate",
+    icon: Rocket,
+    skills: ["Frontend", "Backend", "APIs", "React", "Databases"],
+    level: "Professional",
+    link: "https://www.coursera.org/specializations/meta-full-stack-developer",
+  },
+];
+
+export function CertificatesModePage() {
   return (
-    <ModePageIntro
-      section={section}
-      body="A verified milestones screen for training, credentials, and proof of steady growth."
-      detail="Use this route for issuer names, dates, evidence links, and short context for each credential."
-      status="Credential log ready"
-    />
+    <section className="py-16">
+ 
+      <div className="mt-12">
+        <CertificatesDisplay certificates={certificatess} />
+      </div>
+    </section>
   );
 }
