@@ -51,25 +51,33 @@ function hasOpenableLink(project?: ProjectItem) {
 
 function InventoryFocusButton({ onClick }: { onClick: () => void }) {
   return (
-    <button
-      type="button"
-      aria-label="Focus project inventory"
-      title="Focus project inventory"
-      className="group fixed bottom-3 left-3 z-50 inline-flex min-h-14 items-center gap-2 overflow-hidden rounded-full border border-[color-mix(in_srgb,var(--mode-secondary),transparent_48%)] bg-[linear-gradient(90deg,color-mix(in_srgb,var(--mode-accent),transparent_62%),color-mix(in_srgb,var(--mode-secondary),transparent_78%),rgba(2,10,7,0.92))] px-2.5 py-2 pr-4 text-white shadow-[0_0_26px_color-mix(in_srgb,var(--mode-accent),transparent_52%),inset_0_1px_0_rgba(255,255,255,0.28),inset_0_-5px_12px_rgba(0,0,0,0.34)] outline-none transition hover:scale-105 focus-visible:ring-2 focus-visible:ring-white/80 sm:bottom-5 sm:left-5 sm:min-h-16 sm:px-3 sm:pr-5"
-      onClick={onClick}
-    >
-      <span className="absolute inset-x-3 top-1.5 h-3 rounded-full bg-white/18 blur-[2px]" />
-      <span className="relative grid size-10 place-items-center rounded-full border border-white/14 bg-black/22 sm:size-11">
-        <Backpack
-          aria-hidden="true"
-          className="size-6 drop-shadow-[0_2px_8px_rgba(0,0,0,0.48)] transition group-hover:scale-110 sm:size-7"
-          strokeWidth={2.15}
-        />
-      </span>
-      <span className="relative text-[0.72rem] font-semibold leading-none tracking-0 text-white/82 [text-shadow:0_2px_10px_rgba(0,0,0,0.72)] transition duration-200 group-hover:text-white sm:text-[0.82rem]">
-        Inventory
-      </span>
-    </button>
+  <button
+  type="button"
+  aria-label="Focus project inventory"
+  title="Focus project inventory"
+  className="group fixed bottom-3 left-3 z-50 inline-flex min-h-14 items-center gap-2 overflow-hidden rounded-full border border-white/20 bg-gradient-to-r from-[#2ecc71]/20 via-[#27ae60]/15 to-[#1a1a2e]/95 px-2.5 py-2 pr-4 shadow-[0_8px_20px_-6px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.2)] backdrop-blur-md transition-all duration-300 hover:scale-105 hover:shadow-[0_12px_28px_-8px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.25)] focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black/20 active:scale-95 sm:bottom-5 sm:left-5 sm:min-h-16 sm:px-3 sm:pr-5"
+  onClick={onClick}
+>
+  {/* Animated shimmer overlay */}
+  <span className="absolute inset-0 -translate-x-full rounded-full bg-gradient-to-r from-white/0 via-white/15 to-white/0 transition-transform duration-700 group-hover:translate-x-full" />
+  
+  {/* Top highlight */}
+  <span className="absolute inset-x-4 top-1.5 h-3 rounded-full bg-white/20 blur-[3px]" />
+  
+  {/* Icon container with pulse effect */}
+  <span className="relative grid size-10 place-items-center rounded-full border border-white/20 bg-gradient-to-br from-white/10 to-black/30 shadow-inner transition-all duration-300 group-hover:scale-110 group-hover:border-white/30 sm:size-11">
+    <Backpack
+      aria-hidden="true"
+      className="size-6 drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_2px_8px_rgba(46,204,113,0.5)] sm:size-7"
+      strokeWidth={2.15}
+    />
+  </span>
+  
+  {/* Text with glow effect */}
+  <span className="relative text-[0.72rem] font-semibold uppercase tracking-wide text-white/90 transition-all duration-300 group-hover:text-white group-hover:tracking-wider group-hover:drop-shadow-[0_0_8px_rgba(46,204,113,0.5)] sm:text-[0.82rem]">
+    Inventory
+  </span>
+</button>
   );
 }
 
