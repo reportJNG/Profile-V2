@@ -132,6 +132,14 @@ export const projectsData = [
     link: "https://e-commerce-shop-seven-pearl.vercel.app/",
   },
   {
+    id: 32,
+    icon: "ShoppingBag",
+    title: "Lumo E-Commerce Landing Page",
+    description:
+      "Modern landing page for e-commerce shops with clean product presentation, smooth layout, and professional storefront design.",
+    link: "https://lumo-delta-pearl.vercel.app/",
+  },
+  {
     id: 6,
     icon: "ShoppingBag",
     title: "E-Commerce Portfolio",
@@ -291,6 +299,14 @@ export const projectsData = [
   },
 
   // ─── E-Tier: Fun & showcase pages ─────────────────────────────────────────
+  {
+    id: 33,
+    icon: "Gamepad2",
+    title: "Game Interface Landing Page",
+    description:
+      "Game-themed landing page UI with a polished interface, modern visuals, and immersive menu-style design. Built as a showcase landing page, not a playable game.",
+    link: "https://ui-game-interface.vercel.app/",
+  },
   {
     id: 25,
     icon: "Utensils",
