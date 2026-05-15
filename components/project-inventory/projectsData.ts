@@ -105,6 +105,14 @@ export const projectsData = [
       "Full-stack banking solution with separate user and admin interfaces. Manages accounts, processes transactions, and handles secure financial operations at scale.",
     link: "https://bank-eight-woad.vercel.app/",
   },
+  {
+    id: 31,
+    icon: "Store",
+    title: "Gestion Stock",
+    description:
+      "Inventory management platform for tracking products, stock levels, movements, and operational store workflows through a polished full-stack dashboard.",
+    link: "https://gestion-stock-ab-primark.vercel.app/connexion",
+  },
 
   // ─── A-Tier: Polished product-grade apps ─────────────────────────────────
   {
